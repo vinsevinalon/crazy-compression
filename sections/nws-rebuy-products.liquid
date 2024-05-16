@@ -1,0 +1,23 @@
+<style>
+#rebuy-widget-75784 {
+  padding: 0;
+}
+</style>
+<div
+  id="CollectionSection-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="collection-template" class="index-section">
+  <div class="page-width" >
+      <div data-rebuy-id="75784" data-rebuy-shopify-product-ids="{{ product.id }}"></div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "NWS ReBuy Products",
+    "settings": [],
+    "presets": [{
+      "name": "NWS ReBuy Products",
+      "category": "Collection"
+    }]
+  }
+{% endschema %}

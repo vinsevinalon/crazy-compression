@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-customers-login",
+      "blocks": {
+        "fields": {
+          "type": "fields",
+          "settings": {
+            "return_to": ""
+          }
+        }
+      },
+      "block_order": [
+        "fields"
+      ],
+      "settings": {
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_gradient": "",
+        "button_background": "",
+        "button_text_color": ""
+      }
+    },
+    "rich_text_DeaaVP": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_HqbzLW": {
+          "type": "heading",
+          "settings": {
+            "text": "Wholesale  Login",
+            "heading_tag": "h1",
+            "text_color": "",
+            "gradient": ""
+          }
+        },
+        "richtext_rgTbxq": {
+          "type": "richtext",
+          "settings": {
+            "content": "<h5><a href=\"https:\/\/shopify.com\/11023318\/account\/orders\" title=\"If you have a Wholesale account Click Here to Login\"><strong>If you have a Wholesale account Click Here to Login<\/strong><\/a><\/h5>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_HqbzLW",
+        "richtext_rgTbxq"
+      ],
+      "settings": {
+        "full_width": true,
+        "content_width": "small",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_DeaaVP"
+  ]
+}

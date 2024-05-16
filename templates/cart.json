@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "blocks": {
+        "totals": {
+          "type": "totals",
+          "settings": {
+            "show_order_weight": false,
+            "show_shipping_text": true
+          }
+        },
+        "cart_note": {
+          "type": "cart_note",
+          "settings": {
+          }
+        },
+        "checkout_button": {
+          "type": "checkout_button",
+          "settings": {
+          }
+        },
+        "7afa0401-c0c1-48f7-bc3c-901b32690fc5": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "totals",
+        "cart_note",
+        "checkout_button",
+        "7afa0401-c0c1-48f7-bc3c-901b32690fc5"
+      ],
+      "settings": {
+        "show_shipping_estimator": false,
+        "show_payment_icons": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,434 @@
+{
+  "sections": {
+    "image_with_text_overlay_bqJ4M8": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_WVbciK": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_pTtnJf": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_U4mi3K": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_WVbciK",
+        "heading_pTtnJf",
+        "richtext_U4mi3K"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/Blue_Modern_Gym_Fitness_Website_Landing_Page_Desktop_Prototype_07e9002b-da56-47ba-88ea-983f943a9715.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/Blue_Modern_Gym_Fitness_Website_Landing_Page_Desktop_Prototype_6735cc55-101d-495d-9856-7cd2df8212d6.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "image_with_text_overlay_3rq6m6": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_UzMPQW": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_FxtfnX": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_GcNB6U": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_UzMPQW",
+        "heading_FxtfnX",
+        "richtext_GcNB6U"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/Blue_Modern_Gym_Fitness_Website_Landing_Page_Desktop_Prototype_6735cc55-101d-495d-9856-7cd2df8212d6.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "products_per_page": 50,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "filter_layout": "sidebar",
+        "show_sort_by": true,
+        "show_filters": true,
+        "show_filter_group_name": false,
+        "show_color_swatch": true,
+        "show_empty_filter_values": false,
+        "show_filter_values_count": true,
+        "open_first_filter_group": false
+      }
+    },
+    "accordion_content_6M648T": {
+      "type": "accordion-content",
+      "blocks": {
+        "item_dyp6r8": {
+          "type": "item",
+          "settings": {
+            "title": "Product Details:",
+            "content": "<p>🇺🇸 <strong>Proudly Crafted in the USA<\/strong>: Wear the essence of true American craftsmanship. Each sock is meticulously designed and manufactured in the USA to ensure unbeatable quality and performance.<\/p><p>🏋️ <strong>Perfected for Lateral Movements<\/strong>: Whether you're pushing through intense CrossFit sessions or demanding agility drills, our Pro Trainer Socks adapt to your every move. Experience unmatched stability during rapid lateral shifts and dynamic movements.<\/p><p>🚀 <strong>Engineered Compression<\/strong>: Elevate your performance with our built-in compression technology. Strategically placed to brace your ankle, it offers optimum support, reducing the risk of strains while enhancing blood circulation.<\/p><p>🔒 <strong>Ankle Brace Integration<\/strong>: Bid adieu to separate, bulky ankle braces. With our innovative built-in brace design, get the best of both worlds - the comfort of a sock and the robust support of an ankle brace.<\/p><p>🌬 <strong>Breathable & Durable<\/strong>: Crafted with a blend of premium materials, these socks are not just breathable but also durable. Sweat-wicking properties keep your feet dry, while the reinforced heel and toe ensure they stand up to the test of time.<\/p>"
+          }
+        },
+        "item_p4Rtcb": {
+          "type": "item",
+          "settings": {
+            "title": "",
+            "content": ""
+          }
+        },
+        "item_DT4Tba": {
+          "type": "item",
+          "settings": {
+            "title": "",
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_dyp6r8",
+        "item_p4Rtcb",
+        "item_DT4Tba"
+      ],
+      "settings": {
+        "full_width": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "button_text": "",
+        "button_url": "",
+        "text_position": "start",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "button_background": "",
+        "button_text_color": "",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
+    },
+    "media_grid_dBKiEB": {
+      "type": "media-grid",
+      "blocks": {
+        "image_jyDYaG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2024-04-03_at_2.13.31_PM.png",
+            "title": "",
+            "heading_tag": "h4",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "place-self-end-center text-center",
+            "desktop_column_span": 2,
+            "desktop_row_span": 1,
+            "desktop_text_position": "sm:place-self-center sm:text-center",
+            "background": "#000000",
+            "background_gradient": "",
+            "text_color": "#ffffff",
+            "text_gradient": "",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_dpFT7N": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2024-04-03_at_2.13.54_PM.png",
+            "title": "",
+            "heading_tag": "h4",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "place-self-center text-center",
+            "desktop_column_span": 2,
+            "desktop_row_span": 2,
+            "desktop_text_position": "sm:place-self-center sm:text-center",
+            "background": "#000000",
+            "background_gradient": "",
+            "text_color": "#ffffff",
+            "text_gradient": "",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_NHxYrt": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2024-04-03_at_2.12.56_PM.png",
+            "title": "",
+            "heading_tag": "h4",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "place-self-center text-center",
+            "desktop_column_span": 2,
+            "desktop_row_span": 1,
+            "desktop_text_position": "sm:place-self-center sm:text-center",
+            "background": "#000000",
+            "background_gradient": "",
+            "text_color": "#ffffff",
+            "text_gradient": "",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_jyDYaG",
+        "image_dpFT7N",
+        "image_NHxYrt"
+      ],
+      "settings": {
+        "full_width": true,
+        "reduce_width": true,
+        "desktop_row_height": 290,
+        "mobile_row_height": 120,
+        "background": "",
+        "background_gradient": ""
+      }
+    },
+    "testimonials_9Aqmpn": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_yW8Vqd": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/PTMagenta_2.jpg",
+            "round_avatar": true,
+            "show_rating": true,
+            "rating": 5,
+            "author": "Alex M.",
+            "title": "Testimonial 1",
+            "content": "<p><em>\"These socks are a game changer for my CrossFit routines. The compression ankle brace provides outstanding support!\"<\/em><\/p>"
+          }
+        },
+        "testimonial_AhAeDa": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/PTGrey_2.jpg",
+            "round_avatar": true,
+            "show_rating": true,
+            "rating": 5,
+            "author": "Mary U.",
+            "title": "Testimonial 2",
+            "content": "<p><em>\"Finally, a sock that keeps up with my intense lateral drills. I've tried many, but the Pro Trainer Socks are in a league of their own.\"<\/em><\/p>"
+          }
+        },
+        "testimonial_GFVzyn": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/PTBlue_1.jpg",
+            "round_avatar": true,
+            "show_rating": true,
+            "rating": 5,
+            "author": "Joshua A.",
+            "title": "Testimonial 3",
+            "content": "<p>\"I switched to Pro Trainer Socks and wow, what a difference! They're super comfy and supportive, perfect for my intense workouts. Plus, they look cool and hold up well. Totally worth it for anyone looking to step up their gym game!\"<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_yW8Vqd",
+        "testimonial_AhAeDa",
+        "testimonial_GFVzyn"
+      ],
+      "settings": {
+        "full_width": true,
+        "stack_testimonials": false,
+        "subheading": "",
+        "title": "Testimonials",
+        "content": "",
+        "link_url": "",
+        "link_text": "",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "testimonial_card_background": "",
+        "testimonial_card_text_color": ""
+      }
+    },
+    "banner": {
+      "type": "collection-banner",
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": true,
+        "enable_parallax": false,
+        "show_collection_title": true,
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "collection_title_size": "h2",
+        "image_size": "auto",
+        "mobile_text_position": "place-self-start text-start",
+        "desktop_text_position": "sm:place-self-start sm:text-start",
+        "featured_product": "",
+        "featured_product_heading": "Featured product",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "17090576115ec1a232": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_ugc_carousel_block_WW7m7j": {
+          "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/carousel-block\/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "yez7z3wty3rpk"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_ugc_carousel_block_WW7m7j"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "enable_review_integration": true,
+        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
+        "review_header_text_color": "#000000",
+        "review_button_background": "#000000",
+        "review_button_text_color": "#ffffff"
+      }
+    },
+    "rich_text_Ex9V86": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading_yRz4kd": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_kUNFEy": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1",
+            "text_color": "",
+            "gradient": ""
+          }
+        },
+        "richtext_nVUBMC": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_yRz4kd",
+        "heading_kUNFEy",
+        "richtext_nVUBMC"
+      ],
+      "settings": {
+        "full_width": true,
+        "content_width": "small",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "blog_posts_JhkpQ8": {
+      "type": "blog-posts",
+      "blocks": {
+        "blog_U9QyhN": {
+          "type": "blog",
+          "settings": {
+            "blog": "",
+            "posts_count": 5,
+            "stack_items": false
+          }
+        }
+      },
+      "block_order": [
+        "blog_U9QyhN"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "show_excerpt": true,
+        "show_date": true,
+        "show_author": false,
+        "show_comments_count": false,
+        "show_category": true,
+        "subheading": "",
+        "title": "Blog posts",
+        "content": "",
+        "link_url": "",
+        "link_text": "View all",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": ""
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_bqJ4M8",
+    "image_with_text_overlay_3rq6m6",
+    "main",
+    "accordion_content_6M648T",
+    "media_grid_dBKiEB",
+    "testimonials_9Aqmpn",
+    "banner",
+    "17090576115ec1a232",
+    "rich_text_Ex9V86",
+    "blog_posts_JhkpQ8"
+  ]
+}

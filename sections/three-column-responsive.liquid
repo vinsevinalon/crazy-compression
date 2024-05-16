@@ -1,0 +1,115 @@
+{% schema %}
+{
+  "name": "3 Columns Text",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "3 Column Text",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .three-column-text .swiper-container {
+    width: 100%;
+  }
+  .three-column-text .swiper-slide {
+    flex: 1;
+    width: 100%;
+  }
+  @media (min-width: 768px) {
+    .three-column-text .swiper-slide {
+      width: 30%;
+      margin-right: 1%;
+    }
+  }
+  .three-column-text .swiper-slide span {
+    display: block;
+  }
+</style>
+
+<section class="three-column-text">
+  <div class="page-width">
+    <div class="swiper-container" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            {% if block.settings.title %}
+              <span>{{ block.settings.title }}</span>
+            {% endif %}
+            {% if block.settings.text %}
+              <span>{{ block.settings.text }}</span>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new Swiper('.three-column-text .swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 10,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+      },
+    });
+  });
+</script>

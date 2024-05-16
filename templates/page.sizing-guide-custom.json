@@ -1,0 +1,289 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "content_width": "100%"
+      }
+    },
+    "image_with_text_overlay_yHdH8x": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_QpHzwh": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_7fcLhx": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_bGdmEq": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_QpHzwh",
+        "heading_7fcLhx",
+        "richtext_bGdmEq"
+      ],
+      "settings": {
+        "full_width": false,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/CC_lineup_dd49484d-a032-466d-94fc-39d6f58b6aef.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/CC_lineup_1ef7de63-e6a5-45a5-b9c7-0587bdeebdbf.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "faq_zy99hj": {
+      "type": "faq",
+      "blocks": {
+        "item_AyKQ8e": {
+          "type": "item",
+          "settings": {
+            "title": "What are compression socks?",
+            "content": "<p>Compression socks are specialized hosiery designed to improve blood circulation, reduce swelling, and alleviate pain in the legs and feet. They apply gentle pressure to your legs and ankles, promoting blood flow from your legs back to your heart.<\/p>"
+          }
+        },
+        "item_iJRf6g": {
+          "type": "item",
+          "settings": {
+            "title": "How do compression socks work?",
+            "content": "<p>They work by applying graduated compression, meaning the pressure is highest at the ankles and gradually decreases towards the knees. This helps to move blood up the leg against the pull of gravity, reducing swelling, fatigue, and the risk of blood clots.<\/p>"
+          }
+        },
+        "item_Q9GCYF": {
+          "type": "item",
+          "settings": {
+            "title": "What sizes do your compression socks come in?",
+            "content": "<p>Our compression socks are available in various sizes ranging from XS to LG\/XL in both standard and wide leg. Please refer to our sizing chart on the product page to find your perfect fit or click <a href=\"https:\/\/crazycompression.com\/pages\/sizing-guide\" target=\"_blank\" title=\"https:\/\/crazycompression.com\/pages\/sizing-guide\"><strong>HERE.<\/strong><\/a><\/p>"
+          }
+        },
+        "item_BUdDNE": {
+          "type": "item",
+          "settings": {
+            "title": "What level of compression do your socks offer?",
+            "content": "<p>We offer a range of compression levels, from mild (8-15 mmHg) to a everyday firm fit (15-20 mmHg), to cater to different needs and preferences. Each product description includes the compression level<\/p>"
+          }
+        },
+        "item_LaqqkA": {
+          "type": "item",
+          "settings": {
+            "title": "Who should wear compression socks?",
+            "content": "<p>Compression socks are beneficial for people who stand or sit for long periods, athletes, pregnant women, and individuals with certain medical conditions. However, it's always best to consult with a healthcare professional before starting to wear compression socks.<\/p>"
+          }
+        },
+        "item_DgfBtA": {
+          "type": "item",
+          "settings": {
+            "title": "Can I wear compression socks all day?",
+            "content": "<p>Yes, our compression socks are designed for all-day comfort. However, we recommend removing them before bed unless your healthcare provider advises otherwise.<\/p>"
+          }
+        },
+        "item_CNLP47": {
+          "type": "item",
+          "settings": {
+            "title": "How do I put on compression socks correctly?",
+            "content": "<p> Start by turning the sock inside out, except for the foot part. Slip your foot in and gradually unroll the sock up your leg. Make sure the sock is smooth and without wrinkles.<\/p>"
+          }
+        },
+        "item_3kNNxg": {
+          "type": "item",
+          "settings": {
+            "title": "How should I wash my compression socks?",
+            "content": "<p>For best results, hand wash your socks in warm water with mild soap and air dry. If you use a machine, place them in a mesh laundry bag, use a gentle cycle, and air dry.<\/p>"
+          }
+        },
+        "item_BiLDD3": {
+          "type": "item",
+          "settings": {
+            "title": "How often should I replace my compression socks?",
+            "content": "<p>For optimal benefits, we recommend replacing your compression socks every 3-6 months, depending on how often you wear them and how well you care for them.<\/p>"
+          }
+        },
+        "item_Q3TJwi": {
+          "type": "item",
+          "settings": {
+            "title": "Where are Crazy Compression socks made?",
+            "content": "<p>Our socks are proudly made in our families 3rd generation factory located in Hickory, NC. <\/p>"
+          }
+        },
+        "item_aBmx4L": {
+          "type": "item",
+          "settings": {
+            "title": "What are Crazy Compression socks made of?",
+            "content": "<p>97% Stay Cool Nylon, 3% Spandex<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_AyKQ8e",
+        "item_iJRf6g",
+        "item_Q9GCYF",
+        "item_BUdDNE",
+        "item_LaqqkA",
+        "item_DgfBtA",
+        "item_CNLP47",
+        "item_3kNNxg",
+        "item_BiLDD3",
+        "item_Q3TJwi",
+        "item_aBmx4L"
+      ],
+      "settings": {
+        "full_width": true,
+        "subheading": "",
+        "title": "PRODUCT FAQ",
+        "content": "",
+        "team_avatar_width": 160,
+        "support_hours": "",
+        "answer_time": "",
+        "button_text": "",
+        "button_url": "",
+        "text_position": "center",
+        "background": "#ffffff",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "button_background": "#ffffff",
+        "button_text_color": "#ffffff",
+        "accordion_background": "",
+        "accordion_text_color": "#272727"
+      }
+    },
+    "faq_x68CgG": {
+      "type": "faq",
+      "blocks": {
+        "item_P3hUr9": {
+          "type": "item",
+          "settings": {
+            "title": "When will my order ship?",
+            "content": "<p>Within 3-5 business days, anticipate an additional 3-5 day delivery to your residence.<\/p>"
+          }
+        },
+        "item_Rny6J6": {
+          "type": "item",
+          "settings": {
+            "title": "Can I change or cancel my order after it's been placed?",
+            "content": "<p>We strive to process orders quickly, but if you need to change or cancel your order, please contact our customer service team <a href=\"mailto:\/\/support@crazycompression.com\" target=\"_blank\" title=\"mailto:\/\/support@crazycompression.com\">support@crazycompression.com<\/a> as soon as possible. We can only make changes or cancellations if your order has not yet been processed for shipping.<\/p>"
+          }
+        },
+        "item_jTcFqQ": {
+          "type": "item",
+          "settings": {
+            "title": "How long will it take to get my orders?",
+            "content": "<p>It depends on where you are. Orders processed here will take 5-7 business days to arrive. Overseas deliveries can take anywhere from 7-16 days. Delivery details will be provided in your confirmation email.<\/p>"
+          }
+        },
+        "item_FFCfAy": {
+          "type": "item",
+          "settings": {
+            "title": "How do I return or exchange an item?",
+            "content": "<p>You can access our exchange & return portal <a href=\"https:\/\/crazycompression.com\/apps\/redo\/returns-portal#\/login\" target=\"_blank\" title=\"https:\/\/crazycompression.com\/apps\/redo\/returns-portal#\/login\"><strong>HERE.<\/strong><\/a> <\/p>"
+          }
+        },
+        "item_V9yNGJ": {
+          "type": "item",
+          "settings": {
+            "title": "How long does it take to receive a refund?",
+            "content": "<p>Once we receive and inspect your returned item(s), we will process your refund. Please allow up to 10 business days for the refund to be credited back to your original form of payment. We will notify you via email once your refund has been processed.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_P3hUr9",
+        "item_Rny6J6",
+        "item_jTcFqQ",
+        "item_FFCfAy",
+        "item_V9yNGJ"
+      ],
+      "settings": {
+        "full_width": true,
+        "subheading": "",
+        "title": "MY ORDER FAQ",
+        "content": "",
+        "team_avatar_width": 160,
+        "support_hours": "Our customer support is available Monday to Friday: 9am-5pm EST.",
+        "answer_time": "Average answer time: 24h",
+        "button_text": "",
+        "button_url": "",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "button_background": "",
+        "button_text_color": "",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
+    },
+    "d2747009-79fd-4758-ae91-60f7fd2f87de": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "collection": "the-space-dyed-collection",
+        "products": [
+
+        ],
+        "full_width": true,
+        "stack_products": true,
+        "show_progress_bar": false,
+        "products_count": 6,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "Featured collection",
+        "content": "",
+        "link_url": "",
+        "link_text": "View all",
+        "background": "#94f8eb",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "1680883704bd15aef1": {
+      "type": "apps",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "#deb1ea",
+        "background_gradient": "",
+        "text_color": "",
+        "enable_review_integration": true,
+        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
+        "review_header_text_color": "#000000",
+        "review_button_background": "#000000",
+        "review_button_text_color": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_yHdH8x",
+    "faq_zy99hj",
+    "faq_x68CgG",
+    "d2747009-79fd-4758-ae91-60f7fd2f87de",
+    "1680883704bd15aef1"
+  ]
+}

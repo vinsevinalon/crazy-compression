@@ -1,0 +1,104 @@
+{
+  "sections": {
+    "5a00718c-03e8-48fe-bc93-0272a510a0d3": {
+      "type": "rich-text",
+      "settings": {
+        "full_width": true,
+        "content_width": "small",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "banner": {
+      "type": "collection-banner",
+      "settings": {
+        "full_width": false,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "show_collection_title": false,
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "collection_title_size": "h0",
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/qwet-4.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/qwet-4.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "featured_product": "",
+        "featured_product_heading": "Featured product",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "84d649dd-2112-4351-985b-7e367c0e18d3": {
+      "type": "rich-text",
+      "blocks": {
+        "template--14927896870977__84d649dd-2112-4351-985b-7e367c0e18d3-1686931292aaac0d17-2": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p>*Discount automatically applied in cart<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--14927896870977__84d649dd-2112-4351-985b-7e367c0e18d3-1686931292aaac0d17-2"
+      ],
+      "settings": {
+        "full_width": true,
+        "content_width": "small",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "6478be1b-1ba4-4b5a-8f69-c09a3c3bafc6": {
+          "type": "promotion_image",
+          "disabled": true,
+          "settings": {
+            "position": 4,
+            "column_span": "1",
+            "image": "shopify:\/\/shop_images\/qwet-3.jpg",
+            "title": "",
+            "content": "",
+            "link_url": "",
+            "link_text": "",
+            "heading_tag": "h4",
+            "text_position": "place-self-end-start text-start",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "6478be1b-1ba4-4b5a-8f69-c09a3c3bafc6"
+      ],
+      "settings": {
+        "products_per_page": 30,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "filter_layout": "sidebar",
+        "show_sort_by": true,
+        "show_filters": true,
+        "show_filter_group_name": false,
+        "show_color_swatch": true,
+        "show_empty_filter_values": false,
+        "show_filter_values_count": true,
+        "open_first_filter_group": false
+      }
+    }
+  },
+  "order": [
+    "5a00718c-03e8-48fe-bc93-0272a510a0d3",
+    "banner",
+    "84d649dd-2112-4351-985b-7e367c0e18d3",
+    "main"
+  ]
+}

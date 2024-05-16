@@ -1,0 +1,887 @@
+{
+  "sections": {
+    "video_VXMjwC": {
+      "type": "video",
+      "blocks": {
+        "play_Ye4Cqd": {
+          "type": "play",
+          "settings": {
+          }
+        },
+        "subheading_xk88yL": {
+          "type": "subheading",
+          "settings": {
+            "text": "American Made Compression Socks"
+          }
+        },
+        "heading_JHcCb8": {
+          "type": "heading",
+          "settings": {
+            "text": "STEP INTO A WORLD OF COMFORT & COLOR",
+            "heading_tag": "h1"
+          }
+        },
+        "subheading_7988Rh": {
+          "type": "subheading",
+          "settings": {
+            "text": "Your Legs Will Thank You!"
+          }
+        },
+        "richtext_JwrGC7": {
+          "type": "richtext",
+          "disabled": true,
+          "settings": {
+            "content": "<p>Your Legs Will Thank You!<\/p>"
+          }
+        },
+        "button_UjB7C6": {
+          "type": "button",
+          "settings": {
+            "style": "fill",
+            "size": "xl",
+            "text": "SHOP NOW",
+            "url": "https:\/\/crazycompression.com\/collections\/compression-socks",
+            "background": "#ffffff",
+            "text_color": "#272727"
+          }
+        }
+      },
+      "block_order": [
+        "play_Ye4Cqd",
+        "subheading_xk88yL",
+        "heading_JHcCb8",
+        "subheading_7988Rh",
+        "richtext_JwrGC7",
+        "button_UjB7C6"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "autoplay": true,
+        "video_size": "md",
+        "video": "shopify:\/\/files\/videos\/D5736B12-EDF3-48C8-8522-ED8184C20367.MOV",
+        "external_video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 40
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/CC_WEB_HERO_DESK-Recovered_copy_19855fe3-a4b0-41ed-9bbd-57408f126e14.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/CC_web_mobile_HERO_copy3.jpg",
+            "content_max_width": 780,
+            "mobile_text_position": "place-self-center text-center",
+            "desktop_text_position": "sm:place-self-start sm:text-start",
+            "subheading": "",
+            "title": "",
+            "heading_tag": "h0",
+            "button_text": "",
+            "button_link": "https:\/\/crazycompression.com\/collections\/compression-socks",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#3dae7f",
+            "overlay_color": "rgba(0,0,0,0)",
+            "overlay_opacity": 0,
+            "background": "",
+            "background_gradient": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": true,
+        "image_size": "auto",
+        "controls_type": "numbers",
+        "transition_type": "fade_with_text",
+        "autoplay": true,
+        "cycle_speed": 6,
+        "background": "#f2f2f2",
+        "background_gradient": "linear-gradient(60deg, rgba(60, 65, 68, 1), rgba(23, 29, 33, 1) 98%)"
+      }
+    },
+    "impact-text": {
+      "type": "impact-text",
+      "blocks": {
+        "1664424181b38582d5-0": {
+          "type": "item",
+          "settings": {
+            "title": "",
+            "subheading": "Step Into Comfort With Our USA Made Premium Compression Socks",
+            "content": "",
+            "button_text": "SHOP ALL PRODUCTS",
+            "button_url": "shopify:\/\/collections\/compression-socks",
+            "animate_impact_text": false,
+            "animate_impact_text_duration": 2
+          }
+        },
+        "be7f9eb2-e974-4d8e-b8d1-e57c022e8a52": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "title": "100%",
+            "subheading": "Showcase a benefit of your product",
+            "content": "",
+            "button_text": "",
+            "button_url": "",
+            "animate_impact_text": false,
+            "animate_impact_text_duration": 2
+          }
+        }
+      },
+      "block_order": [
+        "1664424181b38582d5-0",
+        "be7f9eb2-e974-4d8e-b8d1-e57c022e8a52"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "stack_mobile": false,
+        "text_alignment": "center",
+        "impact_text_style": "fill",
+        "text_divider": "square",
+        "impact_text_size_ratio": 0.5,
+        "background": "#ffffff",
+        "background_gradient": "",
+        "heading_text_color": "#9940b1",
+        "heading_gradient": "linear-gradient(180deg, rgba(153, 64, 177, 1), rgba(222, 177, 234, 1) 100%)",
+        "text_color": "",
+        "button_background": "",
+        "button_text_color": ""
+      }
+    },
+    "slideshow_zjTNcT": {
+      "type": "slideshow",
+      "blocks": {
+        "image_zrfgRR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/6000_5_star_reviews_3_copy.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/6000_5_star_reviews_2_copy_4693f200-c72f-4632-87a8-b01a45db46a2.jpg",
+            "content_max_width": 520,
+            "mobile_text_position": "place-self-center text-center",
+            "desktop_text_position": "sm:place-self-center sm:text-center",
+            "subheading": "",
+            "title": "",
+            "heading_tag": "h0",
+            "button_text": "",
+            "button_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "background": "",
+            "background_gradient": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_zrfgRR"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": true,
+        "image_size": "auto",
+        "controls_type": "dots",
+        "transition_type": "fade_with_text",
+        "autoplay": false,
+        "cycle_speed": 6,
+        "background": "#f2f2f2",
+        "background_gradient": ""
+      }
+    },
+    "press_zpKkbH": {
+      "type": "press",
+      "blocks": {
+        "quote_zE87YA": {
+          "type": "quote",
+          "settings": {
+            "logo_width": 50,
+            "author": "",
+            "content": "6000+ 5 Star Reviews",
+            "show_rating": true,
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "quote_zE87YA"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "content_size": "small",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "logo_item_background": "",
+        "logo_item_border": ""
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "3-pair-packs",
+        "products": [
+          "3-pair-pack-360-tie-dye-black-standard-extra-wide",
+          "3-pair-black-basic-bundle",
+          "copy-of-360-mermaid-teal-otc-compression-socks-standard-extra-wide",
+          "3-pair-pack-360-fifth-of-may-standard-extra-wide",
+          "3-pair-pack-360-color-run-standard-extra-wide",
+          "3-pair-pack-360-calavera-purple-standard-extra-wide",
+          "3-pair-pack-360-pet-standard-extra-wide",
+          "3-pair-pack-360-color-burst-standard-extra-wide"
+        ],
+        "full_width": true,
+        "stack_products": false,
+        "show_progress_bar": false,
+        "products_count": 35,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "subheading": "",
+        "title": "Bundle & Save!",
+        "content": "<p>Up to 65% Off when you bundle. <\/p>",
+        "link_url": "shopify:\/\/collections\/3-pair-packs",
+        "link_text": "View all",
+        "background": "#ffffff",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "149eb9c8-7a75-4f22-b0fc-6c44b4887ce6": {
+      "type": "hot-spots",
+      "blocks": {
+        "template--14909835771969__149eb9c8-7a75-4f22-b0fc-6c44b4887ce6-168271185037911e8f-0": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "horizontal_position": 24,
+            "vertical_position": 70,
+            "horizontal_position_mobile": 24,
+            "vertical_position_mobile": 70,
+            "icon_width": 32,
+            "title": "Feature name",
+            "content": "<p>Share useful information about your product features.<\/p>"
+          }
+        },
+        "template--14909835771969__149eb9c8-7a75-4f22-b0fc-6c44b4887ce6-168271185037911e8f-1": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "horizontal_position": 62,
+            "vertical_position": 14,
+            "horizontal_position_mobile": 62,
+            "vertical_position_mobile": 14,
+            "icon_width": 32,
+            "title": "Feature name",
+            "content": "<p>Share useful information about your product features.<\/p>"
+          }
+        },
+        "template--14909835771969__149eb9c8-7a75-4f22-b0fc-6c44b4887ce6-168271185037911e8f-2": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "horizontal_position": 83,
+            "vertical_position": 75,
+            "horizontal_position_mobile": 83,
+            "vertical_position_mobile": 75,
+            "icon_width": 32,
+            "title": "Feature name",
+            "content": "<p>Share useful information about your product features.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--14909835771969__149eb9c8-7a75-4f22-b0fc-6c44b4887ce6-168271185037911e8f-0",
+        "template--14909835771969__149eb9c8-7a75-4f22-b0fc-6c44b4887ce6-168271185037911e8f-1",
+        "template--14909835771969__149eb9c8-7a75-4f22-b0fc-6c44b4887ce6-168271185037911e8f-2"
+      ],
+      "settings": {
+        "full_width": true,
+        "image": "shopify:\/\/shop_images\/icon.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/CC_info.jpg",
+        "title": "",
+        "content": "",
+        "button_text": "",
+        "button_url": "",
+        "desktop_text_position": "place-self-start text-start",
+        "image_background": "#94f8eb",
+        "image_background_gradient": "",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "overlay_text_color": "#ffffff",
+        "overlay_button_background": "",
+        "overlay_button_text_color": "",
+        "hot_spot_dot_background": "#ffffff",
+        "hot_spot_dot_text_color": "#ffffff",
+        "hot_spot_content_background": "#ffffff",
+        "hot_spot_content_text_color": "#000000",
+        "hot_spot_content_opacity": 0,
+        "hot_spot_content_blur_radius": 0
+      }
+    },
+    "ed5a7074-09b0-4088-943a-2e783f2f7674": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "fairy-tale",
+        "products": [
+
+        ],
+        "full_width": true,
+        "stack_products": false,
+        "show_progress_bar": true,
+        "products_count": 14,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "Our Fairy Tale Collection",
+        "content": "",
+        "link_url": "https:\/\/crazycompression.com\/collections\/fairy-tale",
+        "link_text": "View all",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "170901835337de4451": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_ugc_carousel_block_VNzBez": {
+          "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/carousel-block\/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "yez7z3wty3rpk"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_ugc_carousel_block_VNzBez"
+      ],
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": true,
+        "remove_horizontal_spacing": true,
+        "background": "#9940b1",
+        "background_gradient": "",
+        "text_color": "",
+        "enable_review_integration": true,
+        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
+        "review_header_text_color": "#000000",
+        "review_button_background": "#000000",
+        "review_button_text_color": "#ffffff"
+      }
+    },
+    "video_8DnLQt": {
+      "type": "video",
+      "blocks": {
+        "play_Ei8tDq": {
+          "type": "play",
+          "settings": {
+          }
+        },
+        "heading_3efTeK": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "play_Ei8tDq",
+        "heading_3efTeK"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": true,
+        "autoplay": true,
+        "video_size": "md",
+        "video": "shopify:\/\/files\/videos\/INTRO.MP4",
+        "external_video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 5
+      }
+    },
+    "1680882322f20142eb": {
+      "type": "apps",
+      "blocks": {
+        "a359b2ec-5507-4670-8bb1-3de1e0fb0b53": {
+          "type": "shopify:\/\/apps\/stamped-product-reviews-ugc\/blocks\/carousel\/a103faaf-2125-4b0e-89fa-de5149736723",
+          "settings": {
+            "title": "_____________________________________",
+            "auto_play": true,
+            "auto_play_speed": 3,
+            "take": 30,
+            "color_title": "",
+            "color_star": "#9940b1",
+            "color_text": "",
+            "color_link": "",
+            "review_ids": "",
+            "product_ids": "",
+            "category": "",
+            "product_brand": "",
+            "tags": "",
+            "min_rating": "none",
+            "fill_empty": false,
+            "random": false,
+            "with_photos": false
+          }
+        }
+      },
+      "block_order": [
+        "a359b2ec-5507-4670-8bb1-3de1e0fb0b53"
+      ],
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": true,
+        "remove_horizontal_spacing": false,
+        "background": "#ffffff",
+        "background_gradient": "",
+        "text_color": "#000000",
+        "enable_review_integration": true,
+        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
+        "review_header_text_color": "#000000",
+        "review_button_background": "#000000",
+        "review_button_text_color": "#ffffff"
+      }
+    },
+    "f73c6877-1e72-4e4c-aa61-604102d70781": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "cinco-de-mayo",
+        "products": [
+
+        ],
+        "full_width": true,
+        "stack_products": false,
+        "show_progress_bar": false,
+        "products_count": 35,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "The Cinco De Mayo Collection.",
+        "content": "",
+        "link_url": "shopify:\/\/collections\/cinco-de-mayo",
+        "link_text": "View all",
+        "background": "#ffffff",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "image-with-text-overlay": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "1664424230c4756b0e-0": {
+          "type": "subheading",
+          "settings": {
+            "text": "3RD GENERATION SOCK MAKERS"
+          }
+        },
+        "1664424230c4756b0e-1": {
+          "type": "heading",
+          "settings": {
+            "text": "Family Owned. USA Made.",
+            "heading_tag": "h1"
+          }
+        },
+        "1664424230c4756b0e-2": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p>Since launching in 2014, Crazy Compression has been the go-to choice for fun, effective compression socks. This family owned and operated company with over 80 years of experience is leading the way when it comes to performance compression hosiery, creating socks of the highest quality using innovative knitting techniques.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "1664424230c4756b0e-0",
+        "1664424230c4756b0e-1",
+        "1664424230c4756b0e-2"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/TSF_people.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/TSF_people.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      }
+    },
+    "scrolling-text": {
+      "type": "scrolling-text",
+      "disabled": true,
+      "custom_css": [
+
+      ],
+      "settings": {
+        "full_width": true,
+        "text": "USA Made Compression Socks  +  15-20mmhg True Graduated Compression +  Lifetime Guarantee",
+        "text_size": "xsmall",
+        "text_style": "fill",
+        "scrolling_mode": "auto",
+        "scrolling_speed": 8,
+        "background": "#deb1ea",
+        "background_gradient": "",
+        "text_color": "#691480",
+        "text_gradient": ""
+      }
+    },
+    "743748ad-6171-4ce3-b999-815e456971fb": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "crazy-compression-elite-runners",
+        "products": [
+
+        ],
+        "full_width": true,
+        "stack_products": false,
+        "show_progress_bar": true,
+        "products_count": 10,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "Elite Running Socks",
+        "content": "",
+        "link_url": "",
+        "link_text": "View all",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "collection-list": {
+      "type": "collection-list",
+      "blocks": {
+        "collection-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "crazy-360-over-the-calf-compression-socks",
+            "subheading": "",
+            "title": "",
+            "url": "",
+            "heading_tag": "h2",
+            "text_position": "place-self-center text-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "extra-wide-calf-collection",
+            "subheading": "",
+            "title": "",
+            "url": "",
+            "heading_tag": "h2",
+            "text_position": "place-self-center text-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "all-about-stripes",
+            "image": "shopify:\/\/shop_images\/33_f714482a-7a89-4d8e-bf9e-91233e32285c.jpg",
+            "subheading": "",
+            "title": "",
+            "url": "",
+            "heading_tag": "h2",
+            "text_position": "place-self-center text-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "5d084f72-220b-4a2f-ba87-7913a10142cd": {
+          "type": "collection",
+          "settings": {
+            "collection": "crazy-w-cushion",
+            "image": "shopify:\/\/shop_images\/Cush_cat.jpg",
+            "subheading": "",
+            "title": "",
+            "url": "",
+            "heading_tag": "h2",
+            "text_position": "place-self-center text-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "54df9a0d-6b06-402c-ad11-89d53e313c51": {
+          "type": "collection",
+          "settings": {
+            "collection": "crazy-compression-elite-runners",
+            "image": "shopify:\/\/shop_images\/44.jpg",
+            "subheading": "",
+            "title": "",
+            "url": "",
+            "heading_tag": "h2",
+            "text_position": "place-self-center text-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "collection-1",
+        "collection-2",
+        "collection-3",
+        "5d084f72-220b-4a2f-ba87-7913a10142cd",
+        "54df9a0d-6b06-402c-ad11-89d53e313c51"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "stack_collections": false,
+        "collections_per_row": 5,
+        "show_progress_bar": false,
+        "subheading": "",
+        "title": "Shop by Collection",
+        "content": "",
+        "link_url": "",
+        "link_text": "View all",
+        "background": "#9940b1",
+        "background_gradient": "",
+        "text_color": "#ffffff",
+        "heading_color": "",
+        "heading_gradient": ""
+      }
+    },
+    "69746d76-70c0-47bb-bfe2-48640b655c52": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "workout-socks",
+        "products": [
+
+        ],
+        "full_width": true,
+        "stack_products": true,
+        "show_progress_bar": false,
+        "products_count": 6,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "Workout Socks",
+        "content": "",
+        "link_url": "",
+        "link_text": "View all",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "166442457738b23caf-0": {
+          "type": "item",
+          "settings": {
+            "title": "How do I wash and care for my Crazy Compression Socks?",
+            "content": "<p>Care instructions: Machine wash separately in cold water on delicate cycle. Hang to dry. For bonus points, do not use bleach or fabric softener. <\/p>"
+          }
+        },
+        "166442457738b23caf-1": {
+          "type": "item",
+          "settings": {
+            "title": "How long will it take to get my orders?",
+            "content": "<p>It depends on where you are. We work fast and hard, so you can expect the orders to be processed and shipped within 3 to 5 business days for our non-printed socks. For printed socks allow 3 to 8 business days. Delivery details will be provided in your confirmation email.<\/p>"
+          }
+        },
+        "166442457738b23caf-2": {
+          "type": "item",
+          "settings": {
+            "title": "Where are Crazy Compression Socks made?",
+            "content": "<p>Our Compression socks are made in our 3rd generation sock factory in Hickory, NC. Yeah, your classic 2 brothers 1 sister all-star sock team.<\/p>"
+          }
+        },
+        "e66af25b-6d11-4d75-96be-e2ada73d6914": {
+          "type": "item",
+          "settings": {
+            "title": "What is the compression rating?",
+            "content": "<p>15-20mmhg True Gradutated Compression. Great for everyday use and all day support.<\/p>"
+          }
+        },
+        "0337fd6e-fb68-4447-ae10-93c73596d001": {
+          "type": "item",
+          "settings": {
+            "title": "Can I exchange my Crazy Compression Socks?",
+            "content": "<p>Yes. If you need a different size or return, just check out our returns portal at this link <a href=\"https:\/\/crazycompression.returnly.com\" target=\"_blank\" title=\"https:\/\/crazycompression.returnly.com\"><strong>here<\/strong><\/a> and we'll help you get 'em swapped out.<br\/><br\/>If you run into an issue, shoot us an email at crazyclan@crazycompression.com and we'll do our best to help you out. We want to make sure you love and value the Crazy Compression you purchase!<\/p>"
+          }
+        },
+        "10eacf77-6e3a-4e0b-a526-56f4682a59be": {
+          "type": "item",
+          "settings": {
+            "title": "Who started Crazy Compression?",
+            "content": "<p>Nate the youngest of three siblings went to his big brother Michael who was still in the family's sock mill with the Crazy Compression idea. Next thing you know, it took off, and they brought their big sister Melanie on board. To read the whole story, click <a href=\"https:\/\/crazycompression.com\/pages\/our-story\" title=\"https:\/\/crazycompression.com\/pages\/our-story\"><strong>here<\/strong><\/a> (it is pretty cool)<\/p>"
+          }
+        },
+        "d958072b-b072-4190-910e-90ccb91670cb": {
+          "type": "item",
+          "settings": {
+            "title": "What material are Crazy Compression Socks made of?",
+            "content": "<p>97% Stay Cool Nylon & 3% Spandex<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "166442457738b23caf-0",
+        "166442457738b23caf-1",
+        "166442457738b23caf-2",
+        "e66af25b-6d11-4d75-96be-e2ada73d6914",
+        "0337fd6e-fb68-4447-ae10-93c73596d001",
+        "10eacf77-6e3a-4e0b-a526-56f4682a59be",
+        "d958072b-b072-4190-910e-90ccb91670cb"
+      ],
+      "settings": {
+        "full_width": false,
+        "subheading": "",
+        "title": "FAQ",
+        "content": "<p>Questions are good!! See below for a list of questions we get asked the most. If you don't see what you're looking for please email us at crazyclan@crazycompression.com or call 828-327-0745<\/p>",
+        "team_avatar_width": 160,
+        "support_hours": "Our customer support is available Monday to Friday: 8am-5pm.",
+        "answer_time": "Average answer time: 24h",
+        "button_text": "",
+        "button_url": "",
+        "text_position": "start",
+        "background": "#9940b1",
+        "background_gradient": "",
+        "text_color": "#ffffff",
+        "heading_color": "#94f8eb",
+        "heading_gradient": "",
+        "button_background": "",
+        "button_text_color": "",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
+    },
+    "collection_list_UqArEe": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_6Pp3T4": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "subheading": "",
+            "title": "",
+            "url": "",
+            "heading_tag": "h2",
+            "text_position": "place-self-center text-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_FQzipW": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "subheading": "",
+            "title": "",
+            "url": "",
+            "heading_tag": "h2",
+            "text_position": "place-self-center text-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_QjbYa6": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "subheading": "",
+            "title": "",
+            "url": "",
+            "heading_tag": "h2",
+            "text_position": "place-self-center text-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "collection_6Pp3T4",
+        "collection_FQzipW",
+        "collection_QjbYa6"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "stack_collections": false,
+        "collections_per_row": 3,
+        "show_progress_bar": false,
+        "subheading": "",
+        "title": "Collection list",
+        "content": "",
+        "link_url": "",
+        "link_text": "View all",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": ""
+      }
+    }
+  },
+  "order": [
+    "video_VXMjwC",
+    "slideshow",
+    "impact-text",
+    "slideshow_zjTNcT",
+    "press_zpKkbH",
+    "featured-collection",
+    "149eb9c8-7a75-4f22-b0fc-6c44b4887ce6",
+    "ed5a7074-09b0-4088-943a-2e783f2f7674",
+    "170901835337de4451",
+    "video_8DnLQt",
+    "1680882322f20142eb",
+    "f73c6877-1e72-4e4c-aa61-604102d70781",
+    "image-with-text-overlay",
+    "scrolling-text",
+    "743748ad-6171-4ce3-b999-815e456971fb",
+    "collection-list",
+    "69746d76-70c0-47bb-bfe2-48640b655c52",
+    "faq",
+    "collection_list_UqArEe"
+  ]
+}

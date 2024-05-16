@@ -1,0 +1,334 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h3"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "disabled": true,
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "d0734d67-c3ca-4dc2-a72a-fc5fa7bc5188": {
+          "type": "product_variations",
+          "settings": {
+            "option_name": "Color",
+            "option_value_metafield": "{{ product.metafields.custom.product_value_sleeve.value }}",
+            "products": "{{ product.metafields.custom.product_variation_sleeve.value }}",
+            "color_mode": "variant"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "stack_blocks": true,
+            "selector_mode": "block",
+            "color_mode": "block",
+            "size_chart_page": ""
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "atc_button_background": "#94f8eb",
+            "atc_button_text_color": "#4e4d4d",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {
+          }
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false
+          }
+        },
+        "b23a1695-c411-47cd-b228-82dd9cd9aae5": {
+          "type": "shopify:\/\/apps\/rebuy-personalization-engine\/blocks\/rebuy-widget\/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "settings": {
+            "enabled": true,
+            "id": "75794",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "badges",
+        "price",
+        "rating",
+        "d0734d67-c3ca-4dc2-a72a-fc5fa7bc5188",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "payment_terms",
+        "separator",
+        "description",
+        "b23a1695-c411-47cd-b228-82dd9cd9aae5"
+      ],
+      "settings": {
+        "full_width": true,
+        "show_fixed_add_to_cart": true,
+        "desktop_media_width": 55,
+        "desktop_media_layout": "carousel_thumbnails_left",
+        "mobile_media_size": "contained",
+        "mobile_carousel_control": "thumbnails",
+        "enable_video_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3,
+        "background": "#ffffff",
+        "background_gradient": "",
+        "text_color": "",
+        "input_background": "rgba(0,0,0,0)",
+        "input_text_color": ""
+      }
+    },
+    "8e2b34bf-31e7-4a8e-bcc2-c72c80257a1f": {
+      "type": "image-with-text-overlay",
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/CC_lineup_dd49484d-a032-466d-94fc-39d6f58b6aef.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/CC_lineup_50d5dc89-881e-4838-b561-ff4c342a0357.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      }
+    },
+    "346dd38f-3483-455f-9262-e818ad6a56cf": {
+      "type": "faq",
+      "blocks": {
+        "template--14901071937601__346dd38f-3483-455f-9262-e818ad6a56cf-16802865815bc9fb77-0": {
+          "type": "item",
+          "settings": {
+            "title": "How do I wash and care for my Crazy Compression Socks?",
+            "content": "<p>Care instructions: Machine wash separately in cold water on delicate cycle. Hang to dry. For bonus points, do not use bleach or fabric softener. <\/p>"
+          }
+        },
+        "template--14901071937601__346dd38f-3483-455f-9262-e818ad6a56cf-16802865815bc9fb77-1": {
+          "type": "item",
+          "settings": {
+            "title": "How long will it take to get my orders?",
+            "content": "<p>It depends on where you are. Orders processed here will take 3-5 business days to arrive. Delivery details will be provided in your confirmation email.<\/p>"
+          }
+        },
+        "template--14901071937601__346dd38f-3483-455f-9262-e818ad6a56cf-16802865815bc9fb77-2": {
+          "type": "item",
+          "settings": {
+            "title": "Where are Crazy Compression Socks made?",
+            "content": "<p>Our Compression socks are made in our 3rd generation sock factory in Hickory, NC. Yeah, your classic 2 brothers 1 sister all-star sock team.<\/p>"
+          }
+        },
+        "e96a5d79-89f5-4966-b890-bdec15b5e24f": {
+          "type": "item",
+          "settings": {
+            "title": "What is the compression rating?",
+            "content": "<p>15-20mmhg True Gradutated Compression. Great for everyday use and all day support.<\/p>"
+          }
+        },
+        "0ca77d9a-a58f-4e1d-a6f5-49365f9b2cc6": {
+          "type": "item",
+          "settings": {
+            "title": "What material are Crazy Compression Socks made of?",
+            "content": "<p>97% Stay Cool Nylon & 3% Spandex<\/p>"
+          }
+        },
+        "b4dff10a-32e6-4432-bee2-bd1024d5f0d8": {
+          "type": "item",
+          "settings": {
+            "title": "Can I return my Crazy Compression Socks?",
+            "content": "<p>Absolutely. We get it, sometimes we aren’t a perfect fit. You can access our return portal <strong>here:<\/strong> <br\/><br\/>Instead of a standard 30-day returns window where you can't wash or wear the socks, your Crazy Compression order has a 90 day, no-questions-asked guarantee.<\/p>"
+          }
+        },
+        "749da158-566d-4e06-b1c0-570893f599cc": {
+          "type": "item",
+          "settings": {
+            "title": "Can I exchange my Crazy Compression Socks?",
+            "content": "<p>Yes! If you need a different size or return, just check out our returns portal at this link <a href=\"https:\/\/crazycompression.returnly.com\" target=\"_blank\" title=\"https:\/\/crazycompression.returnly.com\"><strong>here<\/strong><\/a> and we'll help you get 'em swapped out.<br\/><br\/>If you run into an issue, shoot us an email at crazyclan@crazycompression.com and we'll do our best to help you out. We want to make sure you love and value the Crazy Compression you purchase!<\/p>"
+          }
+        },
+        "c04cfc18-089d-407f-b1bd-b53ec466c17f": {
+          "type": "item",
+          "settings": {
+            "title": "Who started Crazy Compression?",
+            "content": "<p>Nate the youngest of three siblings went to his big brother Michael who was still in the family's sock mill with the Crazy Compression idea. Next thing you know it took off, and they brought their big sister Melanie on board. To read the whole story, click <a href=\"https:\/\/crazycompression.com\/pages\/our-story\" title=\"https:\/\/crazycompression.com\/pages\/our-story\"><strong>here<\/strong><\/a> (it is a pretty cool)<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--14901071937601__346dd38f-3483-455f-9262-e818ad6a56cf-16802865815bc9fb77-0",
+        "template--14901071937601__346dd38f-3483-455f-9262-e818ad6a56cf-16802865815bc9fb77-1",
+        "template--14901071937601__346dd38f-3483-455f-9262-e818ad6a56cf-16802865815bc9fb77-2",
+        "e96a5d79-89f5-4966-b890-bdec15b5e24f",
+        "0ca77d9a-a58f-4e1d-a6f5-49365f9b2cc6",
+        "b4dff10a-32e6-4432-bee2-bd1024d5f0d8",
+        "749da158-566d-4e06-b1c0-570893f599cc",
+        "c04cfc18-089d-407f-b1bd-b53ec466c17f"
+      ],
+      "settings": {
+        "full_width": true,
+        "subheading": "",
+        "title": "FAQ",
+        "content": "",
+        "team_avatar_width": 160,
+        "support_hours": "Our customer support is available Monday to Friday: 8am-5pm est time. If after hours please email crazyclan@crazycompression.com",
+        "answer_time": "Average answer time: 24h",
+        "button_text": "",
+        "button_url": "",
+        "text_position": "center",
+        "background": "#eec5f8",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "button_background": "",
+        "button_text_color": "",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "recommendations_count": 6,
+        "products": [
+
+        ],
+        "full_width": true,
+        "stack_products": true,
+        "show_progress_bar": false,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "You may also like",
+        "content": "",
+        "background": "#d3faf5",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "1680883393461ba659": {
+      "type": "apps",
+      "blocks": {
+        "7eb3fbe2-2214-494a-99dc-28c74be47fa4": {
+          "type": "shopify:\/\/apps\/stamped-product-reviews-ugc\/blocks\/main-widget\/a103faaf-2125-4b0e-89fa-de5149736723",
+          "settings": {
+            "animation": true,
+            "tags_exclude": "",
+            "tags_include": "",
+            "search": "",
+            "linkify": true,
+            "use_metafields": false,
+            "sku_tagtype": "sku"
+          }
+        }
+      },
+      "block_order": [
+        "7eb3fbe2-2214-494a-99dc-28c74be47fa4"
+      ],
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "enable_review_integration": true,
+        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
+        "review_header_text_color": "#000000",
+        "review_button_background": "#000000",
+        "review_button_text_color": "#ffffff"
+      }
+    },
+    "1681455389bf7356e9": {
+      "type": "apps",
+      "blocks": {
+        "e5f24950-7648-40e9-9538-a1e46fd926aa": {
+          "type": "shopify:\/\/apps\/rebuy-personalization-engine\/blocks\/rebuy-widget\/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "settings": {
+            "enabled": true,
+            "id": "75785",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "e5f24950-7648-40e9-9538-a1e46fd926aa"
+      ],
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "#ffffff",
+        "background_gradient": "",
+        "text_color": "",
+        "enable_review_integration": true,
+        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
+        "review_header_text_color": "#000000",
+        "review_button_background": "#000000",
+        "review_button_text_color": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "8e2b34bf-31e7-4a8e-bcc2-c72c80257a1f",
+    "346dd38f-3483-455f-9262-e818ad6a56cf",
+    "related-products",
+    "1680883393461ba659",
+    "1681455389bf7356e9"
+  ]
+}

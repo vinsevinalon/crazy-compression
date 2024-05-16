@@ -1,0 +1,180 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "content_width": "60ch"
+      }
+    },
+    "d2747009-79fd-4758-ae91-60f7fd2f87de": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "collection": "the-space-dyed-collection",
+        "products": [
+
+        ],
+        "full_width": true,
+        "stack_products": true,
+        "show_progress_bar": false,
+        "products_count": 6,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "Featured collection",
+        "content": "",
+        "link_url": "",
+        "link_text": "View all",
+        "background": "#94f8eb",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "rich_text_jTPEzr": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading_hYtXkP": {
+          "type": "subheading",
+          "settings": {
+            "text": "Subheading"
+          }
+        },
+        "heading_wVfXWc": {
+          "type": "heading",
+          "settings": {
+            "text": "Heading",
+            "heading_tag": "h1",
+            "text_color": "",
+            "gradient": ""
+          }
+        },
+        "richtext_KcnbmX": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_hYtXkP",
+        "heading_wVfXWc",
+        "richtext_KcnbmX"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "content_width": "small",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "1680883704bd15aef1": {
+      "type": "apps",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "#deb1ea",
+        "background_gradient": "",
+        "text_color": "",
+        "enable_review_integration": true,
+        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
+        "review_header_text_color": "#000000",
+        "review_button_background": "#000000",
+        "review_button_text_color": "#ffffff"
+      }
+    },
+    "image_with_text_overlay_T7AJh8": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_C6Frb4": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_JXyjyk": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_kiBKqr": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_C6Frb4",
+        "heading_JXyjyk",
+        "richtext_kiBKqr"
+      ],
+      "settings": {
+        "full_width": false,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/Purple_Pink_Modern_Workout_Gym_Facebook_Cover_2_198425bb-5fc3-47a2-be8b-e34d0b09b05c.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/Purple_Pink_Modern_Workout_Gym_Facebook_Cover_2_72b667c1-b828-4fc6-8b0a-647faa69d588.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#ffffff",
+        "overlay_opacity": 0
+      }
+    },
+    "impact_text_qU3Kbi": {
+      "type": "impact-text",
+      "blocks": {
+        "item_9WJRAn": {
+          "type": "item",
+          "settings": {
+            "title": "",
+            "subheading": "Quirks welcome, friendships bloom, joy awaits.",
+            "content": "<p>Transforming your health is a journey best taken with a supportive community by your side. The Crazy Compression Community was created to offer a safe space for people to  connect, motivate, and inspire each other through their own life journeys. This is your opportunity to connect with others, chat about recipes, meals, workouts, great socks & utilize this group for inspiration and accountability. <\/p>",
+            "button_text": "JOIN HERE",
+            "button_url": "https:\/\/www.facebook.com\/groups\/335290345611574",
+            "animate_impact_text": false,
+            "animate_impact_text_duration": 2
+          }
+        }
+      },
+      "block_order": [
+        "item_9WJRAn"
+      ],
+      "settings": {
+        "full_width": true,
+        "stack_mobile": true,
+        "text_alignment": "center",
+        "impact_text_style": "fill",
+        "text_divider": "none",
+        "impact_text_size_ratio": 1,
+        "background": "",
+        "background_gradient": "",
+        "heading_text_color": "",
+        "heading_gradient": "",
+        "text_color": "",
+        "button_background": "",
+        "button_text_color": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "d2747009-79fd-4758-ae91-60f7fd2f87de",
+    "rich_text_jTPEzr",
+    "1680883704bd15aef1",
+    "image_with_text_overlay_T7AJh8",
+    "impact_text_qU3Kbi"
+  ]
+}

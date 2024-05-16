@@ -1,0 +1,216 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "message": {
+          "type": "message",
+          "settings": {
+            "text": "60% Off Today | 🇺🇸 USA Made | Free Shipping $65+",
+            "url": ""
+          }
+        },
+        "a2dbe60c-1472-4fa0-b80e-10e47d6a0bac": {
+          "type": "message",
+          "disabled": true,
+          "settings": {
+            "text": "Grab Gifts for a Fabulous New Year! 🎁🎉",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "message",
+        "a2dbe60c-1472-4fa0-b80e-10e47d6a0bac"
+      ],
+      "settings": {
+        "enable_sticky": false,
+        "text_size": "text-base",
+        "navigation_mode": "arrows",
+        "scrolling_speed": 20,
+        "background": "#9940b1",
+        "background_gradient": "",
+        "text_color": "#ffffff"
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega_menu_NtqdQL": {
+          "type": "mega_menu",
+          "settings": {
+            "menu_item": "",
+            "layout": "horizontal",
+            "submenu_style": "bold_heading",
+            "image_heading_1": "",
+            "image_link_1": "",
+            "image_text_color_1": "#ffffff",
+            "image_heading_2": "",
+            "image_link_2": "",
+            "image_text_color_2": "#ffffff",
+            "image_heading_3": "",
+            "image_link_3": "",
+            "image_text_color_3": "#ffffff",
+            "product": "",
+            "product_card_background": "",
+            "product_card_text_color": "",
+            "promo_content_layout": "grid",
+            "stretch_promo": false,
+            "drawer_link_image": "hide"
+          }
+        },
+        "5f109cee-1792-49af-855c-0372cab915ab": {
+          "type": "mega_menu",
+          "settings": {
+            "menu_item": "",
+            "layout": "horizontal",
+            "submenu_style": "bold_heading",
+            "image_heading_1": "",
+            "image_link_1": "",
+            "image_text_color_1": "#ffffff",
+            "image_heading_2": "",
+            "image_link_2": "",
+            "image_text_color_2": "#ffffff",
+            "image_heading_3": "",
+            "image_link_3": "",
+            "image_text_color_3": "#ffffff",
+            "product": "",
+            "product_card_background": "#fcfcfc",
+            "product_card_text_color": "",
+            "promo_content_layout": "grid",
+            "stretch_promo": false,
+            "drawer_link_image": "hide"
+          }
+        }
+      },
+      "block_order": [
+        "mega_menu_NtqdQL",
+        "5f109cee-1792-49af-855c-0372cab915ab"
+      ],
+      "settings": {
+        "enable_sticky": true,
+        "hide_on_scroll": false,
+        "logo": "shopify:\/\/shop_images\/LOGO_887b12ed-b53e-47c1-a040-e715c3cd8a49.png",
+        "logo_max_width": 235,
+        "logo_mobile_max_width": 135,
+        "menu": "main-menu",
+        "sidebar_menu": "",
+        "secondary_menu": "",
+        "menu_open_trigger": "click",
+        "opening_from": "bottom",
+        "layout": "logo_left_navigation_center",
+        "show_social_media": true,
+        "show_locale_selector": false,
+        "show_country_selector": false,
+        "show_country_flag": false,
+        "show_country_name": false,
+        "transparent_header_text_color": "#272727",
+        "transparent_logo": "shopify:\/\/shop_images\/LOGO_887b12ed-b53e-47c1-a040-e715c3cd8a49.png",
+        "reduce_padding": true,
+        "background_opacity": 100,
+        "background_blur_radius": 0
+      }
+    },
+    "95788dc6-8e1d-46f8-9619-d95ef700cf30": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<p><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/1102\/3318\/files\/Screenshot_2023-05-19_at_2.34.06_PM.png?v=1684524109&amp;width=485\" style=\"display: block; margin-left: auto; margin-right: auto;\"><\/p>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "3198f047-cdb9-4f6e-be3b-92a133641226": {
+      "type": "custom-html",
+      "disabled": true,
+      "custom_css": [
+
+      ],
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "html": "<p style=\"text-align: center\">Write or copy\/paste HTML code<\/p>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "16946836810a068320": {
+      "type": "apps",
+      "blocks": {
+        "ad10e624-bb39-41fe-9b05-66937a00ec00": {
+          "type": "shopify:\/\/apps\/stamped-product-reviews-ugc\/blocks\/badge-double-image\/a103faaf-2125-4b0e-89fa-de5149736723",
+          "settings": {
+            "api_key": "",
+            "store_hash": "",
+            "label1": "",
+            "label2": "",
+            "width": "",
+            "height": ""
+          }
+        }
+      },
+      "block_order": [
+        "ad10e624-bb39-41fe-9b05-66937a00ec00"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "enable_review_integration": true,
+        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
+        "review_header_text_color": "#000000",
+        "review_button_background": "#000000",
+        "review_button_text_color": "#ffffff"
+      }
+    },
+    "17090573488f0a2dab": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_ugc_carousel_block_DbqmYK": {
+          "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/carousel-block\/06fa8282-42ff-403e-b67c-1936776aed11",
+          "disabled": true,
+          "settings": {
+            "publishId": "yez7z3wty3rpk"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_ugc_carousel_block_DbqmYK"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "enable_review_integration": true,
+        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
+        "review_header_text_color": "#000000",
+        "review_button_background": "#000000",
+        "review_button_text_color": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "95788dc6-8e1d-46f8-9619-d95ef700cf30",
+    "3198f047-cdb9-4f6e-be3b-92a133641226",
+    "16946836810a068320",
+    "17090573488f0a2dab"
+  ]
+}
