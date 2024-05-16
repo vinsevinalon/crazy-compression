@@ -1,115 +1,137 @@
 {% schema %}
-{
-  "name": "3 Columns Text",
-  "settings": [
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Color",
-      "default": "#FFFFFF"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#000000"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "column",
-      "name": "Column",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title"
-        },
-        {
-          "type": "text",
-          "id": "text",
-          "label": "Text"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "3 Column Text",
-      "category": "Custom",
-      "blocks": [
-        {
-          "type": "column"
-        },
-        {
-          "type": "column"
-        },
-        {
-          "type": "column"
-        }
-      ]
-    }
-  ]
-}
-{% endschema %}
-<style>
-  .three-column-text .swiper-container {
-    width: 100%;
+  {
+    "name": "3 Column Row",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#000000"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "column",
+        "name": "Column",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "3 Column Row",
+        "category": "Custom",
+        "blocks": [
+          {
+            "type": "column"
+          },
+          {
+            "type": "column"
+          },
+          {
+            "type": "column"
+          }
+        ]
+      }
+    ]
   }
-  .three-column-text .swiper-slide {
-    flex: 1;
-    width: 100%;
-  }
-  @media (min-width: 768px) {
-    .three-column-text .swiper-slide {
-      width: 30%;
-      margin-right: 1%;
-    }
-  }
-  .three-column-text .swiper-slide span {
-    display: block;
-  }
-</style>
-
-<section class="three-column-text">
-  <div class="page-width">
-    <div class="swiper-container" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }}">
-      <div class="swiper-wrapper">
+  {% endschema %}
+  
+  <section
+    class="three-column-row"
+    style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }}"
+  >
+    <div class="page-width">
+      <div class="column-wrapper">
         {% for block in section.blocks %}
-          <div class="swiper-slide">
-            {% if block.settings.title %}
-              <span>{{ block.settings.title }}</span>
-            {% endif %}
-            {% if block.settings.text %}
-              <span>{{ block.settings.text }}</span>
-            {% endif %}
+          <div class="column">
+            <div class="column-content">
+              {% if block.settings.title %}
+                <span class="column-title">{{ block.settings.title }}</span>
+              {% endif %}
+              {% if block.settings.text %}
+                <span class="column-text">{{ block.settings.text }}</span>
+              {% endif %}
+            </div>
           </div>
         {% endfor %}
       </div>
     </div>
-  </div>
-</section>
-
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    new Swiper('.three-column-text .swiper-container', {
-      slidesPerView: 'auto',
-      spaceBetween: 10,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-      },
+  </section>
+  
+  <style>
+    .three-column-row .column-wrapper {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+  
+    .three-column-row .column {
+      width: calc(33.33% - 20px);
+    }
+  
+    @media screen and (max-width: 767px) {
+      .three-column-row .column-wrapper {
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Hide scrollbar for Firefox */
+        -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+      }
+  
+      .three-column-row .column-wrapper::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+      }
+  
+      .three-column-row .column {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+      }
+    }
+  
+    .three-column-row .column-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .three-column-row .column-title {
+      font-weight: bold;
+    }
+  </style>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const columnWrapper = document.querySelector('.three-column-row .column-wrapper');
+      const columns = document.querySelectorAll('.three-column-row .column');
+      let currentColumnIndex = 0;
+  
+      function scrollToNextColumn() {
+        currentColumnIndex = (currentColumnIndex + 1) % columns.length;
+        columns[currentColumnIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      }
+  
+      if (window.innerWidth <= 767) {
+        setInterval(scrollToNextColumn, 3000);
+      }
     });
-  });
-</script>
+  </script>
+  
