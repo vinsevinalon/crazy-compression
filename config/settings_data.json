@@ -79,20 +79,8 @@
         "settings": {
         }
       },
-      "17940372039816912135": {
-        "type": "shopify:\/\/apps\/visually-on-site-optimization\/blocks\/visually\/d08aba15-0b89-475b-9f75-9c4c0ca8c3c4",
-        "disabled": false,
-        "settings": {
-        }
-      },
       "4705145147225299685": {
         "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/widget-block\/06fa8282-42ff-403e-b67c-1936776aed11",
-        "disabled": false,
-        "settings": {
-        }
-      },
-      "21474836472147483647": {
-        "type": "shopify:\/\/apps\/ecomposer-landing-page-builder\/blocks\/app-embed\/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
         "disabled": false,
         "settings": {
         }

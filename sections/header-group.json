@@ -144,22 +144,6 @@
     },
     "16946836810a068320": {
       "type": "apps",
-      "blocks": {
-        "ad10e624-bb39-41fe-9b05-66937a00ec00": {
-          "type": "shopify:\/\/apps\/stamped-product-reviews-ugc\/blocks\/badge-double-image\/a103faaf-2125-4b0e-89fa-de5149736723",
-          "settings": {
-            "api_key": "",
-            "store_hash": "",
-            "label1": "",
-            "label2": "",
-            "width": "",
-            "height": ""
-          }
-        }
-      },
-      "block_order": [
-        "ad10e624-bb39-41fe-9b05-66937a00ec00"
-      ],
       "disabled": true,
       "settings": {
         "full_width": true,

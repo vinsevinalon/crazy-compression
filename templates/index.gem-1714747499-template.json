@@ -397,33 +397,6 @@
     },
     "1680882322f20142eb": {
       "type": "apps",
-      "blocks": {
-        "a359b2ec-5507-4670-8bb1-3de1e0fb0b53": {
-          "type": "shopify:\/\/apps\/stamped-product-reviews-ugc\/blocks\/carousel\/a103faaf-2125-4b0e-89fa-de5149736723",
-          "settings": {
-            "title": "_____________________________________",
-            "auto_play": true,
-            "auto_play_speed": 3,
-            "take": 30,
-            "color_title": "",
-            "color_star": "#9940b1",
-            "color_text": "",
-            "color_link": "",
-            "review_ids": "",
-            "product_ids": "",
-            "category": "",
-            "product_brand": "",
-            "tags": "",
-            "min_rating": "none",
-            "fill_empty": false,
-            "random": false,
-            "with_photos": false
-          }
-        }
-      },
-      "block_order": [
-        "a359b2ec-5507-4670-8bb1-3de1e0fb0b53"
-      ],
       "settings": {
         "full_width": true,
         "remove_vertical_spacing": true,
