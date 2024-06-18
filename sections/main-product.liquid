@@ -39,6 +39,79 @@
   }
 </style>
 
+<div class="product-info-container">
+  <!-- Stamped - Start badge -->
+  <span class="stamped-product-reviews-badge__new stamped-main-badge" data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-product-type="{{ product.type }}">{{ product.metafields.stamped.badge }}</span>
+  <!-- Stamped - End badge -->
+  <div class="product-price">
+    {%- render 'price-list'
+      , variant: product.selected_or_first_available_variant
+      , form_id: product_form_id
+      , size: 'lg'
+      , block: block -%}
+  </div>
+  <div class="product-info__title-review">
+    {%- if request.page_type == 'product' -%}
+      <h1 class="product-info__title__new {{ block.settings.heading_tag }}" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+    {%- else -%}
+      <h2 class="product-info__title__new {{ block.settings.heading_tag }}" {{ block.shopify_attributes }}>
+        <a href="{{ product.url }}">{{ product.title }}</a>
+      </h2>
+    {%- endif -%}
+  </div>
+
+
+</div>
+
+<style>
+  .product-info-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 18px;
+    display: none;
+  }
+
+  .stamped-product-reviews-badge.stamped-main-badge {
+    display: block;
+    flex: 1 0 100%;
+    font-size: 14px;
+  }
+
+  .product-info__title-review {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 75%;
+  }
+
+  .product-info__title__new {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 20px;
+  }
+
+  .product-price {
+    display: flex;
+    flex: 1 0 25%;
+    font-size: 14px;
+    justify-content: flex-end;
+  }
+
+  @media (min-width: 768px) {
+    .product-info-container {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .product-info-container {
+      display: flex !important;
+    }
+  }
+</style>
+
+
+
+
 <div {% render 'section-properties', tight: true %}>
   <div class="product">
     {%- if product.media.size > 0 -%}
