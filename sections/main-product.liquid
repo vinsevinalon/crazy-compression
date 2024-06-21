@@ -58,12 +58,14 @@
         <a href="{{ product.url }}">{{ product.title }}</a>
       </h2>
     {%- endif -%}
-  </div>
-
-
+</div>
 </div>
 
 <style>
+  .stamped-starrating > .stamped-fa-star::before {
+    color: #ffa41c !important;
+  }
+
   .product-info-container {
     display: flex;
     flex-wrap: wrap;
