@@ -1,7 +1,7 @@
 <div class="sm:container">
   <div class="customer-form">
     {%- if section.settings.image != blank -%}
-      {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'lazy', sizes: '50vw', widths: '300,400,500,600,700,800,1000,1200,1400', class: 'customer-form__image rounded' -}}
+      {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: sizes: '50vw', widths: '300,400,500,600,700,800,1000,1200,1400', class: 'customer-form__image rounded' -}}
     {%- endif -%}
 
     <div {% render 'surface', class: 'customer-form__box', background_gradient: section.settings.background_gradient, background: section.settings.background, text_color: section.settings.text_color, background_fallback: 'bg-secondary' %}>
@@ -28,8 +28,6 @@
                 {%- when 'fields' -%}
                   <div {{ block.shopify_attributes }}>
                     {%- form 'create_customer', class: 'form' -%}
-                      <input type="hidden" name="return_to" value="{{ block.settings.return_to | default: routes.account_url }}">
-
                       <div class="fieldset">
                         {%- if form.errors -%}
                           {%- assign form_errors = form.errors | default_errors -%}
@@ -141,12 +139,6 @@
           "id": "show_email_consent",
           "label": "Show email consent",
           "default": false
-        },
-        {
-          "type": "url",
-          "id": "return_to",
-          "label": "Redirect upon registration",
-          "info": "Default to customer account page."
         }
       ]
     },

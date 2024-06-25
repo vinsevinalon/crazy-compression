@@ -38,8 +38,7 @@
           "settings": {
             "option_name": "Color",
             "option_value_metafield": "{{ product.metafields.custom.product_value_fairy_tale.value }}",
-            "products": "{{ product.metafields.custom.product_variation_fairy_tale.value }}",
-            "color_mode": "variant"
+            "products": "{{ product.metafields.custom.product_variation_fairy_tale.value }}"
           }
         },
         "variant_picker": {
@@ -47,8 +46,6 @@
           "settings": {
             "hide_sold_out_variants": false,
             "stack_blocks": true,
-            "selector_mode": "block",
-            "color_mode": "block",
             "size_chart_page": "sizing-guide"
           }
         },
@@ -282,35 +279,13 @@
     },
     "1680883393461ba659": {
       "type": "apps",
-      "blocks": {
-        "7eb3fbe2-2214-494a-99dc-28c74be47fa4": {
-          "type": "shopify:\/\/apps\/stamped-product-reviews-ugc\/blocks\/main-widget\/a103faaf-2125-4b0e-89fa-de5149736723",
-          "settings": {
-            "animation": true,
-            "tags_exclude": "",
-            "tags_include": "",
-            "search": "",
-            "linkify": true,
-            "use_metafields": false,
-            "sku_tagtype": "sku"
-          }
-        }
-      },
-      "block_order": [
-        "7eb3fbe2-2214-494a-99dc-28c74be47fa4"
-      ],
       "settings": {
         "full_width": true,
         "remove_vertical_spacing": false,
         "remove_horizontal_spacing": false,
         "background": "",
         "background_gradient": "",
-        "text_color": "",
-        "enable_review_integration": true,
-        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
-        "review_header_text_color": "#000000",
-        "review_button_background": "#000000",
-        "review_button_text_color": "#ffffff"
+        "text_color": ""
       }
     },
     "1681455389bf7356e9": {
@@ -321,12 +296,7 @@
         "remove_horizontal_spacing": false,
         "background": "#ffffff",
         "background_gradient": "",
-        "text_color": "",
-        "enable_review_integration": true,
-        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
-        "review_header_text_color": "#000000",
-        "review_button_background": "#000000",
-        "review_button_text_color": "#ffffff"
+        "text_color": ""
       }
     }
   },

@@ -29,9 +29,9 @@
 
     <div class="scrolling-text {% if section.settings.scrolling_mode == 'scroll' %}scrolling-text--scroll{% else %}scrolling-text--auto{% endif %}">
       {%- if section.settings.scrolling_mode == 'scroll' -%}
-        <visibility-progress class="scrolling-text__wrapper">
+        <scrolling-text class="scrolling-text__wrapper">
           {{- section_content -}}
-        </visibility-progress>
+        </scrolling-text>
        {%- else -%}
          <marquee-text scrolling-speed="{{ section.settings.scrolling_speed }}" class="scrolling-text__wrapper">
            {{- section_content -}}

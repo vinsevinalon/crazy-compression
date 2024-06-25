@@ -95,14 +95,43 @@
       </svg>
 
     {%- when 'cart' -%}
-      <svg role="presentation" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 22 }}" height="{{ height | default: 22 }}" class="{{ class | strip }}" viewBox="0 0 22 22">
-        <path d="M11 7H3.577A2 2 0 0 0 1.64 9.497l2.051 8A2 2 0 0 0 5.63 19H16.37a2 2 0 0 0 1.937-1.503l2.052-8A2 2 0 0 0 18.422 7H11Zm0 0V1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
+      {%- case settings.cart_icon -%}
+        {%- when 'shopping_basket' -%}
+          <svg role="presentation" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 22 }}" height="{{ height | default: 22 }}" class="{{ class | strip }}" viewBox="0 0 22 22">
+            <path d="M11 7H3.577A2 2 0 0 0 1.64 9.497l2.051 8A2 2 0 0 0 5.63 19H16.37a2 2 0 0 0 1.937-1.503l2.052-8A2 2 0 0 0 18.422 7H11Zm0 0V1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+
+        {%- when 'tote_bag' -%}
+          <svg role="presentation" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 22 }}" height="{{ height | default: 22 }}" class="{{ class | strip }}" viewBox="0 0 22 22">
+            <path d="M14.666 7.333a3.666 3.666 0 1 1-7.333 0M3.33 6.785l-.642 7.7c-.137 1.654-.206 2.48.073 3.119a2.75 2.75 0 0 0 1.21 1.314c.612.332 1.442.332 3.102.332h7.853c1.66 0 2.49 0 3.103-.332a2.75 2.75 0 0 0 1.21-1.314c.279-.638.21-1.465.072-3.12l-.642-7.7c-.118-1.423-.178-2.134-.493-2.673A2.75 2.75 0 0 0 16.99 3.02c-.563-.269-1.277-.269-2.705-.269h-6.57c-1.428 0-2.142 0-2.705.27A2.75 2.75 0 0 0 3.823 4.11c-.315.539-.374 1.25-.493 2.674Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+
+        {%- when 'shopping_cart' -%}
+          <svg role="presentation" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 22 }}" height="{{ height | default: 22 }}" class="{{ class | strip }}" viewBox="0 0 22 22">
+            <path d="M9.182 18.454a.91.91 0 1 1-1.818 0 .91.91 0 0 1 1.818 0Zm7.272 0a.91.91 0 1 1-1.818 0 .91.91 0 0 1 1.819 0Z" fill="currentColor"></path>
+            <path d="M5.336 6.636H21l-3.636 8.182H6.909L4.636 3H1m8.182 15.454a.91.91 0 1 1-1.818 0 .91.91 0 0 1 1.818 0Zm7.272 0a.91.91 0 1 1-1.818 0 .91.91 0 0 1 1.819 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+      {%- endcase -%}
 
     {%- when 'quick-buy-cart' -%}
-      <svg role="presentation" fill="none" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 16 }}" height="{{ height | default: 14 }}" class="{{ class | strip }}" viewBox="0 0 16 14">
-        <path d="M7.75 4.75H2.283a1 1 0 0 0-.97 1.244l1.574 6.25a1 1 0 0 0 .97.756h7.787a1 1 0 0 0 .97-.756l1.573-6.25a1 1 0 0 0-.97-1.244H7.75Zm0 0V1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
+      {%- case settings.cart_icon -%}
+        {%- when 'shopping_basket' -%}
+          <svg role="presentation" fill="none" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 16 }}" height="{{ height | default: 14 }}" class="{{ class | strip }}" viewBox="0 0 16 14">
+            <path d="M7.75 4.75H2.283a1 1 0 0 0-.97 1.244l1.574 6.25a1 1 0 0 0 .97.756h7.787a1 1 0 0 0 .97-.756l1.573-6.25a1 1 0 0 0-.97-1.244H7.75Zm0 0V1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+
+        {%- when 'tote_bag' -%}
+          <svg role="presentation" fill="none" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 15 }}" height="{{ height | default: 14 }}" class="{{ class | strip }}" viewBox="0 0 15 14">
+            <path d="M9.752 4.36a2.61 2.61 0 1 1-5.218 0m-2.85-.39-.456 5.48c-.098 1.177-.147 1.765.052 2.22.175.398.478.727.86.935.437.236 1.027.236 2.209.236h5.588c1.181 0 1.772 0 2.208-.236.383-.208.686-.537.86-.936.2-.454.15-1.042.052-2.22l-.456-5.48c-.085-1.012-.127-1.518-.351-1.902a1.957 1.957 0 0 0-.845-.777c-.4-.191-.908-.191-1.925-.191H4.805c-1.016 0-1.524 0-1.925.191-.353.17-.647.44-.844.777-.224.384-.267.89-.351 1.903Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+        {%- when 'shopping_cart' -%}
+          <svg role="presentation" fill="none" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 16 }}" height="{{ height | default: 15 }}" class="{{ class | strip }}" viewBox="0 0 16 15">
+            <path d="M4.5 3.545H15l-2.546 5.728H5.136L3.546 1H1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="5.955" cy="12.682" r=".5" fill="#252627" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="11.5" cy="12.682" r=".5" fill="#252627" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+      {%- endcase -%}
 
     {%- when 'circle-button-left-clipped' -%}
       <svg role="presentation" focusable="false" width="{{ width | default: 24 }}" height="{{ height | default: 24 }}" class="{{ class | strip }}" viewBox="0 0 24 24">
@@ -545,7 +574,12 @@
 
     {%- when 'twitter' -%}
       <svg role="presentation" focusable="false" width="{{ width | default: 27 }}" height="{{ height | default: 27 }}" class="{{ class | strip }}" viewBox="0 0 24 24">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.414 4.96c1.506-.024 2.307.479 3.072 1.117.65-.05 1.495-.383 1.992-.614l.484-.242c-.285.702-.67 1.253-1.262 1.67-.131.093-.262.218-.426.277v.009c.843-.008 1.539-.357 2.2-.546v.01a5.934 5.934 0 0 1-1.318 1.384l-.607.442c.01.817-.014 1.598-.18 2.285-.971 3.995-3.544 6.707-7.616 7.868-1.462.418-3.825.59-5.5.208-.83-.188-1.581-.402-2.285-.684a9.54 9.54 0 0 1-1.1-.519l-.342-.19c.378.01.82.105 1.243.043.382-.056.757-.042 1.11-.113.879-.176 1.66-.41 2.332-.77.326-.175.82-.38 1.053-.632a3.59 3.59 0 0 1-1.157-.19c-1.258-.407-1.99-1.154-2.466-2.277.381.038 1.479.129 1.735-.07-.48-.023-.94-.278-1.27-.467-1.012-.58-1.837-1.551-1.83-3.047l.398.173c.254.098.512.15.815.208.128.024.384.093.531.043h-.019c-.195-.208-.514-.347-.71-.571-.65-.739-1.258-1.875-.873-3.229.097-.343.252-.646.417-.926l.019.009c.076.144.244.25.35.372.332.376.741.714 1.158 1.013 1.42 1.016 2.698 1.64 4.75 2.103.522.117 1.124.207 1.746.208-.175-.466-.119-1.22.019-1.67.346-1.134 1.097-1.952 2.2-2.39.263-.105.556-.18.863-.242l.474-.052Z" fill="currentColor"/>
+        <path d="M16.94 4h2.715l-5.93 6.777L20.7 20h-5.462l-4.278-5.593L6.065 20H3.35l6.342-7.25L3 4h5.6l3.868 5.113L16.94 4Zm-.952 14.375h1.504L7.784 5.54H6.17l9.818 12.836Z" fill="currentColor"/>
+      </svg>
+
+    {%- when 'threads' -%}
+      <svg role="presentation" focusable="false" width="{{ width | default: 27 }}" height="{{ height | default: 27 }}" class="{{ class | strip }}" viewBox="0 0 24 24">
+        <path d="M16.854 10.899a6.682 6.682 0 0 0-.252-.114c-.148-2.731-1.64-4.295-4.146-4.31h-.034c-1.498 0-2.745.64-3.512 1.803l1.378.945c.573-.87 1.473-1.055 2.135-1.055h.023c.825.006 1.447.246 1.85.713.293.34.49.812.587 1.405a10.541 10.541 0 0 0-2.368-.114C10.131 10.31 8.6 11.7 8.704 13.63c.052.98.54 1.822 1.373 2.372.705.465 1.613.693 2.556.641 1.246-.068 2.223-.543 2.905-1.412.518-.66.845-1.516.99-2.593.594.358 1.034.83 1.277 1.396.413.964.437 2.547-.855 3.838-1.132 1.13-2.492 1.62-4.549 1.635-2.28-.017-4.006-.748-5.127-2.174-1.05-1.335-1.593-3.264-1.613-5.732.02-2.468.563-4.397 1.613-5.732C8.395 4.442 10.12 3.711 12.4 3.694c2.298.017 4.053.752 5.217 2.185.571.702 1.002 1.586 1.286 2.616l1.614-.43c-.344-1.269-.885-2.361-1.622-3.268C17.404 2.961 15.22 2.02 12.406 2h-.01c-2.808.02-4.967.964-6.417 2.808C4.689 6.448 4.022 8.732 4 11.593v.014c.022 2.861.688 5.144 1.979 6.785 1.45 1.844 3.61 2.789 6.417 2.808h.01c2.497-.017 4.256-.67 5.706-2.119 1.896-1.894 1.839-4.27 1.214-5.727-.448-1.045-1.303-1.894-2.472-2.455Zm-4.31 4.052c-1.044.058-2.129-.41-2.182-1.414-.04-.744.53-1.574 2.246-1.673a9.52 9.52 0 0 1 .58-.017c.623 0 1.206.06 1.736.176-.198 2.47-1.358 2.872-2.38 2.928Z" fill="currentColor" />
       </svg>
 
     {%- when 'fancy' -%}
@@ -601,6 +635,11 @@
     {%- when 'spotify' -%}
       <svg role="presentation" focusable="false" width="{{ width | default: 27 }}" height="{{ height | default: 27 }}" class="{{ class | strip }}" viewBox="0 0 24 24">
         <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2Zm4.586 14.423a.623.623 0 0 1-.857.206c-2.348-1.434-5.304-1.759-8.785-.964a.623.623 0 0 1-.277-1.215c3.809-.87 7.076-.496 9.712 1.115.294.18.387.564.207.858ZM17.81 13.7a.78.78 0 0 1-1.072.257c-2.688-1.652-6.786-2.13-9.965-1.166A.78.78 0 0 1 6.32 11.3c3.631-1.102 8.146-.568 11.233 1.329a.78.78 0 0 1 .257 1.072Zm.105-2.836c-3.223-1.914-8.54-2.09-11.618-1.156a.935.935 0 1 1-.543-1.79c3.533-1.072 9.405-.865 13.116 1.338a.934.934 0 1 1-.955 1.608Z" fill="currentColor"/>
+      </svg>
+
+    {%- when 'whatsapp' -%}
+      <svg role="presentation" focusable="false" width="{{ width | default: 27 }}" height="{{ height | default: 27 }}" class="{{ class | strip }}" viewBox="0 0 24 24">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M19.354 4.552a10.336 10.336 0 0 0-7.36-3.052C6.257 1.5 1.588 6.168 1.586 11.905a10.383 10.383 0 0 0 1.39 5.202L1.5 22.5l5.516-1.447c1.52.83 3.232 1.266 4.973 1.266h.004c5.736 0 10.404-4.668 10.406-10.405a10.342 10.342 0 0 0-3.045-7.362Zm-7.36 16.01h-.004a8.639 8.639 0 0 1-4.402-1.205l-.316-.188-3.274.859.874-3.192-.206-.327a8.626 8.626 0 0 1-1.322-4.603c.002-4.769 3.882-8.649 8.653-8.649a8.59 8.59 0 0 1 6.115 2.537 8.596 8.596 0 0 1 2.53 6.119c-.002 4.769-3.881 8.649-8.649 8.649Zm4.744-6.477c-.26-.13-1.539-.76-1.777-.846-.239-.087-.412-.13-.585.13s-.672.846-.823 1.02c-.152.173-.304.195-.564.064-.26-.13-1.097-.404-2.09-1.29-.773-.69-1.295-1.54-1.447-1.801-.152-.26-.016-.401.114-.53.116-.117.26-.304.39-.456.13-.152.173-.26.26-.434.087-.173.043-.325-.022-.455s-.584-1.41-.802-1.93c-.21-.508-.425-.439-.584-.447a10.498 10.498 0 0 0-.499-.01.955.955 0 0 0-.693.326c-.239.26-.91.89-.91 2.169 0 1.28.931 2.516 1.061 2.69.13.174 1.834 2.8 4.442 3.926.62.268 1.105.428 1.482.548.623.198 1.19.17 1.638.103.5-.074 1.538-.629 1.755-1.236.216-.607.216-1.128.151-1.236-.064-.109-.238-.174-.498-.304v-.001Z" fill="currentColor" />
       </svg>
 
     {%- when '21buttons' -%}

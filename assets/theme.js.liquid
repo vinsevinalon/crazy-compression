@@ -22,14 +22,6 @@ var __privateSet = (obj, member, value, setter) => {
   setter ? setter.call(obj, value) : member.set(obj, value);
   return value;
 };
-var __privateWrapper = (obj, member, setter, getter) => ({
-  set _(value) {
-    __privateSet(obj, member, value, setter);
-  },
-  get _() {
-    return __privateGet(obj, member, getter);
-  }
-});
 var __privateMethod = (obj, member, method) => {
   __accessCheck(obj, member, "access private method");
   return method;
@@ -45,7 +37,7 @@ var CountrySelector = class extends HTMLElement {
     this.countryElement = this.querySelector('[name="address[country]"]');
     this.provinceElement = this.querySelector('[name="address[province]"]');
     this.countryElement.addEventListener("change", this._onCountryChangedListener);
-    if (this.getAttribute("country") !== "") {
+    if (this.hasAttribute("country") && this.getAttribute("country") !== "") {
       this.countryElement.selectedIndex = Math.max(0, Array.from(this.countryElement.options).findIndex((option) => option.textContent === this.getAttribute("country")));
       this.countryElement.dispatchEvent(new Event("change"));
     } else {
@@ -117,6 +109,9 @@ function formatMoney(cents, format = "") {
       break;
     case "amount_no_decimals_with_apostrophe_separator":
       value = formatWithDelimiters(cents, 0, "'");
+      break;
+    default:
+      value = formatWithDelimiters(cents, 2);
       break;
   }
   if (formatString.indexOf("with_comma_separator") !== -1) {
@@ -206,10 +201,16 @@ var Player = class extends EventTarget {
     __privateAdd(this, _state, "paused");
     __privateAdd(this, _onVisibilityChangeListener, __privateMethod(this, _onVisibilityChange, onVisibilityChange_fn).bind(this));
     __privateSet(this, _callback, () => this.dispatchEvent(new CustomEvent("player:end")));
-    __privateSet(this, _duration, __privateSet(this, _remainingTime, durationInSec * 1e3));
+    this.setDuration(durationInSec);
     if (stopOnVisibility) {
       document.addEventListener("visibilitychange", __privateGet(this, _onVisibilityChangeListener));
     }
+  }
+  getDuration() {
+    return __privateGet(this, _duration) / 1e3;
+  }
+  setDuration(durationInSec) {
+    __privateSet(this, _duration, __privateSet(this, _remainingTime, durationInSec * 1e3));
   }
   pause() {
     if (__privateGet(this, _state) !== "started") {
@@ -218,7 +219,7 @@ var Player = class extends EventTarget {
     clearTimeout(__privateGet(this, _timer));
     __privateSet(this, _state, "paused");
     __privateSet(this, _remainingTime, __privateGet(this, _remainingTime) - ((/* @__PURE__ */ new Date()).getTime() - __privateGet(this, _startTime)));
-    this.dispatchEvent(new CustomEvent("player:pause"));
+    this.dispatchEvent(new CustomEvent("player:pause", { detail: { duration: __privateGet(this, _duration) / 1e3, remainingTime: __privateGet(this, _remainingTime) / 1e3 } }));
   }
   resume(restartTimer = false) {
     if (__privateGet(this, _state) !== "stopped") {
@@ -229,7 +230,7 @@ var Player = class extends EventTarget {
         __privateSet(this, _startTime, (/* @__PURE__ */ new Date()).getTime());
         __privateSet(this, _state, "started");
         __privateSet(this, _timer, setTimeout(__privateGet(this, _callback), __privateGet(this, _remainingTime)));
-        this.dispatchEvent(new CustomEvent("player:resume"));
+        this.dispatchEvent(new CustomEvent("player:resume", { detail: { duration: __privateGet(this, _duration) / 1e3, remainingTime: __privateGet(this, _remainingTime) / 1e3 } }));
       }
     }
   }
@@ -239,7 +240,7 @@ var Player = class extends EventTarget {
     __privateSet(this, _state, "started");
     __privateSet(this, _remainingTime, __privateGet(this, _duration));
     __privateSet(this, _timer, setTimeout(__privateGet(this, _callback), __privateGet(this, _remainingTime)));
-    this.dispatchEvent(new CustomEvent("player:start"));
+    this.dispatchEvent(new CustomEvent("player:start", { detail: { duration: __privateGet(this, _duration) / 1e3, remainingTime: __privateGet(this, _remainingTime) / 1e3 } }));
   }
   stop() {
     clearTimeout(__privateGet(this, _timer));
@@ -303,9 +304,10 @@ var PageDots = class extends HTMLElement {
   }
   select(selectedIndex, dispatchEvent = true) {
     if (this.hasAttribute("align-selected")) {
-      this.scrollTo({
-        left: this.items[selectedIndex].offsetLeft - this.clientWidth / 2 + this.items[selectedIndex].clientWidth / 2,
-        top: this.items[selectedIndex].offsetTop - this.clientHeight / 2 - this.items[selectedIndex].clientHeight / 2,
+      const scrollElement = this.getAttribute("align-selected") !== "" ? this.closest(this.getAttribute("align-selected")) : this;
+      scrollElement.scrollTo({
+        left: this.items[selectedIndex].offsetLeft - scrollElement.clientWidth / 2 + this.items[selectedIndex].clientWidth / 2,
+        top: this.items[selectedIndex].offsetTop - scrollElement.clientHeight / 2 - this.items[selectedIndex].clientHeight / 2,
         behavior: window.matchMedia("(prefers-reduced-motion: no-preference)").matches ? "smooth" : "auto"
       });
     }
@@ -755,7 +757,7 @@ var ScrollArea = class {
     this._allowTriggerLeavingStartEvent = true;
     this._allowTriggerNearingEndEvent = true;
     this._allowTriggerLeavingEndEvent = false;
-    new ResizeObserver(throttle(this._checkIfScrollable.bind(this))).observe(element);
+    new ResizeObserver(this._checkIfScrollable.bind(this)).observe(element);
     this._element.addEventListener("scroll", throttle(this._onScroll.bind(this)), { signal: abortController2?.signal });
   }
   get scrollNearingThreshold() {
@@ -764,7 +766,7 @@ var ScrollArea = class {
   get scrollDirection() {
     if (this._element.scrollWidth > this._element.clientWidth) {
       return "inline";
-    } else if (this._element.scrollHeight > this._element.clientHeight) {
+    } else if (this._element.scrollHeight - this._element.clientHeight > 1) {
       return "block";
     } else {
       return "none";
@@ -896,7 +898,7 @@ var Updater = class {
       return;
     }
     const maxSize = style.getPropertyValue("--scroll-shadow-size") ? parseInt(style.getPropertyValue("--scroll-shadow-size")) : 0;
-    const scroll2 = {
+    const scroll = {
       top: Math.max(this.element.scrollTop, 0),
       bottom: Math.max(this.element.scrollHeight - this.element.offsetHeight - this.element.scrollTop, 0),
       left: Math.max(this.element.scrollLeft, 0),
@@ -906,7 +908,7 @@ var Updater = class {
       for (const position of ["top", "bottom", "left", "right"]) {
         targetElement.style.setProperty(
           `--${position}`,
-          `${scroll2[position] > maxSize ? maxSize : scroll2[position]}px`
+          `${scroll[position] > maxSize ? maxSize : scroll[position]}px`
         );
       }
     });
@@ -988,22 +990,6 @@ if (!window.customElements.get("split-lines")) {
   window.customElements.define("split-lines", SplitLines);
 }
 
-// js/common/behavior/visibility-progress.js
-import { scroll } from "{{ 'vendor.min.js' | asset_url }}";
-var VisibilityProgress = class extends HTMLElement {
-  connectedCallback() {
-    scroll((info) => {
-      this.style.setProperty("--visibility-progress", info.y.progress);
-    }, {
-      target: this,
-      offset: ["start end", "end start"]
-    });
-  }
-};
-if (!window.customElements.get("visibility-progress")) {
-  window.customElements.define("visibility-progress", VisibilityProgress);
-}
-
 // js/common/carousel/effect-carousel.js
 import { timeline as timeline3, inView as inView3 } from "{{ 'vendor.min.js' | asset_url }}";
 
@@ -1013,7 +999,7 @@ var BaseCarousel = class extends HTMLElement {
     this._abortController = new AbortController();
     this._reloaded = false;
     if (Shopify.designMode) {
-      this.closest(".shopify-section").addEventListener("shopify:section:select", (event) => this._reloaded = event.detail.load);
+      this.closest(".shopify-section")?.addEventListener("shopify:section:select", (event) => this._reloaded = event.detail.load);
     }
     if (this.items.length > 1) {
       if (Shopify.designMode) {
@@ -1030,6 +1016,7 @@ var BaseCarousel = class extends HTMLElement {
       this.addEventListener("control:select", (event) => this.select(event.detail.index), { signal: this._abortController.signal });
     }
     if (this.selectedIndex === 0) {
+      this.selectedSlide.classList.add("is-selected");
       this._dispatchEvent("carousel:select", 0);
     } else {
       this.select(this.selectedIndex, { animate: false, force: true });
@@ -1085,7 +1072,7 @@ var BaseCarousel = class extends HTMLElement {
   _preloadImages() {
     [this.previousSlide, this.nextSlide].forEach((item) => {
       if (item) {
-        Array.from(item.querySelectorAll('img[loading="lazy"]')).forEach((img) => img.setAttribute("loading", "eager"));
+        Array.from(item.querySelectorAll('img[loading="lazy"]')).forEach((img) => img.removeAttribute("loading"));
       }
     });
   }
@@ -1097,21 +1084,21 @@ var BaseCarousel = class extends HTMLElement {
 // js/common/carousel/effect-carousel.js
 var EffectCarousel = class extends BaseCarousel {
   connectedCallback() {
+    if (this.items.length > 1 && this.hasAttribute("autoplay")) {
+      this._player = new Player(this.getAttribute("autoplay"));
+      this._player.addEventListener("player:end", this.next.bind(this));
+      inView3(this, () => this._player.resume(true));
+      if (Shopify.designMode) {
+        this.addEventListener("shopify:block:select", () => this._player.stop());
+        this.addEventListener("shopify:block:deselect", () => this._player.start());
+      }
+    }
     super.connectedCallback();
     if (this.items.length > 1) {
       if (this.swipeable) {
         new GestureArea(this, { signal: this._abortController.signal });
         this.addEventListener("swipeleft", this.next, { signal: this._abortController.signal });
         this.addEventListener("swiperight", this.previous, { signal: this._abortController.signal });
-      }
-      if (this.hasAttribute("autoplay")) {
-        this._player = new Player(this.getAttribute("autoplay"));
-        this._player.addEventListener("player:end", this.next.bind(this));
-        inView3(this, () => this._player.resume(true));
-        if (Shopify.designMode) {
-          this.addEventListener("shopify:block:select", () => this._player.stop(), { signal: this._abortController.signal });
-          this.addEventListener("shopify:block:deselect", () => this._player.start(), { signal: this._abortController.signal });
-        }
       }
     }
   }
@@ -1235,6 +1222,8 @@ var ScrollCarousel = class extends BaseCarousel {
    * On the scroll has settled we dispatch the event (which covers both programmatic scroll and swipe)
    */
   _onScrollSettled() {
+    this.items.forEach((item) => item.classList.remove("is-selected"));
+    this.selectedSlide.classList.add("is-selected");
     this._hasPendingProgrammaticScroll = false;
     this._dispatchEvent("carousel:settle", this.selectedIndex);
   }
@@ -1320,18 +1309,18 @@ import { animate as animate4 } from "{{ 'vendor.min.js' | asset_url }}";
 
 // js/common/overlay/dialog-element.js
 import { FocusTrap, Delegate } from "{{ 'vendor.min.js' | asset_url }}";
-var _lockLayerCount, _isLocked;
-var _DialogElement = class extends HTMLElement {
+var DialogElement = class _DialogElement extends HTMLElement {
+  static get observedAttributes() {
+    return ["id", "open"];
+  }
+  static #lockLayerCount = 0;
+  #isLocked = false;
   constructor() {
     super();
-    __privateAdd(this, _isLocked, false);
     this.addEventListener("dialog:force-close", (event) => {
       this.hide();
       event.stopPropagation();
     });
-  }
-  static get observedAttributes() {
-    return ["id", "open"];
   }
   connectedCallback() {
     if (this.id) {
@@ -1356,9 +1345,9 @@ var _DialogElement = class extends HTMLElement {
     this._abortController.abort();
     this.delegate.off();
     this.focusTrap?.deactivate({ onDeactivate: false });
-    if (__privateGet(this, _isLocked)) {
-      __privateSet(this, _isLocked, false);
-      document.documentElement.classList.toggle("lock", --__privateWrapper(_DialogElement, _lockLayerCount)._ > 0);
+    if (this.#isLocked) {
+      this.#isLocked = false;
+      document.documentElement.classList.toggle("lock", --_DialogElement.#lockLayerCount > 0);
     }
   }
   show(animate11 = true) {
@@ -1439,8 +1428,8 @@ var _DialogElement = class extends HTMLElement {
             });
           }
           if (this.shouldLock) {
-            __privateSet(_DialogElement, _lockLayerCount, __privateGet(_DialogElement, _lockLayerCount) + 1);
-            __privateSet(this, _isLocked, true);
+            _DialogElement.#lockLayerCount += 1;
+            this.#isLocked = true;
             document.documentElement.classList.add("lock");
           }
         } else if (oldValue !== null && newValue === null) {
@@ -1457,8 +1446,8 @@ var _DialogElement = class extends HTMLElement {
             checkCanReturnFocus: () => hideTransitionPromise
           });
           if (this.shouldLock) {
-            __privateSet(this, _isLocked, false);
-            document.documentElement.classList.toggle("lock", --__privateWrapper(_DialogElement, _lockLayerCount)._ > 0);
+            this.#isLocked = false;
+            document.documentElement.classList.toggle("lock", --_DialogElement.#lockLayerCount > 0);
           }
         }
         this.dispatchEvent(new CustomEvent("toggle", { bubbles: true }));
@@ -1505,10 +1494,6 @@ var _DialogElement = class extends HTMLElement {
     this.open ? this.hide() : this.show();
   }
 };
-var DialogElement = _DialogElement;
-_lockLayerCount = new WeakMap();
-_isLocked = new WeakMap();
-__privateAdd(DialogElement, _lockLayerCount, 0);
 var CloseButton = class extends HTMLButtonElement {
   constructor() {
     super();
@@ -1553,18 +1538,18 @@ var Drawer = class extends DialogElement {
   _getClipPathProperties() {
     switch (this.openFrom) {
       case "left":
-        return document.dir === "ltr" ? ["inset(0 100% 0 0 round 8px)", "inset(0 0 0 0 round 8px"] : ["inset(0 0 0 100% round 8px)", "inset(0 0 0 0 round 8px"];
+        return document.dir === "ltr" ? ["inset(0 100% 0 0 round var(--rounded-sm))", "inset(0 0 0 0 round var(--rounded-sm))"] : ["inset(0 0 0 100% round var(--rounded-sm))", "inset(0 0 0 0 round var(--rounded-sm))"];
       case "right":
-        return document.dir === "ltr" ? ["inset(0 0 0 100% round 8px)", "inset(0 0 0 0 round 8px"] : ["inset(0 100% 0 0 round 8px)", "inset(0 0 0 0 round 8px"];
+        return document.dir === "ltr" ? ["inset(0 0 0 100% round var(--rounded-sm))", "inset(0 0 0 0 round var(--rounded-sm)"] : ["inset(0 100% 0 0 round var(--rounded-sm))", "inset(0 0 0 0 round var(--rounded-sm))"];
       case "bottom":
-        return ["inset(100% 0 0 0 round 8px)", "inset(0 0 0 0 round 8px"];
+        return ["inset(100% 0 0 0 round var(--rounded-sm))", "inset(0 0 0 0 round var(--rounded-sm))"];
       case "top":
-        return ["inset(0 0 100% 0 round 8px)", "inset(0 0 0 0 round 8px"];
+        return ["inset(0 0 100% 0 round var(--rounded-sm))", "inset(0 0 0 0 round var(--rounded-sm))"];
     }
   }
   _setInitialPosition() {
-    this.style.left = document.dir === "ltr" && this.openFrom === "left" || document.dir === "rtl" && this.openFrom === "right" ? "0px" : null;
-    this.style.right = this.style.left === "" ? "0px" : null;
+    this.style.left = document.dir === "ltr" && this.openFrom === "left" || document.dir === "rtl" && this.openFrom === "right" ? "0px" : "auto";
+    this.style.right = this.style.left === "auto" ? "0px" : "auto";
     this.style.bottom = this.openFrom === "bottom" ? "0px" : null;
     this.style.top = this.style.bottom === "" ? "0px" : null;
   }
@@ -1727,15 +1712,15 @@ var PrivacyBar = class extends HTMLElement {
     this.hidden = true;
   }
   _onConsentLibraryLoaded() {
-    if (window.Shopify.customerPrivacy.shouldShowGDPRBanner()) {
+    if (window.Shopify.customerPrivacy?.shouldShowBanner()) {
       this.show();
     }
   }
   _acceptPolicy() {
-    window.Shopify.customerPrivacy.setTrackingConsent(true, this.hide.bind(this));
+    window.Shopify.customerPrivacy?.setTrackingConsent(true, this.hide.bind(this));
   }
   _declinePolicy() {
-    window.Shopify.customerPrivacy.setTrackingConsent(false, this.hide.bind(this));
+    window.Shopify.customerPrivacy?.setTrackingConsent(false, this.hide.bind(this));
   }
 };
 if (!window.customElements.get("privacy-bar")) {
@@ -1781,12 +1766,12 @@ var CartDrawer = class extends Drawer {
   async _onCartChanged(event) {
     const updatedDrawerContent = new DOMParser().parseFromString(event.detail.cart["sections"][extractSectionId(this)], "text/html");
     if (event.detail.cart["item_count"] > 0) {
-      const currentLineItemsElement = this.querySelector(".cart-drawer__line-items"), updatedLineItemsElement = updatedDrawerContent.querySelector(".cart-drawer__line-items");
-      if (!currentLineItemsElement) {
+      const currentInner = this.querySelector(".cart-drawer__inner"), updatedInner = updatedDrawerContent.querySelector(".cart-drawer__inner");
+      if (!currentInner) {
         this.replaceChildren(document.createRange().createContextualFragment(updatedDrawerContent.querySelector(".cart-drawer").innerHTML));
       } else {
         setTimeout(() => {
-          currentLineItemsElement.innerHTML = updatedLineItemsElement.innerHTML;
+          currentInner.innerHTML = updatedInner.innerHTML;
         }, event.detail.baseEvent === "variant:add" ? 0 : 1250);
         this.querySelector('[slot="footer"]').replaceChildren(...updatedDrawerContent.querySelector('[slot="footer"]').childNodes);
       }
@@ -1819,7 +1804,7 @@ var CartDrawer = class extends Drawer {
    */
   async _onCartRefresh() {
     const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = await (await fetch(`${window.Shopify.routes.root}?section_id=cart-drawer`)).text();
+    tempDiv.innerHTML = await (await fetch(`${window.Shopify.routes.root}?section_id=${extractSectionId(this)}`)).text();
     this.replaceChildren(...tempDiv.querySelector("#cart-drawer").children);
   }
 };
@@ -2095,7 +2080,7 @@ var ShippingEstimator = class extends HTMLElement {
     this.resultsElement.innerHTML = `
       <div class="v-stack gap-2">
         <p>${shippingRates.length === 0 ? window.themeVariables.strings.shippingEstimatorNoResults : shippingRates.length === 1 ? window.themeVariables.strings.shippingEstimatorOneResult : window.themeVariables.strings.shippingEstimatorMultipleResults}</p>
-        ${formattedShippingRates === "" ? "" : `<ul class="list-disc" role="list">${formattedShippingRates}</ul>`}
+        ${formattedShippingRates === "" ? "" : `<ul class="list-disc" role="list">${formattedShippingRates.join("")}</ul>`}
       </div>
     `;
   }
@@ -2156,7 +2141,12 @@ var FacetDrawer = class extends Drawer {
     this.addEventListener("dialog:after-hide", this._submitForm);
   }
   _submitForm() {
-    this.querySelector("#facet-form").dispatchEvent(new Event("submit"));
+    const form = this.querySelector("#facet-form");
+    if (HTMLFormElement.prototype.requestSubmit) {
+      form.requestSubmit();
+    } else {
+      form.dispatchEvent(new Event("submit", { cancelable: true }));
+    }
   }
 };
 if (!window.customElements.get("facet-drawer")) {
@@ -2246,7 +2236,11 @@ var FacetForm = class extends HTMLFormElement {
   _onFormChanged() {
     this._isDirty = true;
     if (this.hasAttribute("update-on-change")) {
-      this.dispatchEvent(new Event("submit", { cancelable: true }));
+      if (HTMLFormElement.prototype.requestSubmit) {
+        this.requestSubmit();
+      } else {
+        this.dispatchEvent(new Event("submit", { cancelable: true }));
+      }
     } else {
       cachedFetch(this._buildUrl().toString());
     }
@@ -2626,8 +2620,61 @@ function createMediaImg(media, widths = [], properties = {}) {
   return image;
 }
 
+// js/common/product/gift-card-recipient.js
+var _recipientCheckbox, _recipientOtherProperties, _recipientSendOnProperty, _offsetProperty, _recipientFieldsContainer, _synchronizeProperties, synchronizeProperties_fn, _formatDate, formatDate_fn;
+var GiftCardRecipient = class extends HTMLElement {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _synchronizeProperties);
+    __privateAdd(this, _formatDate);
+    __privateAdd(this, _recipientCheckbox, void 0);
+    __privateAdd(this, _recipientOtherProperties, []);
+    __privateAdd(this, _recipientSendOnProperty, void 0);
+    __privateAdd(this, _offsetProperty, void 0);
+    __privateAdd(this, _recipientFieldsContainer, void 0);
+  }
+  connectedCallback() {
+    const properties = Array.from(this.querySelectorAll('[name*="properties"]')), checkboxPropertyName = "properties[__shopify_send_gift_card_to_recipient]";
+    __privateSet(this, _recipientCheckbox, properties.find((input) => input.name === checkboxPropertyName));
+    __privateSet(this, _recipientOtherProperties, properties.filter((input) => input.name !== checkboxPropertyName));
+    __privateSet(this, _recipientFieldsContainer, this.querySelector(".gift-card-recipient__fields"));
+    __privateSet(this, _offsetProperty, this.querySelector('[name="properties[__shopify_offset]"]'));
+    if (__privateGet(this, _offsetProperty)) {
+      __privateGet(this, _offsetProperty).value = (/* @__PURE__ */ new Date()).getTimezoneOffset().toString();
+    }
+    __privateSet(this, _recipientSendOnProperty, this.querySelector('[name="properties[Send on]"]'));
+    const minDate = /* @__PURE__ */ new Date();
+    const maxDate = /* @__PURE__ */ new Date();
+    maxDate.setDate(minDate.getDate() + 90);
+    __privateGet(this, _recipientSendOnProperty)?.setAttribute("min", __privateMethod(this, _formatDate, formatDate_fn).call(this, minDate));
+    __privateGet(this, _recipientSendOnProperty)?.setAttribute("max", __privateMethod(this, _formatDate, formatDate_fn).call(this, maxDate));
+    __privateGet(this, _recipientCheckbox)?.addEventListener("change", __privateMethod(this, _synchronizeProperties, synchronizeProperties_fn).bind(this));
+    __privateMethod(this, _synchronizeProperties, synchronizeProperties_fn).call(this);
+  }
+};
+_recipientCheckbox = new WeakMap();
+_recipientOtherProperties = new WeakMap();
+_recipientSendOnProperty = new WeakMap();
+_offsetProperty = new WeakMap();
+_recipientFieldsContainer = new WeakMap();
+_synchronizeProperties = new WeakSet();
+synchronizeProperties_fn = function() {
+  __privateGet(this, _recipientOtherProperties).forEach((property) => property.disabled = !__privateGet(this, _recipientCheckbox).checked);
+  __privateGet(this, _recipientFieldsContainer).classList.toggle("js:hidden", !__privateGet(this, _recipientCheckbox).checked);
+};
+_formatDate = new WeakSet();
+formatDate_fn = function(date) {
+  const offset = date.getTimezoneOffset();
+  const offsetDate = new Date(date.getTime() - offset * 60 * 1e3);
+  return offsetDate.toISOString().split("T")[0];
+};
+if (!window.customElements.get("gift-card-recipient")) {
+  window.customElements.define("gift-card-recipient", GiftCardRecipient);
+}
+
 // js/common/product/product-loader.js
 var ProductLoader = class {
+  static loadedProducts = {};
   static load(productHandle) {
     if (!productHandle) {
       return;
@@ -2635,15 +2682,22 @@ var ProductLoader = class {
     if (this.loadedProducts[productHandle]) {
       return this.loadedProducts[productHandle];
     }
-    this.loadedProducts[productHandle] = new Promise(async (resolve) => {
+    this.loadedProducts[productHandle] = new Promise(async (resolve, reject) => {
       const response = await fetch(`${Shopify.routes.root}products/${productHandle}.js`);
-      const responseAsJson = await response.json();
-      resolve(responseAsJson);
+      if (response.ok) {
+        const responseAsJson = await response.json();
+        resolve(responseAsJson);
+      } else {
+        reject(`
+          Attempted to load information for product with handle ${productHandle}, but this product is in "draft" mode. You won't be able to
+          switch between variants or access to per-variant information. To fully preview this product, change temporarily its status
+          to "active".
+        `);
+      }
     });
     return this.loadedProducts[productHandle];
   }
 };
-__publicField(ProductLoader, "loadedProducts", {});
 
 // js/common/product/product-card.js
 import { Delegate as Delegate3 } from "{{ 'vendor.min.js' | asset_url }}";
@@ -2769,6 +2823,7 @@ var ProductForm = class extends HTMLFormElement {
           error: responseJson["description"]
         }
       }));
+      document.dispatchEvent(new CustomEvent("cart:refresh"));
     }
   }
 };
@@ -3249,7 +3304,8 @@ var MediaCarousel = class extends ScrollCarousel {
   _onGestureChanged(event) {
     event.preventDefault();
     if (event.scale > 1.5) {
-      this.dispatchEvent(new CustomEvent("lightbox:open", { bubbles: true, detail: { index: this.selectedIndexAmongVisible } }));
+      const visibleImages = this.visibleItems.filter((item) => item.getAttribute("data-media-type") === "image"), openIndex = visibleImages.indexOf(this.selectedSlide);
+      this.dispatchEvent(new CustomEvent("lightbox:open", { bubbles: true, detail: { index: openIndex } }));
       this.removeEventListener("gesturechange", this._onGestureChangedListener);
     }
   }
@@ -3287,41 +3343,34 @@ if (!window.customElements.get("media-carousel")) {
 }
 
 // js/common/product/quick-add.js
-var _scopeFromPassed, _scopeToReached, _intersectionObserver;
 var ProductQuickAdd = class extends HTMLElement {
-  constructor() {
-    super(...arguments);
-    __privateAdd(this, _scopeFromPassed, false);
-    __privateAdd(this, _scopeToReached, false);
-    __privateAdd(this, _intersectionObserver, new IntersectionObserver(this._onObserved.bind(this)));
-  }
+  #scopeFromPassed = false;
+  #scopeToReached = false;
+  #intersectionObserver = new IntersectionObserver(this._onObserved.bind(this));
   connectedCallback() {
     this._scopeFrom = document.getElementById(this.getAttribute("form"));
     this._scopeTo = document.querySelector(".footer");
     if (!this._scopeFrom || !this._scopeTo) {
       return;
     }
-    __privateGet(this, _intersectionObserver).observe(this._scopeFrom);
-    __privateGet(this, _intersectionObserver).observe(this._scopeTo);
+    this.#intersectionObserver.observe(this._scopeFrom);
+    this.#intersectionObserver.observe(this._scopeTo);
   }
   disconnectedCallback() {
-    __privateGet(this, _intersectionObserver).disconnect();
+    this.#intersectionObserver.disconnect();
   }
   _onObserved(entries) {
     entries.forEach((entry) => {
       if (entry.target === this._scopeFrom) {
-        __privateSet(this, _scopeFromPassed, entry.boundingClientRect.bottom < 0);
+        this.#scopeFromPassed = entry.boundingClientRect.bottom < 0;
       }
       if (entry.target === this._scopeTo) {
-        __privateSet(this, _scopeToReached, entry.isIntersecting);
+        this.#scopeToReached = entry.isIntersecting;
       }
     });
-    this.classList.toggle("is-visible", __privateGet(this, _scopeFromPassed) && !__privateGet(this, _scopeToReached));
+    this.classList.toggle("is-visible", this.#scopeFromPassed && !this.#scopeToReached);
   }
 };
-_scopeFromPassed = new WeakMap();
-_scopeToReached = new WeakMap();
-_intersectionObserver = new WeakMap();
 if (!window.customElements.get("product-quick-add")) {
   window.customElements.define("product-quick-add", ProductQuickAdd);
 }
@@ -3524,6 +3573,12 @@ var VariantPicker = class extends HTMLElement {
     if (!selectedVariant) {
       return;
     }
+    this._updateDisableSelectorsForOptionLevel(0, selectedVariant);
+  }
+  _updateDisableSelectorsForOptionLevel(level, selectedVariant) {
+    if (!this.optionSelectors[level]) {
+      return;
+    }
     const applyClassToSelector = (selector, valueIndex, available, hasAtLeastOneCombination) => {
       const optionValue = Array.from(selector.querySelectorAll("[data-option-value]"))[valueIndex];
       optionValue.toggleAttribute("hidden", !hasAtLeastOneCombination);
@@ -3533,24 +3588,25 @@ var VariantPicker = class extends HTMLElement {
         optionValue.classList.toggle("is-disabled", !available);
       }
     };
-    if (this.optionSelectors && this.optionSelectors[0]) {
-      this.product["options"][0]["values"].forEach((value, valueIndex) => {
-        const hasAtLeastOneCombination = this.product["variants"].some((variant) => variant["option1"] === value && variant), hasAvailableVariant = this.product["variants"].some((variant) => variant["option1"] === value && variant["available"]);
-        applyClassToSelector(this.optionSelectors[0], valueIndex, hasAvailableVariant, hasAtLeastOneCombination);
-        if (this.optionSelectors[1]) {
-          this.product["options"][1]["values"].forEach((value2, valueIndex2) => {
-            const hasAtLeastOneCombination2 = this.product["variants"].some((variant) => variant["option2"] === value2 && variant["option1"] === selectedVariant["option1"] && variant), hasAvailableVariant2 = this.product["variants"].some((variant) => variant["option2"] === value2 && variant["option1"] === selectedVariant["option1"] && variant["available"]);
-            applyClassToSelector(this.optionSelectors[1], valueIndex2, hasAvailableVariant2, hasAtLeastOneCombination2);
-            if (this.optionSelectors[2]) {
-              this.product["options"][2]["values"].forEach((value3, valueIndex3) => {
-                const hasAtLeastOneCombination3 = this.product["variants"].some((variant) => variant["option3"] === value3 && variant["option1"] === selectedVariant["option1"] && variant["option2"] === selectedVariant["option2"] && variant), hasAvailableVariant3 = this.product["variants"].some((variant) => variant["option3"] === value3 && variant["option1"] === selectedVariant["option1"] && variant["option2"] === selectedVariant["option2"] && variant["available"]);
-                applyClassToSelector(this.optionSelectors[2], valueIndex3, hasAvailableVariant3, hasAtLeastOneCombination3);
-              });
-            }
-          });
+    const hasCombination = (variant, level2, value, selectedVariant2) => {
+      return Array.from({ length: level2 + 1 }, (_, i) => {
+        if (i === level2) {
+          return variant[`option${level2 + 1}`] === value;
+        } else {
+          return variant[`option${i + 1}`] === selectedVariant2[`option${i + 1}`];
         }
-      });
-    }
+      }).every((condition) => condition);
+    };
+    this.product["options"][level]["values"].forEach((value, valueIndex) => {
+      const hasAtLeastOneCombination = this.product["variants"].some(
+        (variant) => hasCombination(variant, level, value, selectedVariant) && variant
+      );
+      const hasAvailableVariant = this.product["variants"].some(
+        (variant) => hasCombination(variant, level, value, selectedVariant) && variant["available"]
+      );
+      applyClassToSelector(this.optionSelectors[level], valueIndex, hasAvailableVariant, hasAtLeastOneCombination);
+      this._updateDisableSelectorsForOptionLevel(level + 1, selectedVariant);
+    });
   }
 };
 var VariantOptionValue = class extends HTMLElement {
@@ -3697,6 +3753,12 @@ var VideoMedia = class extends BaseMedia {
       `));
     }
   }
+  play({ restart = false } = {}) {
+    if (restart && !this.hasAttribute("host")) {
+      this.querySelector("video").currentTime = 0;
+    }
+    super.play();
+  }
   _playerTarget() {
     if (this.hasAttribute("host")) {
       this.setAttribute("loaded", "");
@@ -3763,6 +3825,7 @@ var VideoMedia = class extends BaseMedia {
       this.setAttribute("can-play", "");
       videoElement.addEventListener("play", () => {
         this.setAttribute("playing", "");
+        this.removeAttribute("suspended");
       });
       videoElement.addEventListener("pause", () => {
         if (!videoElement.seeking && videoElement.paused) {
@@ -3776,7 +3839,20 @@ var VideoMedia = class extends BaseMedia {
     if (this.getAttribute("host") === "youtube") {
       prop === "play" ? target.playVideo() : target.pauseVideo();
     } else {
-      target[prop]();
+      if (prop === "play" && !this.hasAttribute("host")) {
+        target.play().catch((error) => {
+          if (error.name === "NotAllowedError") {
+            this.setAttribute("suspended", "");
+            target.controls = true;
+            const replacementImageSrc = target.previousElementSibling?.currentSrc;
+            if (replacementImageSrc) {
+              target.poster = replacementImageSrc;
+            }
+          }
+        });
+      } else {
+        target[prop]();
+      }
     }
   }
 };
@@ -4012,7 +4088,7 @@ var PredictiveSearch = class extends HTMLElement {
    */
   async _doPredictiveSearch() {
     await this._transitionToSlot("loading");
-    const queryParams = `q=${this._queryInput.value}&section_id=${this.getAttribute("section-id")}&resources[limit]=10&resources[limit_scope]=each`;
+    const queryParams = `q=${encodeURIComponent(this._queryInput.value)}&section_id=${this.getAttribute("section-id")}&resources[limit]=10&resources[limit_scope]=each`;
     const nodeElement = new DOMParser().parseFromString(await (await cachedFetch(`${window.Shopify.routes.root}search/suggest?${queryParams}`, { signal: this._abortController.signal })).text(), "text/html");
     this.querySelector('[slot="results"]').replaceWith(document.importNode(nodeElement.querySelector('[slot="results"]'), true));
     return this._transitionToSlot("results");
@@ -4110,7 +4186,7 @@ import { Delegate as Delegate4 } from "{{ 'vendor.min.js' | asset_url }}";
 (() => {
   const delegateDocument = new Delegate4(document.documentElement);
   if (window.themeVariables.settings.showPageTransition && "animate" in document.documentElement && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-    delegateDocument.on("click", "a", async (event, target) => {
+    delegateDocument.on("click", 'a:not([target="_blank"])', async (event, target) => {
       if (event.defaultPrevented || event.ctrlKey || event.metaKey) {
         return;
       }
@@ -4173,6 +4249,7 @@ export {
   FacetSortBy,
   FreeShippingBar,
   GestureArea,
+  GiftCardRecipient,
   HeightObserver,
   LineItem,
   LineItemQuantity,
@@ -4222,7 +4299,6 @@ export {
   VariantPicker,
   VariantSku,
   VideoMedia,
-  VisibilityProgress,
   cachedFetch,
   createMediaImg,
   debounce,

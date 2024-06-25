@@ -31,8 +31,9 @@
           "settings": {
             "hide_sold_out_variants": false,
             "stack_blocks": true,
-            "selector_mode": "block",
-            "color_mode": "block",
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
             "size_chart_page": ""
           }
         },
@@ -40,6 +41,7 @@
           "type": "buy_buttons",
           "settings": {
             "show_payment_button": true,
+            "show_gift_card_recipient": true,
             "atc_button_background": "#94f8eb",
             "atc_button_text_color": "#4e4d4d",
             "payment_button_background": "",
@@ -64,7 +66,7 @@
             "option_name": "Color",
             "option_value_metafield": "{{ product.metafields.custom.product_value_halloween.value }}",
             "products": "{{ product.metafields.custom.product_variation_halloween.value }}",
-            "color_mode": "variant"
+            "selector_style": "swatch"
           }
         },
         "payment_terms": {
@@ -77,18 +79,44 @@
           "settings": {
           }
         },
-        "description": {
-          "type": "description",
+        "collapsible_text_7AXinE": {
+          "type": "collapsible_text",
           "settings": {
-            "collapse_content": false
+            "title": "SIZE CHART",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
           }
         },
-        "image_Y8WqDc": {
-          "type": "image",
+        "collapsible_text_ga48Tf": {
+          "type": "collapsible_text",
           "settings": {
-            "image": "shopify:\/\/shop_images\/CC_lineup_dae2def9-cf46-47f8-b808-89c5feac4005.jpg",
-            "alignment": "start",
-            "max_width": 500
+            "title": "WHERE ARE CRAZY COMPRESSION SOCKS MADE",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_text_REBxQr": {
+          "type": "collapsible_text",
+          "settings": {
+            "title": "WHAT MATERIAL ARE CRAZY COMPRESSION SOCKS MADE OF",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_text_tcmw3p": {
+          "type": "collapsible_text",
+          "settings": {
+            "title": "SHIPPING AND DELIVERY",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_text_M848bN": {
+          "type": "collapsible_text",
+          "settings": {
+            "title": "RETURN AND REFUND POLICY",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
           }
         }
       },
@@ -104,8 +132,11 @@
         "d0734d67-c3ca-4dc2-a72a-fc5fa7bc5188",
         "payment_terms",
         "separator",
-        "description",
-        "image_Y8WqDc"
+        "collapsible_text_7AXinE",
+        "collapsible_text_ga48Tf",
+        "collapsible_text_REBxQr",
+        "collapsible_text_tcmw3p",
+        "collapsible_text_M848bN"
       ],
       "settings": {
         "full_width": true,
@@ -123,23 +154,6 @@
         "text_color": "",
         "input_background": "rgba(0,0,0,0)",
         "input_text_color": ""
-      }
-    },
-    "fb42f947-2382-4ed7-8336-1d42d54dc8cc": {
-      "type": "image-with-text-overlay",
-      "disabled": true,
-      "settings": {
-        "full_width": true,
-        "allow_transparent_header": false,
-        "enable_parallax": false,
-        "image_size": "auto",
-        "image": "shopify:\/\/shop_images\/CC_lineup_36cdc9b5-3f2d-4189-876e-41b3e34525b7.jpg",
-        "mobile_image": "shopify:\/\/shop_images\/CC_lineup_1ef7de63-e6a5-45a5-b9c7-0587bdeebdbf.jpg",
-        "mobile_text_position": "place-self-center text-center",
-        "desktop_text_position": "sm:place-self-center sm:text-center",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0
       }
     },
     "video_yKP784": {
@@ -292,35 +306,13 @@
     },
     "1680883393461ba659": {
       "type": "apps",
-      "blocks": {
-        "7eb3fbe2-2214-494a-99dc-28c74be47fa4": {
-          "type": "shopify:\/\/apps\/stamped-product-reviews-ugc\/blocks\/main-widget\/a103faaf-2125-4b0e-89fa-de5149736723",
-          "settings": {
-            "animation": true,
-            "tags_exclude": "",
-            "tags_include": "",
-            "search": "",
-            "linkify": true,
-            "use_metafields": false,
-            "sku_tagtype": "sku"
-          }
-        }
-      },
-      "block_order": [
-        "7eb3fbe2-2214-494a-99dc-28c74be47fa4"
-      ],
       "settings": {
         "full_width": true,
         "remove_vertical_spacing": false,
         "remove_horizontal_spacing": false,
         "background": "",
         "background_gradient": "",
-        "text_color": "",
-        "enable_review_integration": true,
-        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
-        "review_header_text_color": "#000000",
-        "review_button_background": "#000000",
-        "review_button_text_color": "#ffffff"
+        "text_color": ""
       }
     },
     "1681455389bf7356e9": {
@@ -331,22 +323,68 @@
         "remove_horizontal_spacing": false,
         "background": "#ffffff",
         "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "press_E8tz4A": {
+      "type": "press",
+      "blocks": {
+        "quote_Bt8Vg6": {
+          "type": "quote",
+          "settings": {
+            "logo_width": 100,
+            "author": "",
+            "content": "Write some content about what they says about your store.",
+            "show_rating": true,
+            "rating": 4
+          }
+        },
+        "quote_8KaAGN": {
+          "type": "quote",
+          "settings": {
+            "logo_width": 100,
+            "author": "",
+            "content": "Write some content about what they says about your store.",
+            "show_rating": true,
+            "rating": 4
+          }
+        },
+        "quote_pXNzdn": {
+          "type": "quote",
+          "settings": {
+            "logo_width": 100,
+            "author": "",
+            "content": "Write some content about what they says about your store.",
+            "show_rating": true,
+            "rating": 4
+          }
+        }
+      },
+      "block_order": [
+        "quote_Bt8Vg6",
+        "quote_8KaAGN",
+        "quote_pXNzdn"
+      ],
+      "settings": {
+        "full_width": true,
+        "content_size": "medium",
+        "background": "",
+        "background_gradient": "",
         "text_color": "",
-        "enable_review_integration": true,
-        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
-        "review_header_text_color": "#000000",
-        "review_button_background": "#000000",
-        "review_button_text_color": "#ffffff"
+        "heading_color": "",
+        "heading_gradient": "",
+        "logo_item_background": "",
+        "logo_item_border": ""
       }
     }
   },
   "order": [
     "main",
-    "fb42f947-2382-4ed7-8336-1d42d54dc8cc",
     "video_yKP784",
     "346dd38f-3483-455f-9262-e818ad6a56cf",
     "related-products",
     "1680883393461ba659",
-    "1681455389bf7356e9"
+    "1681455389bf7356e9",
+    "press_E8tz4A"
   ]
 }

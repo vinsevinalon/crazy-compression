@@ -3,11 +3,19 @@
 
   <style>
     #shopify-section-{{ section.id }} {
-      --text-with-icons-template: auto-flow 100%;
+      --text-with-icons-template: {% if section.settings.stack_on_mobile %}minmax(0, 1fr){% else %}auto-flow 100%{% endif %};
       --text-with-icons-justify: center;
       --text-with-icons-text-align: center;
       --text-with-icons-gap: {% if section.settings.icon_spacing == 'small' %}var(--spacing-5){% elsif section.settings.icon_spacing == 'medium' %}var(--spacing-6){% else %}var(--spacing-7){% endif %};
     }
+
+    {%- if section.settings.stack_on_mobile -%}
+      @media screen and (min-width: 699px) {
+        #shopify-section-{{ section.id }} {
+          --text-with-icons-template: repeat(2, minmax(0, 1fr));
+        }
+      }
+    {%- endif -%}
 
     @media screen and (min-width: 1150px) {
       #shopify-section-{{ section.id }} {
@@ -45,13 +53,21 @@
       <div class="text-with-icons">
         <scroll-carousel class="text-with-icons__list scroll-area full-bleed {% if section.blocks.size <= 3 %}md:unbleed{% else %}lg:unbleed{% endif %}" id="carousel-{{ section.id }}" role="region">
           {%- for block in section.blocks -%}
+            {%- liquid
+              assign loading_strategy = nil
+    
+              if section.index > 3 or forloop.index > 3
+                assign loading_strategy = 'lazy'
+              endif
+            -%}
+
             <div id="block-{{ section.id }}-{{ block.id }}" class="text-with-icons__item snap-center" role="group" aria-label="{{ 'general.accessibility.item_nth_of_count' | t: index: forloop.index, count: section.blocks.size }}" {{ block.shopify_attributes }}>
               {%- capture icon -%}
                 {%- if block.settings.custom_icon != blank -%}
                   {%- capture sizes -%}{{ block.settings.icon_width }}px{%- endcapture -%}
                   {%- capture widths -%}{{ block.settings.icon_width }}, {{ block.settings.icon_width | times: 2 | at_most: block.settings.custom_icon.width }}{%- endcapture -%}
                   {%- capture style -%}--mobile-icon-max-width: {{ block.settings.mobile_icon_width }}px; --icon-max-width: {{ block.settings.icon_width }}px{%- endcapture -%}
-                  {{- block.settings.custom_icon | image_url: width: block.settings.custom_icon.width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, style: style, class: 'image-icon' -}}
+                  {{- block.settings.custom_icon | image_url: width: block.settings.custom_icon.width | image_tag: loading: loading_strategy, sizes: sizes, widths: widths, style: style, class: 'image-icon' -}}
                 {%- else -%}
                   {%- render 'icon' with block.settings.icon, width: block.settings.mobile_icon_width, height: block.settings.mobile_icon_width, class: 'sm:hidden' -%}
                   {%- render 'icon' with block.settings.icon, width: block.settings.icon_width, height: block.settings.icon_width, class: 'hidden sm:block' -%}
@@ -455,6 +471,12 @@
       "default": true
     },
     {
+      "type": "checkbox",
+      "id": "stack_on_mobile",
+      "label": "Stack on mobile",
+      "default": false
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Heading"
@@ -470,27 +492,27 @@
       "options": [
         {
           "value": "h1",
-          "label": "H1"
+          "label": "X-Large"
         },
         {
           "value": "h2",
-          "label": "H2"
+          "label": "Large"
         },
         {
           "value": "h3",
-          "label": "H3"
+          "label": "Medium"
         },
         {
           "value": "h4",
-          "label": "H4"
+          "label": "Small"
         },
         {
           "value": "h5",
-          "label": "H5"
+          "label": "X-Small"
         },
         {
           "value": "h6",
-          "label": "H6"
+          "label": "XX-Small"
         }
       ],
       "default": "h5"

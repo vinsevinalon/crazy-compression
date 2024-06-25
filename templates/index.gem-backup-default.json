@@ -354,12 +354,7 @@
         "remove_horizontal_spacing": true,
         "background": "#9940b1",
         "background_gradient": "",
-        "text_color": "",
-        "enable_review_integration": true,
-        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
-        "review_header_text_color": "#000000",
-        "review_button_background": "#000000",
-        "review_button_text_color": "#ffffff"
+        "text_color": ""
       }
     },
     "video_8DnLQt": {
@@ -397,45 +392,13 @@
     },
     "1680882322f20142eb": {
       "type": "apps",
-      "blocks": {
-        "a359b2ec-5507-4670-8bb1-3de1e0fb0b53": {
-          "type": "shopify:\/\/apps\/stamped-product-reviews-ugc\/blocks\/carousel\/a103faaf-2125-4b0e-89fa-de5149736723",
-          "settings": {
-            "title": "_____________________________________",
-            "auto_play": true,
-            "auto_play_speed": 3,
-            "take": 30,
-            "color_title": "",
-            "color_star": "#9940b1",
-            "color_text": "",
-            "color_link": "",
-            "review_ids": "",
-            "product_ids": "",
-            "category": "",
-            "product_brand": "",
-            "tags": "",
-            "min_rating": "none",
-            "fill_empty": false,
-            "random": false,
-            "with_photos": false
-          }
-        }
-      },
-      "block_order": [
-        "a359b2ec-5507-4670-8bb1-3de1e0fb0b53"
-      ],
       "settings": {
         "full_width": true,
         "remove_vertical_spacing": true,
         "remove_horizontal_spacing": false,
         "background": "#ffffff",
         "background_gradient": "",
-        "text_color": "#000000",
-        "enable_review_integration": true,
-        "review_header_gradient": "linear-gradient(135deg, rgba(255, 194, 102, 1), rgba(255, 163, 26, 1) 100%)",
-        "review_header_text_color": "#000000",
-        "review_button_background": "#000000",
-        "review_button_text_color": "#ffffff"
+        "text_color": "#000000"
       }
     },
     "f73c6877-1e72-4e4c-aa61-604102d70781": {

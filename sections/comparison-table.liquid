@@ -1,9 +1,3 @@
-{%- comment -%}
-IMPORTANT: This section has been deprecated and should no longer be used. Instead, merchants should use the new "specification table"
-or "comparison table" sections, which offer a simpler setup. The section is still here for compatibility reason, for merchants who
-are upgrading their theme, but it no longer has the "presets" part in the schema, which means it can't be added anymore.
-{%- endcomment -%}
-
 {%- render 'section-spacing-collapsing' -%}
 
 {%- assign text_position = section.settings.text_position -%}
@@ -25,6 +19,7 @@ CSS
       #shopify-section-{{ section.id }} .section-stack__main {
         width: {% if values_column_count == 1 %}680px{% elsif values_column_count == 2 %}900px{% else %}auto{% endif %};
         min-width: 680px;
+        margin-inline: auto;
       }
     {%- else -%}
       #shopify-section-{{ section.id }} .section-stack {
@@ -86,16 +81,7 @@ LIQUID
       {%- endif -%}
 
       <feature-chart max-rows="{{ section.settings.max_rows }}" {% render 'surface', class: 'feature-chart', background: background_color, text_color: text_color %}>
-        {%- assign has_product = false -%}
-
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'values' and block.settings.product != blank -%}
-            {%- assign has_product = true -%}
-            {%- break -%}
-          {%- endif -%}
-        {%- endfor -%}
-
-        <div class="feature-chart__table {% if values_column_count > 1 %}feature-chart__table--multi-columns{% endif %} {% if has_product %}feature-chart__table--product{% endif %} divide-y scroll-area">
+        <div class="feature-chart__table {% if values_column_count > 1 %}feature-chart__table--multi-columns{% endif %} feature-chart__table--product divide-y scroll-area">
           {%- assign headings_block = section.blocks | where: 'type', 'headings' | first -%}
           {%- assign values_blocks = section.blocks | where: 'type', 'values' -%}
           {%- assign outputted_count = 0 -%}
@@ -114,66 +100,77 @@ LIQUID
           {%- endfor -%}
 
           {%- comment -%}We need to create a first row for the products if any{%- endcomment -%}
-          {%- if has_product -%}
-            {%- capture product_row -%}
-              {%- for i in (0..2) -%}
-                {%- if values_blocks[i].settings.product != blank -%}
-                  {%- assign chart_product = values_blocks[i].settings.product -%}
+          {%- capture product_row -%}
+            {%- for product_column in values_blocks -%}
+              {%- if product_column.settings.product != blank -%}
+                {%- assign chart_product = product_column.settings.product -%}
 
-                  <div class="feature-chart__product">
-                    {%- if section.settings.viewing_product != blank and request.page_type == 'product' and product == chart_product -%}
-                      <span class="badge">{{ section.settings.viewing_product }}</span>
+                <div class="feature-chart__product">
+                  {%- if section.settings.viewing_product != blank and request.page_type == 'product' and product == chart_product -%}
+                    <span class="badge">{{ section.settings.viewing_product }}</span>
+                  {%- endif -%}
+
+                  {%- if chart_product.featured_media -%}
+                    <a href="{{ chart_product.url }}">
+                      {{- chart_product.featured_image | image_url: width: chart_product.featured_image.width | image_tag: sizes: '(max-width: 699px) 80px, 150px', widths: '80,150,160,300' -}}
+                    </a>
+                  {%- endif -%}
+
+                  {%- capture color_swatch -%}
+                    {%- if section.settings.show_product_swatch -%}
+                      {%- assign color_label_list = 'general.label.color' | t | replace: ', ', ',' | downcase | split: ',' -%}
+
+                      {%- for color_label in color_label_list -%}
+                        {%- if chart_product.options_by_name[color_label] != blank -%}
+                          <div class="h-stack gap-2 sm:gap-2-5">
+                            {%- for option_value in chart_product.options_by_name[color_label].values -%}
+                              {%- render 'option-value', type: 'swatch', value: option_value, url: option_value.variant.url, size: 'sm' -%}
+                            {%- endfor -%}
+                          </div>
+
+                          {%- break -%}
+                        {%- endif -%}
+                      {%- endfor -%}
                     {%- endif -%}
+                  {%- endcapture -%}
 
-                    {%- if chart_product.featured_media -%}
-                      <a href="{{ chart_product.url }}">
-                        {{- chart_product.featured_image | image_url: width: chart_product.featured_image.width | image_tag: sizes: '(max-width: 699px) 80px, 150px', widths: '80,150,160,300' -}}
-                      </a>
-                    {%- endif -%}
-
-                    {%- capture color_swatch -%}
-                      {%- if section.settings.show_product_swatch -%}
-                        {%- assign color_label_list = 'general.label.color' | t | replace: ', ', ',' | downcase | split: ',' -%}
-
-                        {%- for color_label in color_label_list -%}
-                          {%- if chart_product.options_by_name[color_label] != blank -%}
-                            <div class="h-stack gap-2 sm:gap-2-5">
-                              {%- for color_name in chart_product.options_by_name[color_label].values -%}
-                                {%- assign product_option = chart_product.options_by_name[color_label] -%}
-                                {%- assign product_option_name = 'option' | append: product_option.position -%}
-                                {%- assign first_variant = chart_product.variants | where: product_option_name, color_name | first -%}
-
-                                {%- render 'option-value', type: 'swatch', value: color_name, url: first_variant.url, size: 'sm' -%}
-                              {%- endfor -%}
-                            </div>
-
-                            {%- break -%}
-                          {%- endif -%}
-                        {%- endfor -%}
-                      {%- endif -%}
-                    {%- endcapture -%}
-
-                    <div class="v-stack {% if color_swatch != blank %}gap-6{% else %}gap-5{% endif %}">
-                      <div class="v-stack gap-2">
-                        <div class="v-stack sm:gap-0.5">
-                          <a href="{{ chart_product.url }}" class="bold line-clamp">{{ chart_product.title }}</a>
-                          {%- render 'price-list', product: chart_product, hide_unit_price: true -%}
-                        </div>
-
-                        {{- color_swatch -}}
+                  <div class="v-stack {% if color_swatch != blank %}gap-6{% else %}gap-5{% endif %}">
+                    <div class="v-stack gap-2">
+                      <div class="v-stack sm:gap-0.5">
+                        <a href="{{ chart_product.url }}" class="bold line-clamp">{{ chart_product.title }}</a>
+                        {%- render 'price-list', product: chart_product, hide_unit_price: true -%}
                       </div>
 
-                      {%- if section.settings.view_product != blank -%}
-                        <div class="feature-chart__view-button-container hidden justify-self-start md:block">
-                          {%- render 'button', href: chart_product.url, content: section.settings.view_product, background: values_blocks[i].settings.view_button_background, text_color: values_blocks[i].settings.view_button_text_color, subdued: true -%}
-                        </div>
-                      {%- endif -%}
+                      {{- color_swatch -}}
+                    </div>
+
+                    {%- if section.settings.view_product != blank -%}
+                      <div class="feature-chart__view-button-container hidden justify-self-start md:block">
+                        {%- render 'button', href: chart_product.url, content: section.settings.view_product, background: product_column.settings.view_button_background, text_color: product_column].settings.view_button_text_color, subdued: true -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- else -%}
+                <div class="feature-chart__product">
+                  <div>
+                    {%- capture product_placeholder -%}{% cycle 'product-apparel-1', 'product-apparel-2', 'product-apparel-3' %}{%- endcapture -%}
+                    {{- product_placeholder | placeholder_svg_tag: 'feature-chart__product-placeholder' -}}
+                  </div>
+
+                  <div class="v-stack gap-5">
+                    <div class="v-stack gap-2">
+                      <div class="v-stack sm:gap-0.5">
+                        <span class="bold line-clamp">{{ 'general.on_boarding.product_title' | t }}</span>
+                      </div>
                     </div>
                   </div>
-                {%- endif -%}
-              {%- endfor -%}
-            {%- endcapture -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endcapture -%}
 
+          {%- if section.settings.show_product_info -%}
             <div class="feature-chart__table-row feature-chart__table-row--product">
               {{- product_row -}}
             </div>
@@ -193,8 +190,6 @@ LIQUID
 
             {%- comment -%}We only output the line if at least one value is defined{%- endcomment -%}
             {%- if heading_value != blank and values_blocks[0].settings[value_key] != blank or values_blocks[1].settings[value_key] != blank or values_blocks[2].settings[value_key] != blank -%}
-              {%- assign outputted_count = outputted_count | plus: 1 -%}
-
               <div class="feature-chart__table-row" {% if outputted_count > section.settings.max_rows %}hidden{% endif %}>
                 {%- if heading_value != blank -%}
                   <div class="feature-chart__heading bold" {% if outputted_count == 0 %}{{ headings_block.shopify_attributes }}{% endif %}>{{ heading_value }}</div>
@@ -221,6 +216,8 @@ LIQUID
                   {%- endif -%}
                 {%- endfor -%}
               </div>
+
+              {%- assign outputted_count = outputted_count | plus: 1 -%}
             {%- endif -%}
           {%- endfor -%}
         </div>
@@ -240,8 +237,8 @@ LIQUID
 
 {% schema %}
 {
-  "name": "Feature chart",
-  "class": "shopify-section--feature-chart",
+  "name": "Comparison table",
+  "class": "shopify-section--comparison-table",
   "tag": "section",
   "disabled_on": {
     "groups": ["header", "custom.overlay"]
@@ -267,7 +264,7 @@ LIQUID
       "type": "text",
       "id": "title",
       "label": "Heading",
-      "default": "Product specification"
+      "default": "Product comparison"
     },
     {
       "type": "richtext",
@@ -332,16 +329,22 @@ LIQUID
       "default": "View"
     },
     {
-      "type": "text",
-      "id": "viewing_product",
-      "label": "Currently viewing product label",
-      "info": "Badge added on the product page's main product."
+      "type": "checkbox",
+      "id": "show_product_info",
+      "label": "Show product info",
+      "default": true
     },
     {
       "type": "checkbox",
       "id": "show_product_swatch",
       "label": "Show product swatch",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "viewing_product",
+      "label": "Currently viewing product label",
+      "info": "Badge added on the product page's main product."
     },
     {
       "type": "header",
@@ -520,7 +523,7 @@ LIQUID
           "type": "product",
           "id": "product",
           "label": "Product",
-          "info": "Select an optional product to connect metafields or to show product information."
+          "info": "Select a product to connect metafields or to show product information."
         },
         {
           "type": "richtext",
@@ -635,6 +638,45 @@ LIQUID
           "type": "color",
           "id": "view_button_text_color",
           "label": "View product button text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison table",
+      "blocks": [
+        {
+          "type": "headings",
+          "settings": {
+            "heading_1": "Heading 1",
+            "heading_2": "Heading 2",
+            "heading_3": "Heading 3"
+          }
+        },
+        {
+          "type": "values",
+          "settings": {
+            "value_1": "<p>Value 1</p>",
+            "value_2": "<p>Value 2</p>",
+            "value_3": "<p>Value 3</p>"
+          }
+        },
+        {
+          "type": "values",
+          "settings": {
+            "value_1": "<p>Value 1</p>",
+            "value_2": "<p>Value 2</p>",
+            "value_3": "<p>Value 3</p>"
+          }
+        },
+        {
+          "type": "values",
+          "settings": {
+            "value_1": "<p>Value 1</p>",
+            "value_2": "<p>Value 2</p>",
+            "value_3": "<p>Value 3</p>"
+          }
         }
       ]
     }

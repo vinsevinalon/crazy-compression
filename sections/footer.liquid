@@ -28,7 +28,7 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'text' -%}
-                {%- if block.settings.title != blank or block.settings.content != blank -%}
+                {%- if block.settings.title != blank or block.settings.content != blank or shop.features.follow_on_shop? and block.settings.enable_follow_on_shop -%}
                   <div class="footer__block footer__block--text" {{ block.shopify_attributes }}>
                     {%- if block.settings.title != blank -%}
                       <p class="bold">{{ block.settings.title | escape }}</p>
@@ -39,6 +39,12 @@
                         {{- block.settings.content -}}
                       </div>
                     {%- endif -%}
+
+                    {%- if shop.features.follow_on_shop? and block.settings.enable_follow_on_shop -%}
+                      <div class="follow-on-shop">
+                        {{- shop | login_button: action: 'follow' -}}
+                      </div>
+                    {%- endif -%}
                   </div>
                 {%- endif -%}
 
@@ -46,7 +52,7 @@
                 {%- if block.settings.menu != blank -%}
                   <div class="footer__block footer__block--menu" {{ block.shopify_attributes }}>
                     {%- if block.settings.show_menu_title -%}
-                      <p class="bold">{{ block.settings.menu.title }}</p>
+                      <p class="bold">{{ block.settings.menu_title | default: block.settings.menu.title }}</p>
                     {%- endif -%}
 
                     <ul class="v-stack gap-3" role="list">
@@ -244,6 +250,13 @@
           "id": "content",
           "label": "Content",
           "default": "<p>Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_follow_on_shop",
+          "label": "Show Follow on Shop",
+          "info": "To allow customers to follow your store on the Shop app from your storefront, Shop Pay must be enabled. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/follow-on-shop)",
+          "default": true
         }
       ]
     },
@@ -263,6 +276,12 @@
           "id": "show_menu_title",
           "label": "Show menu title",
           "default": true
+        },
+        {
+          "type": "inline_richtext",
+          "id": "menu_title",
+          "label": "Menu title",
+          "info": "Replaces the default menu title"
         }
       ]
     },

@@ -114,10 +114,10 @@
           <span class="bold sm-max:hidden">{{- share_label -}}</span>
 
           <ul class="h-stack sm-max:hidden gap-3" role="list">
-            <li><a href="{% render 'share-link', host: 'facebook', title: article.title, url: share_url %}" class="share-buttons__item" aria-label="{{ 'general.social.share_on' | t: social_media: 'Facebook' }}">{%- render 'icon' with 'facebook', width: 24, height: 24 -%}</a></li>
-            <li><a href="{% render 'share-link', host: 'twitter', title: article.title, url: share_url %}" class="share-buttons__item" aria-label="{{ 'general.social.share_on' | t: social_media: 'Twitter' }}">{%- render 'icon' with 'twitter', width: 24, height: 24 -%}</a></li>
-            <li><a href="{% render 'share-link', host: 'pinterest', title: article.title, url: share_url %}" class="share-buttons__item" aria-label="{{ 'general.social.share_on' | t: social_media: 'Pinterest' }}">{%- render 'icon' with 'pinterest', width: 24, height: 24 -%}</a></li>
-            <li><a href="{% render 'share-link', host: 'email', title: article.title, url: share_url %}" class="share-buttons__item" aria-label="{{ 'general.social.share_email' | t }}">{%- render 'icon' with 'email' -%}</a></li>
+            <li><a href="{% render 'share-link', host: 'facebook', title: article.title, url: article.url %}" class="share-buttons__item" aria-label="{{ 'general.social.share_on' | t: social_media: 'Facebook' }}">{%- render 'icon' with 'facebook', width: 24, height: 24 -%}</a></li>
+            <li><a href="{% render 'share-link', host: 'twitter', title: article.title, url: article.url %}" class="share-buttons__item" aria-label="{{ 'general.social.share_on' | t: social_media: 'Twitter' }}">{%- render 'icon' with 'twitter', width: 24, height: 24 -%}</a></li>
+            <li><a href="{% render 'share-link', host: 'pinterest', title: article.title, url: article.url %}" class="share-buttons__item" aria-label="{{ 'general.social.share_on' | t: social_media: 'Pinterest' }}">{%- render 'icon' with 'pinterest', width: 24, height: 24 -%}</a></li>
+            <li><a href="{% render 'share-link', host: 'email', title: article.title, url: article.url %}" class="share-buttons__item" aria-label="{{ 'general.social.share_email' | t }}">{%- render 'icon' with 'email' -%}</a></li>
           </ul>
         </div>
       {%- endif -%}

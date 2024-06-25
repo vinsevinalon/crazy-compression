@@ -1,61 +1,12 @@
 {
   "sections": {
-    "gp_section_512566538499261425": {
-      "type": "gp-section-512566538499261425",
-      "settings": {
-        "section_preload": "true"
-      }
-    },
-    "gp_section_512566538599924721": {
-      "type": "gp-section-512566538599924721",
-      "settings": {
-      }
-    },
-    "gp_section_512566539170350216": {
-      "type": "gp-section-512566539170350216",
-      "settings": {
-      }
-    },
-    "gp_section_512566539120018417": {
-      "type": "gp-section-512566539120018417",
-      "settings": {
-      }
-    },
-    "gp_section_512684667850196173": {
-      "type": "gp-section-512684667850196173",
-      "settings": {
-      }
-    },
-    "gp_section_512566539103241128": {
-      "type": "gp-section-512566539103241128",
-      "settings": {
-      }
-    },
-    "gp_section_512566538851583181": {
-      "type": "gp-section-512566538851583181",
-      "settings": {
-      }
-    },
-    "gp_section_512693898456335471": {
-      "type": "gp-section-512693898456335471",
-      "settings": {
-      }
-    },
-    "gp_section_512692404294255528": {
-      "type": "gp-section-512692404294255528",
+    "main": {
+      "type": "main-page",
       "settings": {
       }
     }
   },
   "order": [
-    "gp_section_512566538499261425",
-    "gp_section_512566538599924721",
-    "gp_section_512566539170350216",
-    "gp_section_512566539120018417",
-    "gp_section_512684667850196173",
-    "gp_section_512566539103241128",
-    "gp_section_512566538851583181",
-    "gp_section_512693898456335471",
-    "gp_section_512692404294255528"
+    "main"
   ]
 }

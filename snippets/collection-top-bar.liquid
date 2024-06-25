@@ -41,13 +41,15 @@ Supported variables
         {%- else -%}
           {%- comment -%}The horizontal filtering show in a completely different way and have many exception, so the code end up pretty complex{%- endcomment -%}
 
-          {%- capture id_prefix -%}facets-{{ 'now' | date: '%N' }}{%- endcapture -%}
+          {%- capture id_prefix -%}facets-{{ section.id }}{%- endcapture -%}
           {%- assign availability_filter = results.filters | where: 'param_name', 'filter.v.availability' | first -%}
 
           <form is="facet-form" update-on-change section-id="{{ section.id }}" method="GET" action="{{ request.path }}" class="contents">
             {%- if request.page_type == 'search' -%}
               <input type="hidden" name="q" value="{{ results.terms | escape }}">
               <input type="hidden" name="type" value="product">
+            {%- elsif results.current_type != blank or results.current_vendor != blank -%}
+              <input type="hidden" name="q" value="{{ results.current_vendor | default: results.current_type | escape }}">
             {%- endif -%}
 
             {%- if availability_filter -%}
@@ -67,14 +69,6 @@ Supported variables
 
                 {%- assign downcase_label = filter.label | downcase -%}
 
-                {%- if section.settings.show_empty_filter_values == false -%}
-                  {%- assign empty_filter_values = filter.values | where: 'count', 0 | where: 'active', false -%}
-
-                  {%- if empty_filter_values.size == filter.values.size -%}
-                    {%- continue -%}
-                  {%- endif -%}
-                {%- endif -%}
-
                 <button type="button" class="text-with-icon group" aria-controls="filter-dialog-{{ filter.param_name }}" aria-expanded="false">
                   <span class="bold">{{ filter.label }}</span>
                   <span class="circle-chevron group-expanded:rotate">{%- render 'icon' with 'chevron-bottom-small', direction_aware: true -%}</span>
@@ -83,20 +77,20 @@ Supported variables
                 <facet-dialog id="filter-dialog-{{ filter.param_name }}" class="facet-dialog shadow">
                   {%- case filter.type -%}
                     {%- when 'list' or 'boolean' -%}
-                      {%- if section.settings.show_color_swatch and color_label_list contains downcase_label -%}
+                      {%- if filter.presentation == 'swatch' or color_label_list contains downcase_label -%}
                         <div class="color-list h-stack wrap justify-center gap-4">
                           {%- for filter_value in filter.values -%}
                             {%- assign disabled = false -%}
 
                             {%- if filter_value.count == 0 and filter_value.active == false -%}
-                              {% if section.settings.show_empty_filter_values == false %}
-                                {%- continue -%}
-                              {%- else -%}
-                                {%- assign disabled = true -%}
-                              {%- endif -%}
+                              {%- assign disabled = true -%}
                             {%- endif -%}
 
-                            {% render 'swatch' with 'color', allow_multiple: true, selected: filter_value.active, value: filter_value.label, name: filter_value.param_name, disabled: disabled, show_tooltip: true %}
+                            {%- if filter.presentation == 'swatch' -%}
+                              {%- render 'option-value', type: 'swatch', swatch: filter_value.swatch, allow_multiple: true, selected: filter_value.active, value: filter_value.value, label: filter_value.label, name: filter_value.param_name, show_tooltip: true, context: id_prefix -%}
+                            {%- else -%}
+                              {% render 'option-value', type: 'swatch', allow_multiple: true, selected: filter_value.active, value: filter_value.value, name: filter_value.param_name, label: filter_value.label, disabled: disabled, show_tooltip: true, context: context %}
+                            {%- endif -%}
                           {%- endfor -%}
                         </div>
                       {%- else -%}
@@ -105,14 +99,10 @@ Supported variables
                             {%- assign disabled = false -%}
 
                             {%- if filter_value.count == 0 and filter_value.active == false -%}
-                              {% if section.settings.show_empty_filter_values == false %}
-                                {%- continue -%}
-                              {%- else -%}
-                                {%- assign disabled = true -%}
-                              {%- endif -%}
+                              {%- assign disabled = true -%}
                             {%- endif -%}
 
-                            {%- capture checkbox_id -%}checkbox-{{ 'now' | date: '%N' }}{%- endcapture -%}
+                            {%- capture checkbox_id -%}checkbox-{{ section.id }}-{{ filter_value.param_name }}-{{ forloop.index }}{%- endcapture -%}
                             <input id="{{ checkbox_id }}" class="sr-only" type="checkbox" name="{{ filter_value.param_name }}" value="{{ filter_value.value }}" {% if filter_value.active %}checked{% endif %} {% if disabled %}disabled{% endif %}>
                             <label for="{{ checkbox_id }}" class="facet-dialog-option">{{ filter_value.label }} {% if section.settings.show_filter_values_count %}({{ filter_value.count }}){% endif %}</label>
                           {%- endfor -%}
@@ -130,7 +120,7 @@ Supported variables
       {%- endif -%}
 
       {%- if show_sort_by -%}
-        {%- capture sort_by_popover_id -%}popover-{{ 'now' | date: '%N' }}{%- endcapture -%}
+        {%- capture sort_by_popover_id -%}popover-sort-by-{{ section.id }}{%- endcapture -%}
 
         <facet-sort-by class="sort-by-facet">
           <span class="bold">{{ 'collection.faceting.sort_by' | t }}:</span>
@@ -143,9 +133,11 @@ Supported variables
           <x-popover id="{{ sort_by_popover_id }}" class="popover" close-on-listbox-select anchor-horizontal="end" anchor-vertical="end">
             <x-listbox class="popover-listbox" aria-owns="{{ sort_by_popover_id }}-value">
               {%- for sort_option in results.sort_options -%}
-                <button type="button" class="popover-listbox__option group" role="option" value="{{ sort_option.value }}" {% if sort_option.value == selected_sort_by_value %}aria-selected="true"{% endif %}>
-                  <span class="reversed-link">{{ sort_option.name }}</span>
-                </button>
+                {%- if sort_option.name != blank -%}
+                  <button type="button" class="popover-listbox__option group" role="option" value="{{ sort_option.value }}" {% if sort_option.value == selected_sort_by_value %}aria-selected="true"{% endif %}>
+                    <span class="reversed-link">{{ sort_option.name }}</span>
+                  </button>
+                {%- endif -%}
               {%- endfor -%}
             </x-listbox>
           </x-popover>

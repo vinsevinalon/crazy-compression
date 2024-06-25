@@ -9,75 +9,13 @@ NOTE TO DEVELOPERS: welcome to Impact theme! We hope that you will enjoy editing
 
 <!doctype html>
 
-<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{% render 'direction' %}">
+<html lang="{{ request.locale.iso_code }}" dir="{% render 'direction' %}">
   <head>
- {%- render 'ecom_header' -%}
-{% render 'visually_io_sdk' %}
-
-<link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin />
-<link rel='preconnect dns-prefetch' href='https://conf.config-security.com/' crossorigin />
-<link rel='preconnect dns-prefetch' href='https://whale.camera/' crossorigin />
-<script>
-/* >> TriplePixel :: start*/
-window.TriplePixelData={TripleName:"crazycompression.myshopify.com",ver:"2.11",plat:"SHOPIFY",isHeadless:false},function(W,H,A,L,E,_,B,N){function O(U,T,P,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,P?(H.open("POST",U,!0),H.setRequestHeader("Content-Type","application/json")):H.open("GET",U,!0),H.send(JSON.stringify(P||{})),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):P||(N[B]=R)):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1,P))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1,L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)};try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push({u:location.href,r:document.referrer,t:Date.now(),id:L()}),A.setItem(H+"U",JSON.stringify(E))}catch(e){}var i,m,p;A.getItem('"!nC`')||(_=A,A=N,A[H]||(E=A[H]=function(t,e,a){return void 0===a&&(a=[]),"State"==t?E.s:(W=L(),(E._q=E._q||[]).push([W,t,e].concat(a)),W)},E.s="Installed",E._q=[],E.ch=W,B="configSecurityConfModel",N[B]=1,O("https://conf.config-security.com/model",5),i=L(),m=A[atob("c2NyZWVu")],_.setItem("di_pmt_wt",i),p={id:i,action:"profile",avatar:_.getItem("auth-security_rand_salt_"),time:m[atob("d2lkdGg=")]+":"+m[atob("aGVpZ2h0")],host:A.TriplePixelData.TripleName,plat:A.TriplePixelData.plat,url:window.location.href,ref:document.referrer,ver:A.TriplePixelData.ver},O("https://api.config-security.com/event",5,p),O("https://whale.camera/live/dot.txt",5)))}}("","TriplePixel",localStorage);
-/* << TriplePixel :: end*/
-</script>
-<link rel='preconnect dns-prefetch' href='https://triplewhale-pixel.web.app/' crossorigin />{% render 'pagefly-head' %}
-  {% if canonical_url contains '/blogs/crazy-compression/tagged/compression-sleeves' %}
-  <meta name="robots" content="noindex,follow">
-  {% endif %}
-  {% if canonical_url contains '/blogs/crazy-compression/tagged/compression-socks' %}
-  <meta name="robots" content="noindex,follow">
-  {% endif %}
-  {% if canonical_url contains '/blogs/crazy-compression/tagged/fitness' %}
-  <meta name="robots" content="noindex,follow">
-  {% endif %}
-  {% if canonical_url contains '/blogs/crazy-compression/tagged/nursing' %}
-  <meta name="robots" content="noindex,follow">
-  {% endif %}
-  {% if canonical_url contains '/blogs/crazy-compression/tagged/wellness' %}
-  <meta name="robots" content="noindex,follow">
-  {% endif %}
-    {% comment %} This is for page redirect's.{% endcomment %}
-    {% if request.path == '/collections/all' %}
-    <script>window.location.href="/collections/all-crazy-compression-socks"</script>
-    {% endif %}
-    {% comment %}  end of page redirect's {% endcomment %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="theme-color" content="{{ settings.header_background }}">
 
-    <title>
-{%- assign pageTitle = "" -%}
-{%- if template == 'product' -%}{%- assign pageTitle = product.title -%}
-{%- elsif template == 'collection' -%}{%- assign pageTitle = collection.title -%}
-{%- elsif template == 'blog' or template == 'article' -%}{%- assign pageTitle = page_title -%}
-{%- endif -%}
-{%- assign sanitizedTitle = pageTitle | replace: '"', '' -%}
-{%- if page_title == blank and sanitizedTitle != blank -%}
-{%- if sanitizedTitle contains shop.name -%}
-{{ sanitizedTitle }}
-{%- else -%}
-{%- if sanitizedTitle contains "Crazy Compression" -%}
-{{ sanitizedTitle }}
-{%- else -%}
-{{ sanitizedTitle }} | {{ shop.name }}
-{%- endif -%}
-{%- endif -%}
-{%- elsif page_title != blank -%}
-{%- if page_title contains shop.name -%}
-{{ page_title }}
-{%- else -%}
-{%- if page_title contains "Crazy Compression" -%}
-{{ page_title }}
-{%- else -%}
-{{ page_title }} | {{ shop.name }}
-{%- endif -%}
-{%- endif -%}
-{%- else -%}
-{{ shop.name }}
-{%- endif -%}
-</title>
+    <title>{% if page_title == blank %}{{ shop.name }}{% else %}{{ page_title }}{% if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif %}{% endif %}</title>
 
     {%- if page_description -%}
       <meta name="description" content="{{ page_description | escape }}">
@@ -115,12 +53,7 @@ window.TriplePixelData={TripleName:"crazycompression.myshopify.com",ver:"2.11",p
     {{ content_for_header }}
 
     {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
-
-    <meta name="google-site-verification" content="_aoznnzOWmtLkD8GcYCCu7tllHBZYsMVfxzS4zWe2jY" />
-    
-  {% render 'gp-head' %}
-</head>
-
+  </head>
 
   <body class="{% if settings.show_page_transition %}page-transition{% endif %} {% if settings.zoom_image_on_hover %}zoom-image--enabled{% endif %}">
     {%- render 'shadow-dom-templates' -%}
@@ -151,13 +84,5 @@ window.TriplePixelData={TripleName:"crazycompression.myshopify.com",ver:"2.11",p
         {%- sections 'footer-group' -%}
       {%- endif -%}
     </main>
-   
-<!-- Stamped - Begin script -->
-<script async type="text/javascript" id="stamped-script-widget" data-api-key="pubkey-i3I5l5ZyB4lU1X3L2WCHQ6M00IZy14" src="https://cdn1.stamped.io/files/widget.min.js"></script>
-<!-- Stamped - End script -->
- 
-  
-{% render 'special-offers' %}
-
-{%- render "ecom_footer"-%}</body>
+  </body>
 </html>

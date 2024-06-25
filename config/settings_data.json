@@ -48,13 +48,6 @@
     "cart_show_free_shipping_threshold": false,
     "social_facebook": "https:\/\/www.facebook.com\/crazycompression\/",
     "social_instagram": "https:\/\/www.instagram.com\/crazycompression\/?hl=en",
-    "checkout_header_image": "shopify:\/\/shop_images\/Untitled-1_copy.jpg",
-    "checkout_logo_image": "shopify:\/\/shop_images\/CC_Logo_Ship_Delay-12-6-2023.png",
-    "checkout_logo_position": "center",
-    "checkout_logo_size": "large",
-    "checkout_body_background_color": "#f2f2f2",
-    "checkout_sidebar_background_image": "shopify:\/\/shop_images\/Gradients_CCB.jpg",
-    "checkout_sidebar_background_color": "#ffffff",
     "checkout_accent_color": "#3c619e",
     "checkout_button_color": "#3c619e",
     "content_for_index": [
@@ -75,24 +68,6 @@
       },
       "17676059084223943535": {
         "type": "shopify:\/\/apps\/triplewhale\/blocks\/triple_pixel_snippet\/483d496b-3f1a-4609-aea7-8eee3b6b7a2a",
-        "disabled": false,
-        "settings": {
-        }
-      },
-      "17940372039816912135": {
-        "type": "shopify:\/\/apps\/visually-on-site-optimization\/blocks\/visually\/d08aba15-0b89-475b-9f75-9c4c0ca8c3c4",
-        "disabled": false,
-        "settings": {
-        }
-      },
-      "4705145147225299685": {
-        "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/widget-block\/06fa8282-42ff-403e-b67c-1936776aed11",
-        "disabled": false,
-        "settings": {
-        }
-      },
-      "21474836472147483647": {
-        "type": "shopify:\/\/apps\/ecomposer-landing-page-builder\/blocks\/app-embed\/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
         "disabled": false,
         "settings": {
         }
@@ -129,20 +104,12 @@
       "heading_font_size": "large",
       "heading_letter_spacing": -2,
       "text_font": "din_next_n4",
-      "show_page_transition": true,
+      "cart_icon": "shopping_basket",
       "heading_apparition": "split_fade",
       "product_color_display": "swatch",
       "product_info_alignment": "start",
       "checkout_accent_color": "#f0c417",
-      "checkout_button_color": "#1a1a1a",
-      "blocks": {
-        "6544724514127332554": {
-          "type": "shopify:\/\/apps\/go-gift-cards\/blocks\/app-embed\/3676fc08-8fa0-4857-baf6-8c6e28f899dc",
-          "disabled": false,
-          "settings": {
-          }
-        }
-      }
+      "checkout_button_color": "#1a1a1a"
     },
     "Home": {
       "section_vertical_spacing": "medium",
@@ -170,6 +137,7 @@
       "heading_text_transform": "normal",
       "heading_letter_spacing": -1,
       "text_font": "futura_n4",
+      "cart_icon": "shopping_basket",
       "heading_apparition": "split_rotation",
       "color_swatch_style": "rectangle",
       "product_color_display": "swatch",
@@ -177,15 +145,7 @@
       "checkout_body_background_color": "#f2f2f2",
       "checkout_sidebar_background_color": "#ffffff",
       "checkout_accent_color": "#3c619e",
-      "checkout_button_color": "#3c619e",
-      "blocks": {
-        "6544724514127332554": {
-          "type": "shopify:\/\/apps\/go-gift-cards\/blocks\/app-embed\/3676fc08-8fa0-4857-baf6-8c6e28f899dc",
-          "disabled": false,
-          "settings": {
-          }
-        }
-      }
+      "checkout_button_color": "#3c619e"
     },
     "Shape": {
       "page_width": 1440,
@@ -206,6 +166,7 @@
       "primary_button_text_color": "#ffffff",
       "secondary_button_background": "#d9967e",
       "product_card_text_color": "#2a555a",
+      "cart_icon": "tote_bag",
       "heading_font": "itc_berkeley_old_style_n4",
       "heading_font_size": "large",
       "heading_text_transform": "normal",
@@ -213,15 +174,7 @@
       "text_font": "muli_n4",
       "text_font_size_desktop": 15,
       "product_color_display": "swatch",
-      "product_info_alignment": "center",
-      "blocks": {
-        "6544724514127332554": {
-          "type": "shopify:\/\/apps\/go-gift-cards\/blocks\/app-embed\/3676fc08-8fa0-4857-baf6-8c6e28f899dc",
-          "disabled": false,
-          "settings": {
-          }
-        }
-      }
+      "product_info_alignment": "center"
     }
   }
 }
