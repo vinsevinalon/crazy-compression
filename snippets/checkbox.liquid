@@ -18,9 +18,10 @@ Supported variables
 * value: the value to use (use 1 if none is passed)
 * switch: if set to true, the checkbox is rendered as a switch
 * label: the label to show
+* context: an optional context that can be passed from parent to identify the checkbox
 {%- endcomment -%}
 
-{%- capture id -%}checkbox-{{ 'now' | date: '%N' }}{%- endcapture -%}
+{%- capture id -%}checkbox-{{ section.id }}-{{ form }}-{{ context }}-{{ name | handle }}-{{ value | handle }}{%- endcapture -%}
 
 <div class="checkbox-container" {{ block.shopify_attributes }}>
   {%- if switch -%}

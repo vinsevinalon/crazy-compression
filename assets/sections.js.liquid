@@ -45,6 +45,7 @@ var SplitCursor = class extends HTMLElement {
     this._parentSection.addEventListener("pointerdown", this._onPointerDown.bind(this));
     this._parentSection.addEventListener("pointermove", this._onPointerMove.bind(this));
     this._parentSection.addEventListener("pointerup", this._onPointerUp.bind(this));
+    this._recalculateOffset();
     window.addEventListener("resize", this._recalculateOffset.bind(this));
   }
   get minOffset() {
@@ -136,8 +137,14 @@ var StoreHeader = class extends HTMLElement {
       window.addEventListener("scroll", throttle(this._onScroll.bind(this)));
     }
     this.addEventListener("toggle", this._checkTransparency.bind(this), { capture: true });
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        this.classList.remove("is-filled");
+        this._setupTransparentHeader();
+      }
+    });
+    this._setupTransparentHeader();
     if (this.hasAttribute("sticky")) {
-      this._setupTransparentHeader();
       if (Shopify.designMode) {
         document.addEventListener("shopify:section:load", this._setupTransparentHeader.bind(this));
         document.addEventListener("shopify:section:unload", this._setupTransparentHeader.bind(this));
@@ -145,14 +152,18 @@ var StoreHeader = class extends HTMLElement {
       }
     }
   }
-  hide() {
+  async hide() {
     if (this._isVisible) {
-      animate(this, { transform: ["translateY(0)", "translateY(-100%)"] }, { duration: 0.2, easing: "ease" });
       this._isVisible = false;
+      document.documentElement.style.setProperty("--header-is-visible", "0");
+      await animate(this, { transform: ["translateY(0)", "translateY(-100%)"] }, { duration: 0.2, easing: "ease" }).finished;
+      this.closest(".shopify-section").style.visibility = "hidden";
     }
   }
   show() {
     if (!this._isVisible) {
+      this.closest(".shopify-section").style.visibility = "visible";
+      document.documentElement.style.setProperty("--header-is-visible", "1");
       animate(this, { transform: ["translateY(-100%)", "translateY(0)"] }, { duration: 0.2, easing: "ease" });
       this._accumulatedScroll = 0;
       this._isVisible = true;
@@ -165,7 +176,7 @@ var StoreHeader = class extends HTMLElement {
     this._accumulatedScroll = Math.max(0, this._accumulatedScroll + (window.scrollY - this._lastScrollTop));
     if (window.scrollY < this._lastScrollTop) {
       this.show();
-    } else if (this._accumulatedScroll > parseInt(this.getAttribute("hide-on-scroll"))) {
+    } else if (this._accumulatedScroll > parseInt(this.getAttribute("hide-on-scroll")) && this.querySelectorAll("[open]").length === 0) {
       this.hide();
     }
     this._lastScrollTop = window.scrollY;
@@ -199,16 +210,18 @@ var StoreHeader = class extends HTMLElement {
   _setupTransparentHeader() {
     if (document.querySelector(".shopify-section:first-child [allow-transparent-header]")) {
       this.setAttribute("allow-transparency", "");
-      window.addEventListener("scroll", throttle(this._checkTransparency.bind(this)));
       this.addEventListener("mouseenter", this._checkTransparency.bind(this));
       this.addEventListener("mouseleave", this._checkTransparency.bind(this));
+      if (this.hasAttribute("sticky")) {
+        window.addEventListener("scroll", throttle(this._checkTransparency.bind(this)));
+      }
       this._checkTransparency();
     } else {
       this.removeAttribute("allow-transparency");
     }
   }
 };
-var DropdownDisclosure = class extends AnimatedDetails {
+var DropdownDisclosure = class _DropdownDisclosure extends AnimatedDetails {
   constructor() {
     super();
     this._detectClickOutsideListener = this._detectClickOutside.bind(this);
@@ -274,7 +287,7 @@ var DropdownDisclosure = class extends AnimatedDetails {
     if (this.trigger !== "click") {
       return;
     }
-    if (!this.contains(event.target) && !(event.target.closest("details") instanceof DropdownDisclosure)) {
+    if (!this.contains(event.target) && !(event.target.closest("details") instanceof _DropdownDisclosure)) {
       this.open = false;
     }
   }
@@ -560,9 +573,9 @@ var ImageBanner = class extends HTMLElement {
     return this.hasAttribute("parallax") ? parseFloat(this.getAttribute("parallax")) : false;
   }
   _setupParallax() {
-    const media = Array.from(this.querySelectorAll(":scope > :is(img, video, iframe, svg, video-media)")), [scale, translate] = [1 + this.parallax, this.parallax * 100 / (1 + this.parallax)];
+    const media = Array.from(this.querySelectorAll(":scope > :is(img, video, iframe, svg, video-media, picture)")), [scale, translate] = [1 + this.parallax, this.parallax * 100 / (1 + this.parallax)];
     scroll2(
-      animate2(media, { transform: [`scale(${scale}) translateY(${translate}%)`, `scale(${scale}) translateY(0)`] }, { easing: "linear" }),
+      animate2(media, { transform: [`scale(${scale}) translateY(-${translate}%)`, `scale(${scale}) translateY(0)`] }, { easing: "linear" }),
       {
         target: this,
         offset: ["start end", "end start"]
@@ -798,7 +811,7 @@ var MultipleImagesWithTextImageList = class extends EffectCarousel3 {
       ]);
     }
   }
-  _transitionTo(fromSlide, toSlide, { direction, animate: animate8 }) {
+  _transitionTo(fromSlide, toSlide, { direction, animate: animate9 }) {
     if (this.getAttribute("layout") !== "stacked") {
       return;
     }
@@ -830,14 +843,14 @@ var MultipleImagesWithTextContentList = class extends EffectCarousel3 {
   _reveal() {
     animate6(...getHeadingKeyframe3(this.querySelector('[reveal-on-scroll="true"]')));
   }
-  _transitionTo(fromSlide, toSlide, { direction = "next", animate: animate8 = true } = {}) {
+  _transitionTo(fromSlide, toSlide, { direction = "next", animate: animate9 = true } = {}) {
     fromSlide.classList.remove("is-selected");
     toSlide.classList.add("is-selected");
     return timeline8([
       [fromSlide, { opacity: [1, 0], visibility: ["visible", "hidden"] }],
       [toSlide, { opacity: [0, 1], visibility: ["hidden", "visible"] }],
       [...getHeadingKeyframe3(toSlide.querySelector('[reveal-on-scroll="true"]'), { at: "<" })]
-    ], { duration: animate8 ? parseFloat(this.getAttribute("fade-speed") || 0.5) : 0 }).finished;
+    ], { duration: animate9 ? parseFloat(this.getAttribute("fade-speed") || 0.5) : 0 }).finished;
   }
 };
 if (!window.customElements.get("multiple-images-with-text")) {
@@ -1022,6 +1035,47 @@ if (!window.customElements.get("revealed-image")) {
   window.customElements.define("revealed-image", RevealedImage);
 }
 
+// js/sections/scrolling-text.js
+import { animate as animate8, scroll as scroll4 } from "{{ 'vendor.min.js' | asset_url }}";
+var ScrollingText = class extends HTMLElement {
+  connectedCallback() {
+    if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      if (window.ScrollTimeline) {
+        const timeline12 = new ViewTimeline({
+          subject: this,
+          axis: "block"
+        });
+        this.animate(
+          {
+            transform: ["translateX(calc(var(--transform-logical-flip) * 50vw))", "translateX(calc(var(--transform-logical-flip) * 50vw - 10%))"]
+          },
+          {
+            timeline: timeline12,
+            rangeStart: "cover 0%",
+            rangeEnd: "cover 100%"
+          }
+        );
+      } else {
+        scroll4(
+          animate8(
+            this,
+            {
+              transform: ["translateX(calc(var(--transform-logical-flip) * 50vw))", "translateX(calc(var(--transform-logical-flip) * 50vw - 10%))"]
+            }
+          ),
+          {
+            target: this,
+            offset: ["start end", "end start"]
+          }
+        );
+      }
+    }
+  }
+};
+if (!window.customElements.get("scrolling-text")) {
+  window.customElements.define("scrolling-text", ScrollingText);
+}
+
 // js/sections/shop-the-look.js
 var ShopTheLookDots = class extends HTMLElement {
   connectedCallback() {
@@ -1065,9 +1119,13 @@ var Slideshow = class extends HTMLElement {
   }
 };
 var SlideshowCarousel = class extends EffectCarousel5 {
+  _pendingAnimationControls = [];
   constructor() {
     super();
-    inView10(this, this._reveal.bind(this));
+    this.addEventListener("carousel:select", this._onSlideSelected);
+    if (this.hasAttribute("reveal-on-scroll")) {
+      inView10(this, this._reveal.bind(this));
+    }
     if (this.querySelector(".slideshow__cursor")) {
       this.addEventListener("tap", this._onSlideshowTap);
     }
@@ -1075,23 +1133,32 @@ var SlideshowCarousel = class extends EffectCarousel5 {
   connectedCallback() {
     super.connectedCallback();
     if (this._player && this.hasAttribute("autoplay")) {
-      this._player.addEventListener("player:start", () => {
+      this._player.addEventListener("player:start", (event) => {
         const cursorRing = this.querySelector(".slideshow__cursor-ring circle");
         if (cursorRing) {
-          motionAnimate2(cursorRing, { strokeDasharray: [`0px, ${cursorRing.getTotalLength()}px`, `${cursorRing.getTotalLength()}px, ${cursorRing.getTotalLength()}px`] }, {
-            duration: parseInt(this.getAttribute("autoplay")),
+          const cursorRingAnimationControl = motionAnimate2(cursorRing, { strokeDasharray: [`0px, ${cursorRing.getTotalLength()}px`, `${cursorRing.getTotalLength()}px, ${cursorRing.getTotalLength()}px`] }, {
+            duration: event.detail.duration,
             easing: "linear"
           });
+          this._pendingAnimationControls.push(cursorRingAnimationControl);
         }
         const circles = Array.from(this.querySelectorAll(".numbered-dots__item"));
         circles.forEach((item) => {
           const circle = item.querySelector("circle:last-child");
+          let circleAnimationControl = null;
           if (item.getAttribute("aria-current") === "true") {
-            motionAnimate2(circle, { strokeDasharray: [`0px, ${circle.getTotalLength()}px`, `${circle.getTotalLength()}px, ${circle.getTotalLength()}px`] }, { duration: parseInt(this.getAttribute("autoplay")), easing: "linear" });
+            circleAnimationControl = motionAnimate2(circle, { strokeDasharray: [`0px, ${circle.getTotalLength()}px`, `${circle.getTotalLength()}px, ${circle.getTotalLength()}px`] }, { duration: event.detail.duration, easing: "linear" });
           } else {
-            motionAnimate2(circle, { strokeDasharray: `${circle.getTotalLength()}px, ${circle.getTotalLength()}px` }, { duration: 0, easing: "linear" });
+            circleAnimationControl = motionAnimate2(circle, { strokeDasharray: `${circle.getTotalLength()}px, ${circle.getTotalLength()}px` }, { duration: 0, easing: "linear" });
           }
+          this._pendingAnimationControls.push(circleAnimationControl);
         });
+      });
+      this._player.addEventListener("player:pause", () => {
+        this._pendingAnimationControls.forEach((control) => control.pause());
+      });
+      this._player.addEventListener("player:resume", () => {
+        this._pendingAnimationControls.forEach((control) => control.play());
       });
     }
   }
@@ -1108,7 +1175,7 @@ var SlideshowCarousel = class extends EffectCarousel5 {
     if (!this._reloaded) {
       timeline11([
         [selectedSlide, { zIndex: 1 }, { duration: 0 }],
-        [selectedSlide.querySelectorAll("img"), { opacity: [0, 1], transform: ["scale(1.05)", "scale(1)"] }, { duration: 0.3 }],
+        [selectedSlide.querySelectorAll("img, video-media"), { opacity: [0, 1], transform: ["scale(1.05)", "scale(1)"] }, { duration: 0.3 }],
         "content",
         [selectedSlide.querySelectorAll('[data-sequence="subheading"], .button'), { opacity: [0, 1] }, { duration: 0.3, at: "content" }],
         [...getHeadingKeyframe4(selectedSlide.querySelector('[data-sequence="heading"]'), { duration: 0.3, at: "content" })],
@@ -1128,19 +1195,19 @@ var SlideshowCarousel = class extends EffectCarousel5 {
    * that extends the EffectCarousel, and implement your own transition. You should make sure to return a promise
    * that resolves when the animation is finished
    */
-  async _transitionTo(fromSlide, toSlide, { direction, animate: animate8 = true } = {}) {
+  async _transitionTo(fromSlide, toSlide, { direction, animate: animate9 = true } = {}) {
     fromSlide.classList.remove("is-selected");
     toSlide.classList.add("is-selected");
     let timelineControls = null;
     switch (this.transitionType) {
       case "fade":
-        timelineControls = this._fade(fromSlide, toSlide, { animate: animate8 });
+        timelineControls = this._fade(fromSlide, toSlide, { animate: animate9 });
         break;
       case "fade_with_text":
-        timelineControls = this._fadeWithText(fromSlide, toSlide, { animate: animate8 });
+        timelineControls = this._fadeWithText(fromSlide, toSlide, { animate: animate9 });
         break;
     }
-    if (!animate8) {
+    if (!animate9) {
       timelineControls.finish();
     }
     return timelineControls.finished;
@@ -1162,11 +1229,32 @@ var SlideshowCarousel = class extends EffectCarousel5 {
     await imageLoaded4(toSlide.querySelectorAll("img"));
     motionAnimate2(toSlide, { opacity: [0, 1], visibility: ["hidden", "visible"], zIndex: 1 }, { duration: 0, zIndex: { easing: "step-end" } });
     return timeline11([
-      [toSlide.querySelectorAll("img"), { opacity: [0, 1], transform: ["scale(1.05)", "scale(1)"] }, { duration: 0.3, easing: "ease-out" }],
+      [toSlide.querySelectorAll("img, video-media"), { opacity: [0, 1], transform: ["scale(1.05)", "scale(1)"] }, { duration: 0.3, easing: "ease-out" }],
       "content",
       [toSlide.querySelectorAll('[data-sequence="subheading"], .button'), { opacity: [0, 1] }, { duration: 0.3, at: "content" }],
       [...getHeadingKeyframe4(toSlide.querySelector('[data-sequence="heading"]'), { duration: 0.3, at: "content" })]
     ]);
+  }
+  /**
+   * Perform the synchronization with video
+   */
+  async _onSlideSelected(event) {
+    Array.from(this.querySelectorAll("video-media")).forEach((video) => video.pause());
+    if (event.detail.slide.getAttribute("data-slide-type") === "video") {
+      const visibleVideo = Array.from(event.detail.slide.querySelectorAll("video-media")).filter((video) => video.offsetParent !== null).pop();
+      visibleVideo.play({ restart: true });
+      if (this.player) {
+        const video = visibleVideo.querySelector("video");
+        if (isNaN(video.duration)) {
+          await new Promise((resolve) => {
+            video.onloadedmetadata = () => resolve();
+          });
+        }
+        this._player.setDuration(video.duration);
+      }
+    } else {
+      this._player?.setDuration(parseInt(this.getAttribute("autoplay")));
+    }
   }
 };
 if (!window.customElements.get("x-slideshow")) {

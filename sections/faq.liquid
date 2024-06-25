@@ -13,7 +13,7 @@
   <div class="section-stack {% if text_position != 'center' %}section-stack--horizontal{% else %}section-stack--center{% endif %} {% if text_position == 'end' %}section-stack--reverse{% endif %}">
     {%- capture content -%}
       {%- if section.settings.subheading != blank -%}
-        <p class="bold">{{ section.settings.subheading | escape }}</p>
+        <p class="subheading">{{ section.settings.subheading | escape }}</p>
       {%- endif -%}
 
       {%- if section.settings.title != blank -%}
@@ -33,7 +33,7 @@
               {%- capture sizes -%}{{ section.settings.team_avatar_width }}px{%- endcapture -%}
               {%- capture widths -%}{{ section.settings.team_avatar_width }}, {{ section.settings.team_avatar_width | times: 2 | at_most: section.settings.team_avatar.width }}{%- endcapture -%}
               {%- capture style -%}max-width: {{ section.settings.team_avatar_width }}px{%- endcapture -%}
-              {{- section.settings.team_avatar | image_url: width: section.settings.team_avatar.width | image_tag: loading: 'lazy', style: style, sizes: sizes, widths: widths -}}
+              {{- section.settings.team_avatar | image_url: width: section.settings.team_avatar.width | image_tag: style: style, sizes: sizes, widths: widths -}}
             {%- endif -%}
 
             {%- if section.settings.support_hours != blank or section.settings.answer_time != blank -%}

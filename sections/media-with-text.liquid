@@ -45,6 +45,14 @@ LIQUID
     {%- for block in section.blocks -%}
       <div id="block-{{ section.id }}-{{ block.id }}" class="media-with-text__item" {{ block.shopify_attributes }}>
         <div class="media-with-text__media {% unless section.settings.spacing == 'none' %}rounded{% endunless %}" reveal-on-scroll="true">
+          {%- liquid
+            assign loading_strategy = nil
+  
+            if section.index > 3 or forloop.index > 3
+              assign loading_strategy = 'lazy'
+            endif
+          -%}
+
           {%- if block.type == 'image' -%}
             {%- if block.settings.image != blank -%}
               {%- assign width_ratio = 100.0 | divided_by: block.settings.media_width -%}
@@ -52,7 +60,7 @@ LIQUID
 
               {%- capture sizes -%}(max-width: 999px) 100vw, min({{ maximum_image_width | ceil }}px, {{ block.settings.media_width }}vw){% endcapture %}
 
-              {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: sizes, widths: '300,400,500,600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600' -}}
+              {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: loading_strategy, sizes: sizes, widths: '300,400,500,600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600' -}}
             {%- else -%}
               {{- 'image' | placeholder_svg_tag: 'aspect-short placeholder' -}}
             {%- endif -%}
@@ -61,14 +69,14 @@ LIQUID
               {%- assign poster_image = block.settings.poster_image | default: block.settings.video.preview_image -%}
 
               {%- if poster_image -%}
-                {{- poster_image | image_url: width: poster_image.width | image_tag: loading: 'lazy', sizes: '(max-width: 699px) 400px, 800px', widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'rounded' -}}
+                {{- poster_image | image_url: width: poster_image.width | image_tag: loading: loading_strategy, sizes: '(max-width: 699px) 400px, 800px', widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'rounded' -}}
               {%- else -%}
                 {{ 'image' | placeholder_svg_tag: 'rounded' }}
               {%- endif -%}
             {%- endcapture -%}
 
             {%- if block.settings.video -%}
-              <video-media {% if block.settings.autoplay %}autoplay{% else %}show-play-button{% endif %}>
+              <video-media {% if block.settings.autoplay %}autoplay{% else %}show-play-button{% endif %} style="--aspect-ratio: {{ block.settings.video.aspect_ratio }}">
                 {%- unless block.settings.autoplay -%}
                   {{- poster -}}
                 {%- endunless -%}
@@ -87,9 +95,9 @@ LIQUID
 
                 <template>
                   {%- if block.settings.external_video_url.type == 'youtube' -%}
-                    <iframe src="https://www.youtube.com/embed/{{ block.settings.external_video_url.id }}?playsinline=1&autoplay=1&controls=0&mute=1&loop=1&playlist={{ block.settings.external_video_url.id }}&enablejsapi=1&rel=0&modestbranding=1&origin={{ 'https://' | append: request.host | url_encode }}" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen"></iframe>
+                    <iframe src="https://www.youtube.com/embed/{{ block.settings.external_video_url.id }}?playsinline=1&autoplay=1&controls=0&mute={% if block.settings.autoplay %}1{% else %}0{% endif %}&loop=1&playlist={{ block.settings.external_video_url.id }}&enablejsapi=1&rel=0&modestbranding=1&origin={{ 'https://' | append: request.host | url_encode }}" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen"></iframe>
                   {%- elsif block.settings.external_video_url.type == 'vimeo' -%}
-                    <iframe src="https://player.vimeo.com/video/{{ block.settings.external_video_url.id }}?autoplay=1&autopause=1&background=1&loop=1&muted=1&transparent=0&responsive=1&portrait=0&title=0&byline=0&color={{ settings.text_color | remove_first: '#' }}" allow="autoplay; encrypted-media;" allowfullscreen="allowfullscreen"></iframe>
+                    <iframe src="https://player.vimeo.com/video/{{ block.settings.external_video_url.id }}?autoplay=1&autopause=1&background={% if block.settings.autoplay %}1{% else %}0{% endif %}&loop=1&muted={% if block.settings.autoplay %}1{% else %}0{% endif %}&transparent=0&responsive=1&portrait=0&title=0&byline=0&color={{ settings.text_color | remove_first: '#' }}" allow="autoplay; encrypted-media;" allowfullscreen="allowfullscreen"></iframe>
                   {%- endif -%}
                 </template>
               </video-media>
@@ -103,13 +111,13 @@ LIQUID
             {%- if block.settings.custom_icon != blank -%}
               {%- capture sizes -%}{{ block.settings.icon_width }}px{%- endcapture -%}
               {%- capture widths -%}{{ block.settings.icon_width }}, {{ block.settings.icon_width | times: 2 | at_most: block.settings.custom_icon.width }}{%- endcapture -%}
-              {{- block.settings.custom_icon | image_url: width: block.settings.custom_icon.width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, class: 'media-with-text__icon' -}}
+              {{- block.settings.custom_icon | image_url: width: block.settings.custom_icon.width | image_tag: loading: loading_strategy, sizes: sizes, widths: widths, class: 'media-with-text__icon' -}}
             {%- elsif block.settings.icon != 'none' -%}
               {%- render 'icon' with block.settings.icon, width: block.settings.icon_width, height: block.settings.icon_width, class: 'media-with-text__icon' -%}
             {%- endif -%}
 
             {%- if block.settings.subheading != blank -%}
-              <p class="bold">{{ block.settings.subheading | escape }}</p>
+              <p class="subheading">{{ block.settings.subheading | escape }}</p>
             {%- endif -%}
 
             {%- if block.settings.title != blank -%}
@@ -146,12 +154,6 @@ LIQUID
       "label": "Full width",
       "info": "Only has effect when spacing is set to none.",
       "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_parallax",
-      "label": "Enable parallax effect",
-      "default": true
     },
     {
       "type": "select",

@@ -50,11 +50,19 @@ LIQUID
 
       <image-link-blocks id="{{ scroll_area_id }}" class="image-link-blocks scroll-area bleed md:unbleed">
         {%- for block in section.blocks -%}
+          {%- liquid
+            assign loading_strategy = nil
+  
+            if section.index > 3 or forloop.index > 3
+              assign loading_strategy = 'lazy'
+            endif
+          -%}
+
           <div {% render 'surface', class: 'image-link-blocks__item group rounded', background: block.settings.background, text_color: block.settings.text_color, background_fallback: 'bg-secondary' %} {{ block.shopify_attributes }}>
             {%- if block.settings.stretch_image -%}
               {%- capture item_content -%}
                 {%- if block.settings.image != blank -%}
-                  {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: '(max-width: 699px) 160px, 285px', widths: '200,300,400,500,600,700,800,900,1000,1200', class: 'zoom-image' -}}
+                  {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: loading_strategy, sizes: '(max-width: 699px) 160px, 285px', widths: '200,300,400,500,600,700,800,900,1000,1200', class: 'zoom-image' -}}
                 {%- else -%}
                   {{- 'image' | placeholder_svg_tag: 'zoom-image placeholder' -}}
                 {%- endif -%}
@@ -82,7 +90,7 @@ LIQUID
             {%- else -%}
               <a {% if block.settings.link_url != blank %}href="{{ block.settings.link_url }}"{% endif %} class="image-link-blocks__inner">
                 {%- if block.settings.image != blank -%}
-                  {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: '(max-width: 699px) 160px, 285px', widths: '200,300,400,500,600,700,800,900,1000,1200', class: 'image-link-blocks__image zoom-image' -}}
+                  {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: loading_strategy, sizes: '(max-width: 699px) 160px, 285px', widths: '200,300,400,500,600,700,800,900,1000,1200', class: 'image-link-blocks__image zoom-image' -}}
                 {%- else -%}
                   {{- 'image' | placeholder_svg_tag: 'image-link-blocks__image placeholder' -}}
                 {%- endif -%}

@@ -135,7 +135,7 @@
                     {%- assign product_results = search.results | where: 'object_type', 'product' -%}
 
                     {%- for product in product_results -%}
-                      {%- render 'product-card', product: product, stacked: true, show_badges: true -%}
+                      {%- render 'product-card', product: product, stacked: true, position: forloop.index, show_badges: true -%}
                     {%- endfor -%}
                   </product-list>
                 </reveal-items>
@@ -244,18 +244,6 @@
       "id": "show_filter_group_name",
       "label": "Show group name",
       "info": "Group name will be shown inside selected filters.",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "show_color_swatch",
-      "label": "Show filter color swatch",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_empty_filter_values",
-      "label": "Show empty filter values",
       "default": false
     },
     {

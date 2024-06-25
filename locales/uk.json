@@ -1,10 +1,4 @@
 {
-  "404": {
-    "general": {
-      "title": "Сторінку не знайдено",
-      "continue_shopping": "Продовжити покупки"
-    }
-  },
   "general": {
     "page": "Сторінка {{ page }}",
     "home": "Головна",
@@ -48,6 +42,9 @@
     "privacy_bar": {
       "accept": "Прийняти",
       "decline": "Відхилити"
+    },
+    "form": {
+      "max_characters": "Не больше {{ max_chars }} симв."
     },
     "on_boarding": {
       "blog_post_category": "Категорія",
@@ -341,6 +338,12 @@
       "error": "Під час отримання тарифів на доставку сталась одна або кілька помилок:"
     }
   },
+  "404": {
+    "general": {
+      "title": "Сторінку не знайдено",
+      "continue_shopping": "Продовжити покупки"
+    }
+  },
   "search": {
     "general": {
       "title": "Пошук",
@@ -378,6 +381,13 @@
       "expires_on": "Термін дії: {{ expires_on }}",
       "expired": "Термін дії вашої подарункової картки закінчився, або її скасовано.",
       "add_to_apple_wallet": "Додати в Гаманець Apple"
+    },
+    "recipient": {
+      "checkbox": "Я хочу отправить это в качестве подарка",
+      "email_label": "Электронный адрес получателя",
+      "name_label": "Имя получателя (необязательно)",
+      "send_on_label": "Надіслати (необов'язково)",
+      "message_label": "Сообщение (необязательно)"
     }
   },
   "password": {
@@ -404,51 +414,6 @@
         "one": "Отримано відгуків: {{ count }}.",
         "other": "Отримано відгуків: {{ count }}."
       }
-    }
-  },
-  "pagefly": {
-    "products": {
-      "product": {
-        "regular_price": "Regular price",
-        "sold_out": "Sold out",
-        "unavailable": "Unavailable",
-        "on_sale": "Sale",
-        "quantity": "Quantity",
-        "add_to_cart": "Add to cart",
-        "back_to_collection": "Back to {{ title }}",
-        "view_details": "View details"
-      }
-    },
-    "article": {
-      "tags": "Tags:",
-      "all_topics": "All topics",
-      "by_author": "by {{ author }}",
-      "posted_in": "Posted in",
-      "read_more": "Read more",
-      "back_to_blog": "Back to {{ title }}"
-    },
-    "comments": {
-      "title": "Leave a comment",
-      "name": "Name",
-      "email": "Email",
-      "message": "Message",
-      "post": "Post comment",
-      "moderated": "Please note, comments must be approved before they are published",
-      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.",
-      "success": "Your comment was posted successfully! Thank you!",
-      "comments_with_count": {
-        "one": "{{ count }} comment",
-        "other": "{{ count }} comments"
-      }
-    },
-    "password_page": {
-      "login_form_message": "Enter store using password:",
-      "login_form_password_label": "Password",
-      "login_form_password_placeholder": "Your password",
-      "login_form_submit": "Enter",
-      "signup_form_email_label": "Email",
-      "signup_form_success": "We will send you an email right before we open!",
-      "password_link": "Enter using password"
     }
   }
 }

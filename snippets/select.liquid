@@ -18,7 +18,7 @@ Supported variables
 * autocomplete: a hint to the browser for help autocompletion. List can be found here: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values
 {%- endcomment -%}
 
-{%- capture id -%}select-{{ 'now' | date: '%N' }}{%- endcapture -%}
+{%- capture id -%}select-{{ section.id }}-{{ form }}-{{ name | handle }}{%- endcapture -%}
 
 {%- capture optional_attributes -%}
   {% if form %}form="{{ form }}"{% endif %}

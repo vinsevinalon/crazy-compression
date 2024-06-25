@@ -8,7 +8,11 @@ CSS
 
 <style>
   #shopify-section-{{ section.id }} .collection-list {
-    --collection-list-grid: {% if section.settings.stack_collections %}none{% else %}auto / auto-flow 73vw{% endif %};
+    {%- if section.settings.stack_collections -%}
+      --collection-list-grid: auto / repeat({{ section.settings.collections_per_row_mobile | times: 1 }}, minmax(0, 1fr));
+    {%- else -%}
+      --collection-list-grid: auto / auto-flow 73vw;
+    {%- endif -%}
   }
 
   @media screen and (min-width: 700px) {
@@ -67,7 +71,7 @@ LIQUID
 
                     <div class="collection-card__content prose">
                       {%- if block.settings.subheading != blank -%}
-                        <p class="bold">{{ block.settings.subheading | escape }}</p>
+                        <p class="subheading">{{ block.settings.subheading | escape }}</p>
                       {%- endif -%}
 
                       <p class="{{ block.settings.heading_tag }}">{{ block.settings.title | default: collection.title | escape }}</p>
@@ -142,6 +146,22 @@ LIQUID
       "id": "stack_collections",
       "label": "Stack collections",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "collections_per_row_mobile",
+      "label": "Collections per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "1"
     },
     {
       "type": "range",
@@ -255,27 +275,27 @@ LIQUID
           "options": [
             {
               "value": "h1",
-              "label": "H1"
+              "label": "X-Large"
             },
             {
               "value": "h2",
-              "label": "H2"
+              "label": "Large"
             },
             {
               "value": "h3",
-              "label": "H3"
+              "label": "Medium"
             },
             {
               "value": "h4",
-              "label": "H4"
+              "label": "Small"
             },
             {
               "value": "h5",
-              "label": "H5"
+              "label": "X-Small"
             },
             {
               "value": "h6",
-              "label": "H6"
+              "label": "XX-Small"
             }
           ],
           "default": "h2"

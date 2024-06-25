@@ -48,7 +48,7 @@ LIQUID
           <reveal-items selector=".product-list > *">
             <product-list class="product-list">
               {%- for product in section.settings.products -%}
-                {%- render 'product-card', product: product, stacked: section.settings.stack_products, background: section.settings.product_card_background, text_color: section.settings.product_card_text_color, show_badges: true -%}
+                {%- render 'product-card', product: product, stacked: section.settings.stack_products, position: forloop.index, background: section.settings.product_card_background, text_color: section.settings.product_card_text_color, show_badges: true -%}
               {%- endfor -%}
             </product-list>
           </reveal-items>
@@ -77,7 +77,7 @@ LIQUID
               <reveal-items selector=".product-list > *">
                 <product-list class="product-list">
                   {%- for product in recommendations.products -%}
-                    {%- render 'product-card', product: product, stacked: section.settings.stack_products, background: section.settings.product_card_background, text_color: section.settings.product_card_text_color, show_badges: true -%}
+                    {%- render 'product-card', product: product, stacked: section.settings.stack_products, position: forloop.index, background: section.settings.product_card_background, text_color: section.settings.product_card_text_color, show_badges: true -%}
                   {%- endfor -%}
                 </product-list>
               </reveal-items>

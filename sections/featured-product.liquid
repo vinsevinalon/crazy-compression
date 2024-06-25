@@ -146,27 +146,27 @@
           "options": [
             {
               "value": "h1",
-              "label": "H1"
+              "label": "X-Large"
             },
             {
               "value": "h2",
-              "label": "H2"
+              "label": "Large"
             },
             {
               "value": "h3",
-              "label": "H3"
+              "label": "Medium"
             },
             {
               "value": "h4",
-              "label": "H4"
+              "label": "Small"
             },
             {
               "value": "h5",
-              "label": "H5"
+              "label": "X-Small"
             },
             {
               "value": "h6",
-              "label": "H6"
+              "label": "XX-Small"
             }
           ],
           "default": "h2"
@@ -220,7 +220,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "To display a rating, add a product rating app. [Learn more](https://help.shopify.com/en/manual/products/product-reviews/installation)"
+          "content": "To display a rating, add a product rating app. [Learn more](https://apps.shopify.com/categories/store-design-social-proof-product-reviews)"
         },
         {
           "type": "checkbox",
@@ -266,8 +266,8 @@
         },
         {
           "type": "select",
-          "id": "selector_mode",
-          "label": "Selector type",
+          "id": "selector_style",
+          "label": "Selector style",
           "options": [
             {
               "value": "block",
@@ -282,32 +282,30 @@
         },
         {
           "type": "select",
-          "id": "color_mode",
-          "label": "Color selector type",
-          "info": "Variant image mode requires that all variant have an associated image. [Learn more](https://help.shopify.com/en/manual/products/product-media/add-images-variants#add-images-to-existing-variants)",
+          "id": "swatch_selector_style",
+          "label": "Swatch selector style",
+          "info": "Enable [swatches](https://help.shopify.com/en/manual/online-store/themes/theme-structure/theme-settings#options-with-swatches) on product options.",
           "options": [
             {
-              "value": "block",
-              "label": "Block"
+              "value": "swatch",
+              "label": "Swatch"
             },
             {
               "value": "block_swatch",
-              "label": "Block with color swatch"
+              "label": "Block with swatch"
             },
             {
-              "value": "dropdown",
-              "label": "Dropdown"
-            },
-            {
-              "value": "color",
-              "label": "Color swatch"
-            },
-            {
-              "value": "variant",
-              "label": "Variant image"
+              "value": "none",
+              "label": "None"
             }
           ],
-          "default": "color"
+          "default": "swatch"
+        },
+        {
+          "type": "text",
+          "id": "variant_image_options",
+          "label": "Show variant image for options",
+          "info": "List of comma separated option names where option values show the attached variant image. [Learn more](https://impact-theme.helpscoutdocs.com/article/555-variant-images-for-color-option)"
         },
         {
           "type": "page",
@@ -346,8 +344,8 @@
         },
         {
           "type": "select",
-          "id": "color_mode",
-          "label": "Selector type",
+          "id": "selector_style",
+          "label": "Selector style",
           "info": "Product image mode requires that all variant have an associated image. [Learn more](https://help.shopify.com/en/manual/products/product-media/add-images-variants#add-images-to-existing-variants)",
           "options": [
             {
@@ -356,18 +354,18 @@
             },
             {
               "value": "block_swatch",
-              "label": "Block with color swatch"
+              "label": "Block with swatch"
             },
             {
-              "value": "color",
-              "label": "Color swatch"
+              "value": "swatch",
+              "label": "Swatch"
             },
             {
-              "value": "variant",
-              "label": "Product image"
+              "value": "variant_image",
+              "label": "Variant image"
             }
           ],
-          "default": "color"
+          "default": "swatch"
         }
       ]
     },
@@ -467,6 +465,13 @@
           "default": true
         },
         {
+          "type": "checkbox",
+          "id": "show_gift_card_recipient",
+          "label": "Show recipient information form for gift cards",
+          "info": "Allow buyers to send gift cards along with a personal message. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)",
+          "default": true
+        },
+        {
           "type": "color",
           "id": "atc_button_background",
           "label": "Add to cart background"
@@ -526,6 +531,12 @@
           "id": "content",
           "label": "Content",
           "default": "<p>Share some content to your customers about your products.</p>"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Page",
+          "info": "Replaces inline content if specified."
         }
       ]
     },

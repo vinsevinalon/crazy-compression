@@ -132,36 +132,54 @@
           {%- endif -%}
         {%- elsif search.performed -%}
           {%- if search.results_count > 0 -%}
-            {%- assign search_results = search.results | slice: 0, 10 -%}
+            <x-tabs class="predictive-search__tabs">
+              <template>
+                <style>
+                  [role="tablist"]::-webkit-scrollbar {display: none;}
 
-            {%- case search.types[0] -%}
-              {%- when 'product' -%}
+                  :host {
+                    --predictive-search-column-width: {% if categories_count > 2 %}0px{% else %}400px{% endif %};
+                  }
+                </style>
+
+                <slot role="tablist" part="tab-list" name="title"></slot>
+                <slot part="tab-panels" name="content"></slot>
+              </template>
+
+              {%- assign product_results = search.results | where: 'object_type', 'product' | slice: 0, 10 -%}
+              {%- assign article_results = search.results | where: 'object_type', 'article' | slice: 0, 10 -%}
+              {%- assign page_results = search.results | where: 'object_type', 'page' | slice: 0, 10 -%}
+
+              {%- if product_results.size > 0 -%}
                 <div class="predictive-search__tab-item" slot="title">
                   <button type="button" class="h5">{{- 'search.general.products' | t -}}</button>
                 </div>
 
                 <div class="predictive-search__tab-content v-stack gap-4 sm:gap-6" slot="content">
-                  {%- render 'predictive-search-result-item' for search_results as item, type: 'product' -%}
+                  {%- render 'predictive-search-result-item' for product_results as item, type: 'product' -%}
                 </div>
+              {%- endif -%}
 
-              {%- when 'article' -%}
+              {%- if article_results.size > 0 -%}
                 <div class="predictive-search__tab-item" slot="title">
                   <button type="button" class="h5">{{- 'search.general.posts' | t -}}</button>
                 </div>
 
                 <div class="predictive-search__tab-content v-stack gap-4 sm:gap-6" slot="content">
-                  {%- render 'predictive-search-result-item' for search_results as item, type: 'article' -%}
+                  {%- render 'predictive-search-result-item' for article_results as item, type: 'article' -%}
                 </div>
+              {%- endif -%}
 
-              {%- when 'page' -%}
+              {%- if page_results.size > 0 -%}
                 <div class="predictive-search__tab-item" slot="title">
                   <button type="button" class="h5">{{- 'search.general.pages' | t -}}</button>
                 </div>
 
                 <div slot="content" class="predictive-search__tab-content v-stack gap-2 justify-start">
-                  {%- render 'predictive-search-result-item' for search_results as item, type: 'page' -%}
+                  {%- render 'predictive-search-result-item' for page_results as item, type: 'page' -%}
                 </div>
-            {%- endcase -%}
+              {%- endif -%}
+            </x-tabs>
           {%- endif -%}
         {%- endif -%}
       </div>

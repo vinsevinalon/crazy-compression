@@ -95,10 +95,12 @@
           {%- endif -%}
 
           {%- comment -%}We also need to render the button, that is floating on mobile{%- endcomment -%}
-          <facet-floating-filter class="facets__floating-filter md:hidden">
-            {%- assign filter_label = 'collection.faceting.filter_and_sort' | t -%}
-            {%- render 'button', size: 'xl', content: filter_label, icon: 'filter', style: 'fill', background: settings.text_color, text_color: settings.background, aria_controls: 'facets-drawer' -%}
-          </facet-floating-filter>
+          {%- if show_filters -%}
+            <facet-floating-filter class="facets__floating-filter md:hidden">
+              {%- assign filter_label = 'collection.faceting.filter_and_sort' | t -%}
+              {%- render 'button', size: 'xl', content: filter_label, icon: 'filter', style: 'fill', background: settings.text_color, text_color: settings.background, aria_controls: 'facets-drawer' -%}
+            </facet-floating-filter>
+          {%- endif -%}
         {%- endif -%}
 
         {%- if show_filters and section.settings.filter_layout == 'sidebar' -%}
@@ -144,14 +146,27 @@
                         <a {% if block.settings.link_url %}href="{{ block.settings.link_url }}"{% endif %} class="content-over-media h-full rounded-sm" style="--content-over-media-overlay: {{ block.settings.overlay_color.rgb }} / {{ block.settings.overlay_opacity | divided_by: 100.0 }}">
                           {%- case block.type -%}
                             {%- when 'promotion_image' -%}
-                              {%- if block.settings.image != blank -%}
-                                {%- capture image_class -%}zoom-image {% if block.settings.mobile_image != blank %}hidden sm:block{% endif %}{%- endcapture -%}
-                                {%- capture sizes -%}(max-width: 699px) 100vw, {{ 400 | times: block.settings.column_span }}px{%- endcapture -%}
-                                {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: sizes, widths: '200,300,400,500,600,700,800,900,1000,1200,1400,1600', class: image_class -}}
-                              {%- endif -%}
+                              {%- liquid
+                                assign loading_strategy = nil
+                      
+                                if section.index > 3 or forloop.index > 3
+                                  assign loading_strategy = 'lazy'
+                                endif
+                              -%}
 
-                              {%- if block.settings.mobile_image != blank -%}
-                                {{- block.settings.mobile_image | image_url: width: block.settings.mobile_image.width | image_tag: loading: 'lazy', widths: '200,300,400,500,600,700,800,900,1000,1200', class: 'zoom-image sm:hidden' -}}
+                              {%- if block.settings.image != blank -%}
+                                <picture>
+                                  {%- capture sizes -%}(max-width: 699px) 100vw, {{ 400 | times: block.settings.column_span }}px{%- endcapture -%}
+
+                                  <source
+                                    media="(max-width: 699px)"
+                                    srcset="{{ block.settings.mobile_image | image_url: width: '400x' }} 400w, {{ block.settings.mobile_image | image_url: width: '600x' }} 600w, {{ block.settings.mobile_image | image_url: width: '800x' }} 800w, {{ block.settings.mobile_image | image_url: width: '1000x' }} 1000w, {{ block.settings.mobile_image | image_url: width: '1200x' }} 1200w"
+                                    width="{{ block.settings.mobile_image.width }}"
+                                    height="{{ block.settings.mobile_image.height }}"
+                                  >
+
+                                  {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: loading_strategy, sizes: sizes, widths: '200,300,400,500,600,700,800,900,1000,1200,1400,1600', class: 'zoom-image' -}}
+                                </picture>
                               {%- endif -%}
 
                             {%- when 'promotion_video' -%}
@@ -201,18 +216,15 @@
                         </a>
                       </div>
                     {%- endfor -%}
-                    {%- render 'product-card', product: product, stacked: true, show_badges: true -%}
+
+                    {%- render 'product-card', product: product, stacked: true, position: forloop.index, show_badges: true -%}
                   {%- endfor -%}
                 </product-list>
               </reveal-items>
             </div>
           {%- endif -%}
         </div>
-            {%- if paginate.next.is_link -%}
-          Showing Products {{ paginate.current_offset | plus: 1 }} - {{ paginate.current_offset | plus: paginate.page_size }} of {{ paginate.items }}
-      {%- else -%}
-          Showing Products {{ paginate.current_offset | plus: 1 }} - {{ paginate.items }} of {{ paginate.items }}
-      {%- endif -%}
+
         {%- render 'pagination', paginate: paginate, facet: true, class: 'collection__pagination' -%}
       </div>
     {%- endpaginate -%}
@@ -300,27 +312,27 @@
           "options": [
             {
               "value": "h1",
-              "label": "H1"
+              "label": "X-Large"
             },
             {
               "value": "h2",
-              "label": "H2"
+              "label": "Large"
             },
             {
               "value": "h3",
-              "label": "H3"
+              "label": "Medium"
             },
             {
               "value": "h4",
-              "label": "H4"
+              "label": "Small"
             },
             {
               "value": "h5",
-              "label": "H5"
+              "label": "X-Small"
             },
             {
               "value": "h6",
-              "label": "H6"
+              "label": "XX-Small"
             }
           ],
           "default": "h4"
@@ -472,27 +484,27 @@
           "options": [
             {
               "value": "h1",
-              "label": "H1"
+              "label": "X-Large"
             },
             {
               "value": "h2",
-              "label": "H2"
+              "label": "Large"
             },
             {
               "value": "h3",
-              "label": "H3"
+              "label": "Medium"
             },
             {
               "value": "h4",
-              "label": "H4"
+              "label": "Small"
             },
             {
               "value": "h5",
-              "label": "H5"
+              "label": "X-Small"
             },
             {
               "value": "h6",
-              "label": "H6"
+              "label": "XX-Small"
             }
           ],
           "default": "h4"
@@ -647,18 +659,6 @@
       "id": "show_filter_group_name",
       "label": "Show group name",
       "info": "Group name will be shown inside selected filters.",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "show_color_swatch",
-      "label": "Show filter color swatch",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_empty_filter_values",
-      "label": "Show empty filter values",
       "default": false
     },
     {

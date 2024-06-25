@@ -37,6 +37,14 @@ Supported variables
     </li>
   {%- endif -%}
 
+  {%- if settings.social_threads != blank or shop.brand.metafields.social_links.threads != blank -%}
+    <li>
+      <a href="{{ settings.social_threads | default: shop.brand.metafields.social_links.threads }}" class="tap-area" target="_blank" rel="noopener" aria-label="{{ 'general.social.follow_on' | t: social_media: 'Threads' }}">
+        {%- render 'icon' with 'threads' -%}
+      </a>
+    </li>
+  {%- endif -%}
+
   {%- if settings.social_pinterest != blank or shop.brand.metafields.social_links.pinterest != blank -%}
     <li>
       <a href="{{ settings.social_pinterest | default: shop.brand.metafields.social_links.pinterest }}" class="tap-area" target="_blank" rel="noopener" aria-label="{{ 'general.social.follow_on' | t: social_media: 'Pinterest' }}">
@@ -81,6 +89,14 @@ Supported variables
     <li>
       <a href="{{ settings.social_snapchat | default: shop.brand.metafields.social_links.snapchat }}" class="tap-area" target="_blank" rel="noopener" aria-label="{{ 'general.social.follow_on' | t: social_media: 'Snapchat' }}">
         {%- render 'icon' with 'snapchat' -%}
+      </a>
+    </li>
+  {%- endif -%}
+
+  {%- if settings.social_whatsapp != blank -%}
+    <li>
+      <a href="{{ settings.social_whatsapp }}" class="tap-area" target="_blank" rel="noopener" aria-label="{{ 'general.social.follow_on' | t: social_media: 'WhatsApp' }}">
+        {%- render 'icon' with 'whatsapp' -%}
       </a>
     </li>
   {%- endif -%}

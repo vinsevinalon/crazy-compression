@@ -61,7 +61,7 @@
               </button>
             {%- endif -%}
 
-            <announcement-bar swipeable id="announcement-bar" class="announcement-bar__static-list">
+            <announcement-bar swipeable {% if section.settings.autoplay %}autoplay="{{ section.settings.cycle_speed }}"{% endif %} id="announcement-bar" class="announcement-bar__static-list">
               {%- for block in section.blocks -%}
                 <p class="bold {{ section.settings.text_size }} {% unless forloop.first %}reveal-invisible{% endunless %}" {{ block.shopify_attributes }}>
                   {%- if block.settings.url != blank -%}
@@ -120,6 +120,23 @@
       "id": "enable_sticky",
       "label": "Enable sticky bar",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto rotate between messages",
+      "info": "Ignored when using auto-scrolling.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "cycle_speed",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "unit": "sec",
+      "label": "Change messages every",
+      "default": 6
     },
     {
       "type": "select",

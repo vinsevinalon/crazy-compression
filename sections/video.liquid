@@ -16,14 +16,14 @@
   }
 
   {%- unless section.settings.full_width -%}
-    .shopify-section:first-child .section[allow-transparent-header] {
+    #shopify-section-{{ section.id }}:first-child .section[allow-transparent-header] {
       padding-block-start: max(var(--section-inner-max-spacing-block), var(--header-height));
     }
   {%- endunless -%}
 </style>
 
-<div {% render 'section-properties', class: class %} {% if section.settings.allow_transparent_header %}allow-transparent-header{% endif %}>
-  {%- capture class -%}content-over-media {% if section.settings.video_size == 'auto' %}aspect-video{% else %}content-over-media--{{ section.settings.video_size }}{% endif %} {% if section.settings.full_width %}full-bleed{% else %}shadow-block rounded-lg{% endif %}{%- endcapture -%}
+<div {% render 'section-properties' %} {% if section.settings.allow_transparent_header %}allow-transparent-header{% endif %}>
+  {%- capture class -%}content-over-media {% if section.settings.video_size != 'auto' %}content-over-media--{{ section.settings.video_size }}{% endif %} {% if section.settings.full_width %}full-bleed{% else %}shadow-block rounded-lg{% endif %}{%- endcapture -%}
 
   <div {% render 'surface', class: class, text_color: section.settings.text_color %}>
     {%- capture poster -%}
@@ -31,19 +31,28 @@
 
       {%- if section.settings.autoplay == false and poster_image != blank -%}
         {%- capture sizes -%}{% if section.settings.full_width %}100vw{% else %}(max-width: 740px) calc(100vw - 40px), (max-width: 999px) calc(100vw - 64px), min({{ settings.page_width }}px, 100vw - 96px){% endif %}{%- endcapture -%}
-        {{- poster_image | image_url: width: poster_image.width | image_tag: loading: 'lazy', sizes: sizes, widths: '200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200' -}}
+        {{- poster_image | image_url: width: poster_image.width | image_tag: sizes: sizes, widths: '200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200' -}}
       {%- endif -%}
     {%- endcapture -%}
 
     {%- if section.settings.video -%}
-      <video-media {% if section.settings.autoplay %}autoplay{% endif %}>
-        {%- if section.settings.autoplay -%}
-          {%- assign show_controls = false -%}
-        {%- else -%}
-          {%- assign show_controls = true -%}
-        {%- endif -%}
+      {%- if section.settings.autoplay -%}
+        {%- assign show_controls = false -%}
+      {%- else -%}
+        {%- assign show_controls = true -%}
+      {%- endif -%}
 
-        {{- section.settings.video | video_tag: playsinline: true, preload: 'metadata', muted: section.settings.autoplay, loop: section.settings.autoplay, controls: show_controls -}}
+      {%- if section.settings.mobile_video != blank -%}
+        {%- assign poster_image = section.settings.poster | default: section.settings.mobile_video.preview_image -%}
+  
+        <video-media {% if section.settings.autoplay %}autoplay{% endif %} class="sm:hidden" {% if section.settings.video_size == 'auto' %}style="--aspect-ratio: {{ section.settings.mobile_video.aspect_ratio }}"{% endif %}>
+          {{- section.settings.mobile_video | video_tag: class: 'object-cover sm:hidden', controls: section.settings.show_controls, playsinline: true, muted: section.settings.autoplay, loop: section.settings.autoplay, preload: 'metadata', image_size: '400x' -}}
+          {{- poster_image | image_url: width: poster_image.width | image_tag: sizes: '100vw', widths: '200,300,400,500,600,700,800,900,1000,1200' -}}
+        </video-media>
+      {%- endif -%}
+
+      <video-media {% if section.settings.autoplay %}autoplay{% endif %} {% if section.settings.mobile_video != blank %}class="hidden sm:block"{% endif %} {% if section.settings.video_size == 'auto' %}style="--aspect-ratio: {{ section.settings.video.aspect_ratio }}"{% endif %}>
+        {{- section.settings.video | video_tag: playsinline: true, preload: 'metadata', muted: section.settings.autoplay, loop: section.settings.autoplay, controls: show_controls, image_size: '800x' -}}
         {{- poster -}}
       </video-media>
     {%- else -%}
@@ -139,10 +148,11 @@
       "type": "select",
       "id": "video_size",
       "label": "Video size",
+      "info": "Choose \"Original video ratio\" to avoid video cropping.",
       "options": [
         {
           "value": "auto",
-          "label": "16/9 (recommended)"
+          "label": "Original aspect ratio"
         },
         {
           "value": "sm",
@@ -168,6 +178,12 @@
       "id": "video",
       "label": "Video",
       "info": "Replaces external video if both are set."
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile video",
+      "info": "Default to main video if none is set."
     },
     {
       "type": "video_url",
@@ -250,31 +266,31 @@
           "options": [
             {
               "value": "h0",
-              "label": "H0"
+              "label": "XX-Large"
             },
             {
               "value": "h1",
-              "label": "H1"
+              "label": "X-Large"
             },
             {
               "value": "h2",
-              "label": "H2"
+              "label": "Large"
             },
             {
               "value": "h3",
-              "label": "H3"
+              "label": "Medium"
             },
             {
               "value": "h4",
-              "label": "H4"
+              "label": "Small"
             },
             {
               "value": "h5",
-              "label": "H5"
+              "label": "X-Small"
             },
             {
               "value": "h6",
-              "label": "H6"
+              "label": "XX-Small"
             }
           ],
           "default": "h1"

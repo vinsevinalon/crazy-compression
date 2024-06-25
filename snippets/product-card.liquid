@@ -16,6 +16,7 @@ Supported variables
 * show_secondary_image: show or not the secondary image. If nothing is set, the theme uses the default product card setting
 * show_swatches: allow to force hiding swatches. If nothing is set, it will default to the default card strategy
 * stacked: indicate if the product is in stack mode
+* position: the position of the card in the list. If specified, the theme will eagerly load the first 3 cards images
 * reveal: if set to true the item will be revealed in a stacked mode
 * background: the background to use for the product card (if none is passed then the one from the global setting is used)
 * text_color: the text color to use for the product card (if none is passed then the one from the global setting is used)
@@ -68,14 +69,22 @@ Supported variables
       <a href="{{ product.url }}" data-instant>
         {%- capture sizes -%}
           {%- if stacked -%}
-            (max-width: 699px) calc(100vw / {{ section.settings.products_per_row_mobile }} - 40px), (max-width: 1200px) calc(100vw / {{ 3 | at_most: section.settings.products_per_row_desktop }} - 64px), calc(min(100vw - 96px, {{ settings.page_width }}px) / {{ section.settings.products_per_row_desktop }} - (24px / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}))
+            (max-width: 699px) calc(100vw / {{ section.settings.products_per_row_mobile }} - 40px), (max-width: 1200px) calc(100vw / {{ 3 | at_most: section.settings.products_per_row_desktop }} - 64px), calc((100vw - 96px) / {{ section.settings.products_per_row_desktop }} - (24px / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}))
           {%- else -%}
-            (max-width: 699px) 74vw, (max-width: 999px) 38vw, calc(min(100vw - 96px, {{ settings.page_width }}px) / {{ section.settings.products_per_row_desktop }} - (24px / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}))
+            (max-width: 699px) 74vw, (max-width: 999px) 38vw, calc((100vw - 96px) / {{ section.settings.products_per_row_desktop }} - (24px / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}))
           {%- endif -%}
         {%- endcapture -%}
 
+        {%- liquid
+          assign main_media_loading_strategy = nil
+          
+          if section.index > 3 or position > 3
+            assign main_media_loading_strategy = 'lazy'
+          endif
+        -%}
+
         {%- capture main_image_classes -%}product-card__image product-card__image--primary {% if settings.product_image_aspect_ratio contains 'crop' %}object-fill-safe{% endif %} aspect-{{ settings.product_image_aspect_ratio | split: '_' | first }}{%- endcapture -%}
-        {{- product.featured_media | image_url: width: product.featured_media.width | image_tag: loading: 'lazy', sizes: sizes, widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800', class: main_image_classes -}}
+        {{- product.featured_media | image_url: width: product.featured_media.width | image_tag: loading: main_media_loading_strategy, sizes: sizes, widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800', class: main_image_classes -}}
 
         {%- if show_secondary_image and product.media.size > 1 -%}
           {%- assign next_media = product.media[product.featured_media.position] | default: product.media[1] -%}
@@ -102,7 +111,7 @@ Supported variables
               </div>
             {%- endform -%}
           {%- else -%}
-            {%- capture quick_buy_id -%}quick-buy-{{ 'now' | date: '%N' }}{%- endcapture -%}
+            {%- capture quick_buy_id -%}quick-buy-{{ section.id }}-{{ product.id }}{%- endcapture -%}
 
             <div class="pointer-fine:hidden">
               <button type="button" aria-controls="{{ quick_buy_id }}" aria-expanded="false" aria-label="{{ quick_add_label | escape }}" is="custom-button" class="product-card__mobile-quick-buy-button">
@@ -114,7 +123,7 @@ Supported variables
               {%- render 'button', content: quick_add_label, aria_controls: quick_buy_id -%}
             </div>
 
-            <quick-buy-drawer id="{{ quick_buy_id }}" header-bordered open-from="bottom" handle="{{ product.handle }}" role="region" aria-live="polite" class="quick-buy-drawer drawer">
+            <quick-buy-drawer id="{{ quick_buy_id }}" header-bordered open-from="bottom" handle="{{ product.handle }}?variant={{ product.selected_or_first_available_variant.id }}" role="region" aria-live="polite" class="quick-buy-drawer drawer">
               {%- comment -%}Quick buy content is filled on demand for performance reasons {%- endcomment -%}
             </quick-buy-drawer>
           {%- endif -%}
@@ -147,11 +156,6 @@ Supported variables
       {%- if show_rating and show_vendor == false or product.vendor == blank -%}
         <div class="rating-with-text">
           <span class="product-card__title"><a href="{{ product.url }}" class="bold" data-instant>{{ product.title }}</a></span>
-         
-<!-- Stamped - Begin badge -->
-<span class="stamped-product-reviews-badge stamped-main-badge" data-product-sku="{{product.selected_or_first_available_variant.sku}}"  data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-product-type="{{ product.type }}" style="display: block;">{{ product.metafields.stamped.badge }}</span>
-<!-- Stamped - End badge -->
- 
 
           {%- if text_alignment != 'center' -%}
             {%- capture rating_class -%}{% if mobile_reduced %}hidden sm:flex{% endif %}{%- endcapture -%}
@@ -164,11 +168,6 @@ Supported variables
 
       {%- render 'price-list', product: product, text_alignment: text_alignment -%}
     </div>
-   
-<!-- Stamped - Begin badge -->
-<span class="stamped-product-reviews-badge stamped-main-badge" data-product-sku="{{product.selected_or_first_available_variant.sku}}" data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-product-type="{{ product.type }}" style="display: block;">{{ product.metafields.stamped.badge }}</span>
-<!-- Stamped - End badge -->
- 
 
     {%- if show_rating and mobile_reduced or text_alignment == 'center' -%}
       {%- capture rating_class -%}{% unless text_alignment == 'center' %}sm:hidden{% endunless %}{%- endcapture -%}
@@ -181,7 +180,7 @@ Supported variables
       {%- for color_label in color_label_list -%}
         {%- if product.options_by_name[color_label] != blank -%}
           {%- assign product_option = product.options_by_name[color_label] -%}
-          {%- capture name -%}swatch-{{ 'now' | date: '%N' }}{%- endcapture -%}
+          {%- capture name -%}swatch-{{ section.id }}-{{ product.id }}-{{ product_option.position }}{%- endcapture -%}
 
           <div class="product-card__aside">
             {%- case settings.product_color_display -%}
@@ -190,15 +189,21 @@ Supported variables
 
               {%- when 'swatch' -%}
                 <fieldset class="product-card__swatch-list h-stack {% if settings.color_swatch_style == 'rectangle' %}gap-2.5{% else %}gap-0.5{% endif %}" data-option-position="{{ product_option.position }}">
-                  {%- for option_value in product_option.values limit: 4 -%}
-                    {%- if forloop.first or product.selected_or_first_available_variant.matched and option_value == product_option.selected_value -%}
-                      {%- assign selected = true -%}
-                    {%- else -%}
-                      {% assign selected = false %}
-                    {%- endif -%}
-
-                    {%- render 'swatch' with 'color', value: option_value, name: name, size: 'sm', selected: selected -%}
-                  {%- endfor -%}
+                  {%- liquid
+                    for option_value in product_option.values limit: 4
+                      if forloop.first or product.selected_or_first_available_variant.matched and option_value == product_option.selected_value
+                        assign selected = true
+                      else
+                        assign selected = false
+                      endif
+  
+                      if option_value.swatch != nil
+                        render 'option-value', type: 'swatch', swatch: option_value.swatch, value: option_value, name: name, selected: selected, size: 'sm'
+                      else
+                        render 'option-value', type: 'swatch', value: option_value, name: name, selected: selected, size: 'sm'
+                      endif
+                    endfor
+                  -%}
 
                   {% if product_option.values.size > 4 %}
                     <a href="{{ product.url }}" data-instant class="color-swatch__view-more {% if settings.color_swatch_style == 'round' %}rounded-full{% endif %} text-xxs text-subdued">+{{ product_option.values.size | minus: 4 }}</a>
@@ -208,20 +213,17 @@ Supported variables
               {%- when 'variant' -%}
                 <fieldset class="product-card__variant-list" data-option-position="{{ product_option.position }}">
                   {%- for option_value in product_option.values limit: 4 -%}
-                    {%- assign variant_option = 'option' | append: product_option.position -%}
-                    {%- assign variant_for_value = product.variants | where: variant_option, option_value | first -%}
-
-                    {%- if forloop.first or variant_for_value.matched and option_value == product_option.selected_value -%}
+                    {%- if forloop.first or option_value.variant.matched and option_value == product_option.selected_value -%}
                       {%- assign selected = true -%}
                     {%- else -%}
-                      {% assign selected = false %}
+                      {%- assign selected = false -%}
                     {%- endif -%}
 
-                    {%- render 'swatch' with 'media', media: variant_for_value.featured_media, value: option_value, name: name, size: 'sm', selected: selected -%}
+                    {%- render 'option-value', type: 'thumbnail', image: option_value.variant.featured_media, value: option_value, name: name, size: 'sm', selected: selected -%}
                   {%- endfor -%}
 
                   {%- if product_option.values.size > 4 -%}
-                    <a href="{{ product.url }}" data-instant class="media-swatch__view-more text-xs text-subdued">+{{ product_option.values.size | minus: 4 }}</a>
+                    <a href="{{ product.url }}" data-instant class="thumbnail-swatch__view-more text-xs text-subdued">+{{ product_option.values.size | minus: 4 }}</a>
                   {%- endif -%}
                 </fieldset>
               {%- endcase -%}

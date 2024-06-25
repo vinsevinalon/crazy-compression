@@ -39,8 +39,6 @@ Supported variables
   <div class="product-card__info {% if text_alignment == 'center' %}product-card__info--center{% endif %}">
     {%- capture vendor_placeholder -%}{{ 'general.on_boarding.product_vendor' | t }}{%- endcapture -%}
     {%- capture title_placeholder -%}{{ 'general.on_boarding.product_title' | t }}{%- endcapture -%}
-   
-
 
     {%- if settings.show_vendor -%}
       {%- if settings.show_product_rating and text_alignment != 'center' -%}
@@ -59,11 +57,6 @@ Supported variables
       {%- if settings.show_product_rating and settings.show_vendor == false -%}
         <div class="rating-with-text">
           <span><a href="{{ product.url }}" class="bold">{{ title_placeholder }}</a></span>
-         
-<!-- Stamped - Begin badge -->
-<span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-product-type="{{ product.type }}" style="display: block;">{{ product.metafields.stamped.badge }}</span>
-<!-- Stamped - End badge -->
- 
           {%- render 'product-rating', show_placeholder: true, display_mode: settings.product_rating_mode -%}
         </div>
       {%- else -%}

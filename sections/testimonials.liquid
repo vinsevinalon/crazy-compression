@@ -46,10 +46,18 @@
           {%- for block in section.blocks -%}
             <div {% render 'surface', class: 'testimonial rounded-sm', background: section.settings.testimonial_card_background, text_color: section.settings.testimonial_card_text_color, background_fallback: 'bg-secondary' %} {{ block.shopify_attributes }}>
               {%- if block.settings.image != blank or block.settings.author != blank or block.settings.show_rating -%}
+                {%- liquid
+                  assign loading_strategy = nil
+        
+                  if section.index > 3 or forloop.index > 3
+                    assign loading_strategy = 'lazy'
+                  endif
+                -%}
+
                 <div class="h-stack align-start gap-4 sm:gap-6">
                   {%- if block.settings.image != blank -%}
                     {%- capture image_class -%}testimonial__image {% if block.settings.round_avatar %}rounded-full{% endif %}{%- endcapture -%}
-                    {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: '(max-width: 699px) 40px, 56px', widths: '40,56,80,112,120,168', class: image_class -}}
+                    {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: loading_strategy, sizes: '(max-width: 699px) 40px, 56px', widths: '40,56,80,112,120,168', class: image_class -}}
                   {%- endif -%}
 
                   <div class="v-stack gap-2 sm:gap-2.5">
