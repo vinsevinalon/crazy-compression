@@ -12,7 +12,7 @@
         "title": {
           "type": "title",
           "settings": {
-            "heading_tag": "h3"
+            "heading_tag": "h5"
           }
         },
         "badges": {
@@ -38,7 +38,8 @@
           "settings": {
             "option_name": "Color",
             "option_value_metafield": "{{ product.metafields.custom.product_value_ccotc.value }}",
-            "products": "{{ product.metafields.custom.product_variation_ccotc.value }}"
+            "products": "{{ product.metafields.custom.product_variation_ccotc.value }}",
+            "selector_style": "variant_image"
           }
         },
         "variant_picker": {
@@ -46,6 +47,9 @@
           "settings": {
             "hide_sold_out_variants": false,
             "stack_blocks": true,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
             "size_chart_page": ""
           }
         },
@@ -58,6 +62,7 @@
           "type": "buy_buttons",
           "settings": {
             "show_payment_button": true,
+            "show_gift_card_recipient": false,
             "atc_button_background": "#94f8eb",
             "atc_button_text_color": "#4e4d4d",
             "payment_button_background": "",
@@ -183,6 +188,29 @@
         "overlay_opacity": 0
       }
     },
+    "custom_liquid_RUaHAV": {
+      "type": "custom-liquid",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<div class=\"sendlane-reviews\" sl-product-id=\"{{product.id}}\"><\/div>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "1680883393461ba659": {
+      "type": "apps",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
     "346dd38f-3483-455f-9262-e818ad6a56cf": {
       "type": "faq",
       "blocks": {
@@ -299,17 +327,6 @@
         "product_card_background": "",
         "product_card_text_color": ""
       }
-    },
-    "1680883393461ba659": {
-      "type": "apps",
-      "settings": {
-        "full_width": true,
-        "remove_vertical_spacing": false,
-        "remove_horizontal_spacing": false,
-        "background": "",
-        "background_gradient": "",
-        "text_color": ""
-      }
     }
   },
   "order": [
@@ -317,8 +334,9 @@
     "1681455389bf7356e9",
     "0f0e296f-bf2f-49a6-8db9-be5412a17cf2",
     "video_L6t7mi",
+    "custom_liquid_RUaHAV",
+    "1680883393461ba659",
     "346dd38f-3483-455f-9262-e818ad6a56cf",
-    "related-products",
-    "1680883393461ba659"
+    "related-products"
   ]
 }

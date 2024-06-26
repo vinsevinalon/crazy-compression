@@ -1,0 +1,195 @@
+{
+  "sections": {
+    "image_with_text_overlay_xRAdpC": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_fEh9LD": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_Mqxyxq": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_MD8dm4": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_fEh9LD",
+        "heading_Mqxyxq",
+        "richtext_MD8dm4"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/Blue_Illustration_Happy_Fathers_Day_Instagram_Story_1300_x_500_px_d9a4a7f9-71b6-4389-ba2a-8d8432cc05b3.png",
+        "mobile_image": "shopify:\/\/shop_images\/Blue_Illustration_Happy_Fathers_Day_Instagram_Story_1300_x_500_px_39af4644-a17c-41d0-bc25-2df3d9f2e71a.png",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#ffffff",
+        "overlay_opacity": 0
+      }
+    },
+    "image_with_text_overlay_7zD8hn": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_ytkpi7": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_7Ka6cH": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_NPJ3EB": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_ytkpi7",
+        "heading_7Ka6cH",
+        "richtext_NPJ3EB"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/Copy_of_famliy.png",
+        "mobile_image": "shopify:\/\/shop_images\/Copy_of_famliy_00d32ba6-9d5f-4d24-ac69-cec3cb19e211.png",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "image_with_text_overlay_bqJ4M8": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_WVbciK": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_pTtnJf": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_U4mi3K": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_WVbciK",
+        "heading_pTtnJf",
+        "richtext_U4mi3K"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/Blue_Modern_Gym_Fitness_Website_Landing_Page_Desktop_Prototype_07e9002b-da56-47ba-88ea-983f943a9715.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/Blue_Modern_Gym_Fitness_Website_Landing_Page_Desktop_Prototype_6735cc55-101d-495d-9856-7cd2df8212d6.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "promotion_image_Wwqc7b": {
+          "type": "promotion_image",
+          "settings": {
+            "position": 4,
+            "column_span": "1",
+            "mobile_image": "shopify:\/\/shop_images\/Blue_Illustration_Happy_Fathers_Day_Instagram_Story_Instagram_Post.png",
+            "title": "",
+            "content": "",
+            "link_url": "",
+            "link_text": "",
+            "heading_tag": "h4",
+            "text_position": "place-self-end-start text-start",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "promotion_image_Wwqc7b"
+      ],
+      "settings": {
+        "products_per_page": 50,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "filter_layout": "sidebar",
+        "show_sort_by": true,
+        "show_filters": true,
+        "show_filter_group_name": false,
+        "show_filter_values_count": false,
+        "open_first_filter_group": false
+      }
+    },
+    "banner": {
+      "type": "collection-banner",
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": true,
+        "enable_parallax": false,
+        "show_collection_title": true,
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "collection_title_size": "h2",
+        "image_size": "auto",
+        "mobile_text_position": "place-self-start text-start",
+        "desktop_text_position": "sm:place-self-start sm:text-start",
+        "featured_product": "",
+        "featured_product_heading": "Featured product",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_xRAdpC",
+    "image_with_text_overlay_7zD8hn",
+    "image_with_text_overlay_bqJ4M8",
+    "main",
+    "banner"
+  ]
+}

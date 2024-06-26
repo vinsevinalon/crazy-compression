@@ -12,7 +12,7 @@
         "title": {
           "type": "title",
           "settings": {
-            "heading_tag": "h4"
+            "heading_tag": "h5"
           }
         },
         "badges": {
@@ -39,7 +39,8 @@
           "settings": {
             "option_name": "Color",
             "option_value_metafield": "{{ product.metafields.custom.product_value_top20reg.value }}",
-            "products": "{{ product.metafields.custom.product_variation_top20reg.value }}"
+            "products": "{{ product.metafields.custom.product_variation_top20reg.value }}",
+            "selector_style": "variant_image"
           }
         },
         "variant_picker": {
@@ -47,6 +48,9 @@
           "settings": {
             "hide_sold_out_variants": false,
             "stack_blocks": true,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
             "size_chart_page": ""
           }
         },
@@ -59,6 +63,7 @@
           "type": "buy_buttons",
           "settings": {
             "show_payment_button": true,
+            "show_gift_card_recipient": true,
             "atc_button_background": "#94f8eb",
             "atc_button_text_color": "#4e4d4d",
             "payment_button_background": "",
@@ -188,6 +193,18 @@
         "full_width": true,
         "remove_vertical_spacing": false,
         "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "custom_liquid_cnEBLh": {
+      "type": "custom-liquid",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<div class=\"sendlane-reviews\" sl-product-id=\"{{product.id}}\"><\/div>",
         "background": "",
         "background_gradient": "",
         "text_color": ""
@@ -327,6 +344,7 @@
     "0f0e296f-bf2f-49a6-8db9-be5412a17cf2",
     "f30fe59b-f33a-4ec6-afee-83331a7de50a",
     "1698341530aa679558",
+    "custom_liquid_cnEBLh",
     "346dd38f-3483-455f-9262-e818ad6a56cf",
     "related-products",
     "1680883393461ba659"

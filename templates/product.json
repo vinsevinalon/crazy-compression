@@ -12,7 +12,7 @@
         "title": {
           "type": "title",
           "settings": {
-            "heading_tag": "h3"
+            "heading_tag": "h5"
           }
         },
         "badges": {
@@ -38,7 +38,8 @@
           "settings": {
             "option_name": "Color",
             "option_value_metafield": "{{ product.metafields.custom.product_value_ccotc.value }}",
-            "products": "{{ product.metafields.custom.product_variation_ccotc.value }}"
+            "products": "{{ product.metafields.custom.product_variation_ccotc.value }}",
+            "selector_style": "swatch"
           }
         },
         "variant_picker": {
@@ -46,6 +47,9 @@
           "settings": {
             "hide_sold_out_variants": false,
             "stack_blocks": true,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
             "size_chart_page": ""
           }
         },
@@ -58,21 +62,22 @@
           "type": "buy_buttons",
           "settings": {
             "show_payment_button": true,
+            "show_gift_card_recipient": true,
             "atc_button_background": "#94f8eb",
             "atc_button_text_color": "#4e4d4d",
             "payment_button_background": "",
             "payment_button_text_color": ""
           }
         },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {
+          }
+        },
         "tolstoy_shoppable_video_ugc_stories_block_cUb6G4": {
           "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/stories-block\/06fa8282-42ff-403e-b67c-1936776aed11",
           "settings": {
             "publishId": "oxa4ikfl6322l"
-          }
-        },
-        "payment_terms": {
-          "type": "payment_terms",
-          "settings": {
           }
         },
         "description": {
@@ -105,8 +110,8 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "tolstoy_shoppable_video_ugc_stories_block_cUb6G4",
         "payment_terms",
+        "tolstoy_shoppable_video_ugc_stories_block_cUb6G4",
         "description",
         "9df57de9-1126-4f18-a7f2-4663fd733a6e",
         "separator"
@@ -176,6 +181,29 @@
         "text_color": "#ffffff",
         "overlay_color": "#000000",
         "overlay_opacity": 0
+      }
+    },
+    "17174409924a4f458e": {
+      "type": "apps",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "custom_liquid_hMjp4a": {
+      "type": "custom-liquid",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<div class=\"sendlane-reviews\" sl-product-id=\"{{product.id}}\"><\/div>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
       }
     },
     "346dd38f-3483-455f-9262-e818ad6a56cf": {
@@ -295,17 +323,6 @@
         "product_card_text_color": ""
       }
     },
-    "1680883393461ba659": {
-      "type": "apps",
-      "settings": {
-        "full_width": true,
-        "remove_vertical_spacing": false,
-        "remove_horizontal_spacing": false,
-        "background": "",
-        "background_gradient": "",
-        "text_color": ""
-      }
-    },
     "1681455389bf7356e9": {
       "type": "apps",
       "settings": {
@@ -316,15 +333,29 @@
         "background_gradient": "",
         "text_color": ""
       }
+    },
+    "custom_liquid_pHxfkq": {
+      "type": "custom-liquid",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<script src=\"https:\/\/sendlane.com\/scripts\/sendlane-reviews-widget.lib.js\" sendlane-review-key=\"eyJkb21haW4iOiJjcmF6eWNvbXByZXNzaW9uIiwicmV2aWV3X3NldHRpbmdfaWQiOiJlNzU4NjZhYy0xMjEyLTRkMDEtODc4Yi0zNzVjMmRmMGVlNjgifQ==\" defer><\/script>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
     }
   },
   "order": [
     "main",
     "0f0e296f-bf2f-49a6-8db9-be5412a17cf2",
     "video_MrPibd",
+    "17174409924a4f458e",
+    "custom_liquid_hMjp4a",
     "346dd38f-3483-455f-9262-e818ad6a56cf",
     "related-products",
-    "1680883393461ba659",
-    "1681455389bf7356e9"
+    "1681455389bf7356e9",
+    "custom_liquid_pHxfkq"
   ]
 }

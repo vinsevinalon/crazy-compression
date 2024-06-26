@@ -9,59 +9,68 @@
     "block_shadow_opacity": 10,
     "block_shadow_vertical_offset": 18,
     "icon_stroke_width": 2,
+    "icon_style": "duo",
     "button_style": "fill",
     "button_hover_effect": "reverse",
     "background": "#ffffff",
-    "text_color": "#272727",
+    "text_color": "#000000",
     "success_color": "#708a5c",
     "warning_color": "#e37e16",
     "error_color": "#aa2826",
     "header_background": "#ffffff",
-    "header_text_color": "#272727",
+    "header_text_color": "#000000",
     "footer_background": "#f2f2f2",
-    "footer_text_color": "#272727",
-    "primary_button_background": "#272727",
+    "footer_text_color": "#000000",
+    "primary_button_background": "#000000",
     "primary_button_text_color": "#ffffff",
-    "secondary_button_background": "#3c619e",
+    "secondary_button_background": "#9940b1",
     "secondary_button_text_color": "#ffffff",
     "product_card_background": "#ffffff",
-    "product_card_text_color": "#272727",
+    "product_card_text_color": "#000000",
     "product_on_sale_accent": "#9940b1",
-    "product_sold_out_badge_background": "#bebdb9",
-    "product_primary_badge_background": "#3c619e",
+    "product_sold_out_badge_background": "#000000",
+    "product_primary_badge_background": "#9940b1",
     "heading_font": "futura_n7",
     "heading_font_size": "small",
     "heading_text_transform": "normal",
     "heading_letter_spacing": -1,
-    "text_font": "futura_n4",
-    "text_font_size_mobile": 12,
+    "text_font": "asap_n6",
+    "text_font_size_mobile": 14,
     "text_font_size_desktop": 16,
     "show_page_transition": true,
-    "heading_apparition": "split_rotation",
+    "heading_apparition": "fade",
     "color_swatch_style": "rectangle",
     "color_swatch_config": "",
+    "show_secondary_image": false,
+    "show_quick_buy": false,
+    "show_product_rating": true,
+    "product_rating_mode": "count",
     "show_discount": false,
     "product_color_display": "swatch",
-    "product_info_alignment": "start",
-    "cart_type": "drawer",
-    "cart_empty_button_link": "https:\/\/crazycompression.com\/collections\/compression-socks",
-    "cart_show_free_shipping_threshold": false,
+    "product_image_aspect_ratio": "natural",
+    "product_info_alignment": "center",
+    "cart_type": "page",
+    "cart_icon": "shopping_cart",
+    "cart_empty_button_link": "",
+    "cart_show_free_shipping_threshold": true,
+    "cart_free_shipping_threshold": "70",
     "social_facebook": "https:\/\/www.facebook.com\/crazycompression\/",
     "social_instagram": "https:\/\/www.instagram.com\/crazycompression\/?hl=en",
+    "favicon": "shopify:\/\/shop_images\/Screenshot_2024-06-04_at_4.28.17_PM.png",
     "checkout_accent_color": "#3c619e",
     "checkout_button_color": "#3c619e",
     "content_for_index": [
 
     ],
     "blocks": {
-      "6544724514127332554": {
-        "type": "shopify:\/\/apps\/go-gift-cards\/blocks\/app-embed\/3676fc08-8fa0-4857-baf6-8c6e28f899dc",
+      "855628211100114053": {
+        "type": "shopify:\/\/apps\/klaviyo-email-marketing-sms\/blocks\/klaviyo-onsite-embed\/2632fe16-c075-4321-a88b-50b567f42507",
         "disabled": false,
         "settings": {
         }
       },
-      "855628211100114053": {
-        "type": "shopify:\/\/apps\/klaviyo-email-marketing-sms\/blocks\/klaviyo-onsite-embed\/2632fe16-c075-4321-a88b-50b567f42507",
+      "6544724514127332554": {
+        "type": "shopify:\/\/apps\/go-gift-cards\/blocks\/app-embed\/3676fc08-8fa0-4857-baf6-8c6e28f899dc",
         "disabled": false,
         "settings": {
         }
@@ -74,6 +83,18 @@
       },
       "9323109295802554384": {
         "type": "shopify:\/\/apps\/upstackified-universal-pixel\/blocks\/adtScript\/2ef9f833-e251-4eed-af16-8dca98b27a2f",
+        "disabled": false,
+        "settings": {
+        }
+      },
+      "4252583770683550135": {
+        "type": "shopify:\/\/apps\/redo-free-return-automation\/blocks\/redo_app_embed\/c613644b-6df4-4d11-b336-43a5c06745a1",
+        "disabled": false,
+        "settings": {
+        }
+      },
+      "1877152918344802950": {
+        "type": "shopify:\/\/apps\/intelligems-a-b-testing\/blocks\/intelligems-script\/fa83b64c-0c77-4c0c-b4b2-b94b42f5ef19",
         "disabled": false,
         "settings": {
         }
