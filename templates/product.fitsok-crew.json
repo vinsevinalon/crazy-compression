@@ -12,7 +12,7 @@
         "title": {
           "type": "title",
           "settings": {
-            "heading_tag": "h3"
+            "heading_tag": "h5"
           }
         },
         "badges": {
@@ -37,8 +37,9 @@
           "type": "product_variations",
           "settings": {
             "option_name": "Color",
-            "option_value_metafield": "{{ product.metafields.custom.product_value_mild_r.value }}",
-            "products": "{{ product.metafields.custom.product_variation_mild_r.value }}"
+            "option_value_metafield": "{{ product.metafields.custom.product_value_fitsok_crew.value }}",
+            "products": "{{ product.metafields.custom.product_variation_fitsok_crew.value }}",
+            "selector_style": "variant_image"
           }
         },
         "variant_picker": {
@@ -46,6 +47,9 @@
           "settings": {
             "hide_sold_out_variants": false,
             "stack_blocks": true,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
             "size_chart_page": ""
           }
         },
@@ -58,10 +62,17 @@
           "type": "buy_buttons",
           "settings": {
             "show_payment_button": true,
+            "show_gift_card_recipient": true,
             "atc_button_background": "#94f8eb",
             "atc_button_text_color": "#4e4d4d",
             "payment_button_background": "",
             "payment_button_text_color": ""
+          }
+        },
+        "tolstoy_shoppable_video_ugc_stories_block_cUb6G4": {
+          "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/stories-block\/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "oxa4ikfl6322l"
           }
         },
         "payment_terms": {
@@ -73,14 +84,6 @@
           "type": "description",
           "settings": {
             "collapse_content": false
-          }
-        },
-        "9df57de9-1126-4f18-a7f2-4663fd733a6e": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Unknown_58674150-67bd-43a5-ab09-d918dca9772e.jpg",
-            "alignment": "center",
-            "max_width": 500
           }
         },
         "separator": {
@@ -99,16 +102,16 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "tolstoy_shoppable_video_ugc_stories_block_cUb6G4",
         "payment_terms",
         "description",
-        "9df57de9-1126-4f18-a7f2-4663fd733a6e",
         "separator"
       ],
       "settings": {
         "full_width": true,
         "show_fixed_add_to_cart": true,
         "desktop_media_width": 55,
-        "desktop_media_layout": "carousel_thumbnails_left",
+        "desktop_media_layout": "carousel_thumbnails_bottom",
         "mobile_media_size": "contained",
         "mobile_carousel_control": "thumbnails",
         "enable_video_autoplay": false,
@@ -137,6 +140,29 @@
         "text_color": "#ffffff",
         "overlay_color": "#000000",
         "overlay_opacity": 0
+      }
+    },
+    "1680883393461ba659": {
+      "type": "apps",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "custom_liquid_Ygfwef": {
+      "type": "custom-liquid",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<div class=\"sendlane-reviews\" sl-product-id=\"{{product.id}}\"><\/div>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
       }
     },
     "346dd38f-3483-455f-9262-e818ad6a56cf": {
@@ -181,7 +207,7 @@
           "type": "item",
           "settings": {
             "title": "Can I return my Crazy Compression Socks?",
-            "content": "<p>Absolutely. We get it, sometimes we aren’t a perfect fit. You can access our return portal <strong>here:<\/strong> <br\/><br\/>Instead of a standard 30-day returns window where you can't wash or wear the socks, your Crazy Compression order has a 90 day, no-questions-asked guarantee.<\/p>"
+            "content": "<p>Absolutely. We get it, sometimes we aren’t a perfect fit. You can access our return portal <a href=\"https:\/\/crazycompression.com\/pages\/contact-us\" target=\"_blank\" title=\"https:\/\/crazycompression.com\/apps\/redo\/returns-portal#\/login\"><strong>here:<\/strong><\/a> <br\/><br\/>Instead of a standard 30-day returns window where you can't wash or wear the socks, your Crazy Compression order has a 90 day, no-questions-asked guarantee.<\/p>"
           }
         },
         "749da158-566d-4e06-b1c0-570893f599cc": {
@@ -233,14 +259,15 @@
     },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
-        "recommendations_count": 6,
+        "recommendations_count": 3,
         "products": [
 
         ],
         "full_width": true,
         "stack_products": true,
-        "show_progress_bar": false,
+        "show_progress_bar": true,
         "products_per_row_mobile": "1",
         "products_per_row_desktop": 3,
         "subheading": "",
@@ -253,17 +280,6 @@
         "heading_gradient": "",
         "product_card_background": "",
         "product_card_text_color": ""
-      }
-    },
-    "1680883393461ba659": {
-      "type": "apps",
-      "settings": {
-        "full_width": true,
-        "remove_vertical_spacing": false,
-        "remove_horizontal_spacing": false,
-        "background": "",
-        "background_gradient": "",
-        "text_color": ""
       }
     },
     "1681455389bf7356e9": {
@@ -281,9 +297,10 @@
   "order": [
     "main",
     "0f0e296f-bf2f-49a6-8db9-be5412a17cf2",
+    "1680883393461ba659",
+    "custom_liquid_Ygfwef",
     "346dd38f-3483-455f-9262-e818ad6a56cf",
     "related-products",
-    "1680883393461ba659",
     "1681455389bf7356e9"
   ]
 }

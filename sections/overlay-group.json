@@ -30,9 +30,11 @@
         "show_shipping_text": true,
         "show_view_cart_button": true,
         "show_checkout_button": true,
-        "recommendations_title": "Trending this month",
+        "recommendations_title": "🎉  SPECIAL VIP PRICE FOR YOU 🎉",
         "products": [
-
+          "black-otc-compression-socks-standard-extra-wide-cart-1",
+          "3-pair-pack-360-tie-dye-black-standard-extra-wide-cart",
+          "cool-grey-runners-elite-running-socks-cart"
         ],
         "product_card_background": "#f2f2f2",
         "product_card_text_color": ""

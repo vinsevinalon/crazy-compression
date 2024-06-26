@@ -1,79 +1,13 @@
 {
   "sections": {
-    "video_VXMjwC": {
-      "type": "video",
-      "blocks": {
-        "play_Ye4Cqd": {
-          "type": "play",
-          "settings": {
-          }
-        },
-        "subheading_xk88yL": {
-          "type": "subheading",
-          "settings": {
-            "text": "American Made Compression Socks"
-          }
-        },
-        "heading_JHcCb8": {
-          "type": "heading",
-          "settings": {
-            "text": "STEP INTO A WORLD OF COMFORT & COLOR",
-            "heading_tag": "h1"
-          }
-        },
-        "subheading_7988Rh": {
-          "type": "subheading",
-          "settings": {
-            "text": "Your Legs Will Thank You!"
-          }
-        },
-        "richtext_JwrGC7": {
-          "type": "richtext",
-          "disabled": true,
-          "settings": {
-            "content": "<p>Your Legs Will Thank You!<\/p>"
-          }
-        },
-        "button_UjB7C6": {
-          "type": "button",
-          "settings": {
-            "style": "fill",
-            "size": "xl",
-            "text": "SHOP NOW",
-            "url": "https:\/\/crazycompression.com\/collections\/compression-socks",
-            "background": "#ffffff",
-            "text_color": "#272727"
-          }
-        }
-      },
-      "block_order": [
-        "play_Ye4Cqd",
-        "subheading_xk88yL",
-        "heading_JHcCb8",
-        "subheading_7988Rh",
-        "richtext_JwrGC7",
-        "button_UjB7C6"
-      ],
-      "settings": {
-        "full_width": true,
-        "allow_transparent_header": false,
-        "autoplay": true,
-        "video_size": "md",
-        "video": "shopify:\/\/files\/videos\/D5736B12-EDF3-48C8-8522-ED8184C20367.MOV",
-        "external_video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 40
-      }
-    },
     "slideshow": {
       "type": "slideshow",
       "blocks": {
         "slide-1": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/CC_WEB_HERO_DESK-Recovered_copy_19855fe3-a4b0-41ed-9bbd-57408f126e14.jpg",
-            "mobile_image": "shopify:\/\/shop_images\/CC_web_mobile_HERO_copy3.jpg",
+            "image": "shopify:\/\/shop_images\/Copy_of_Untitled_1200_x_1600_px_1200_x_1700_px_2800_x_1000_px_2800_x_1200_px_copy_2.png",
+            "mobile_image": "shopify:\/\/shop_images\/Untitled_1200_x_1600_px_1200_x_1800_px.png",
             "content_max_width": 780,
             "mobile_text_position": "place-self-center text-center",
             "desktop_text_position": "sm:place-self-start sm:text-start",
@@ -95,10 +29,10 @@
       "block_order": [
         "slide-1"
       ],
-      "disabled": true,
       "settings": {
         "full_width": true,
         "allow_transparent_header": true,
+        "show_initial_transition": false,
         "image_size": "auto",
         "controls_type": "numbers",
         "transition_type": "fade_with_text",
@@ -106,56 +40,6 @@
         "cycle_speed": 6,
         "background": "#f2f2f2",
         "background_gradient": "linear-gradient(60deg, rgba(60, 65, 68, 1), rgba(23, 29, 33, 1) 98%)"
-      }
-    },
-    "impact-text": {
-      "type": "impact-text",
-      "blocks": {
-        "1664424181b38582d5-0": {
-          "type": "item",
-          "settings": {
-            "title": "",
-            "subheading": "Step Into Comfort With Our USA Made Premium Compression Socks",
-            "content": "",
-            "button_text": "SHOP ALL PRODUCTS",
-            "button_url": "shopify:\/\/collections\/compression-socks",
-            "animate_impact_text": false,
-            "animate_impact_text_duration": 2
-          }
-        },
-        "be7f9eb2-e974-4d8e-b8d1-e57c022e8a52": {
-          "type": "item",
-          "disabled": true,
-          "settings": {
-            "title": "100%",
-            "subheading": "Showcase a benefit of your product",
-            "content": "",
-            "button_text": "",
-            "button_url": "",
-            "animate_impact_text": false,
-            "animate_impact_text_duration": 2
-          }
-        }
-      },
-      "block_order": [
-        "1664424181b38582d5-0",
-        "be7f9eb2-e974-4d8e-b8d1-e57c022e8a52"
-      ],
-      "disabled": true,
-      "settings": {
-        "full_width": true,
-        "stack_mobile": false,
-        "text_alignment": "center",
-        "impact_text_style": "fill",
-        "text_divider": "square",
-        "impact_text_size_ratio": 0.5,
-        "background": "#ffffff",
-        "background_gradient": "",
-        "heading_text_color": "#9940b1",
-        "heading_gradient": "linear-gradient(180deg, rgba(153, 64, 177, 1), rgba(222, 177, 234, 1) 100%)",
-        "text_color": "",
-        "button_background": "",
-        "button_text_color": ""
       }
     },
     "slideshow_zjTNcT": {
@@ -190,6 +74,7 @@
       "settings": {
         "full_width": true,
         "allow_transparent_header": true,
+        "show_initial_transition": false,
         "image_size": "auto",
         "controls_type": "dots",
         "transition_type": "fade_with_text",
@@ -199,34 +84,58 @@
         "background_gradient": ""
       }
     },
-    "press_zpKkbH": {
-      "type": "press",
-      "blocks": {
-        "quote_zE87YA": {
-          "type": "quote",
-          "settings": {
-            "logo_width": 50,
-            "author": "",
-            "content": "6000+ 5 Star Reviews",
-            "show_rating": true,
-            "rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "quote_zE87YA"
-      ],
-      "disabled": true,
+    "scrolling_text_tiQwEK": {
+      "type": "scrolling-text",
       "settings": {
         "full_width": false,
-        "content_size": "small",
+        "text": "",
+        "text_size": "xsmall",
+        "text_style": "fill",
+        "scrolling_mode": "auto",
+        "scrolling_speed": 7,
         "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "text_gradient": ""
+      }
+    },
+    "f73c6877-1e72-4e4c-aa61-604102d70781": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "products": [
+          "360-night-garden",
+          "black-otc-compression-socks",
+          "360-sea-princess",
+          "360-spring-stripes",
+          "360-fifth-of-may-1",
+          "360-grey-heather",
+          "3-pair-pack-360-pet-standard-extra-wide",
+          "3-pair-pack-360-tie-dye-black-standard-extra-wide",
+          "copy-of-360-mermaid-teal-otc-compression-socks-standard-extra-wide",
+          "360-calavera-purple-1",
+          "360-mermaid-teal-otc-compression-socks",
+          "360-blue-heather",
+          "360-aqua-cute-sloths-otc-compression-socks"
+        ],
+        "full_width": true,
+        "stack_products": true,
+        "show_progress_bar": true,
+        "products_count": 12,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "Best Sellers.",
+        "content": "",
+        "link_url": "shopify:\/\/collections\/compression-socks",
+        "link_text": "View All",
+        "background": "#ffffff",
         "background_gradient": "",
         "text_color": "",
         "heading_color": "",
         "heading_gradient": "",
-        "logo_item_background": "",
-        "logo_item_border": ""
+        "product_card_background": "",
+        "product_card_text_color": ""
       }
     },
     "featured-collection": {
@@ -245,9 +154,9 @@
         ],
         "full_width": true,
         "stack_products": false,
-        "show_progress_bar": false,
+        "show_progress_bar": true,
         "products_count": 35,
-        "products_per_row_mobile": "2",
+        "products_per_row_mobile": "1",
         "products_per_row_desktop": 4,
         "subheading": "",
         "title": "Bundle & Save!",
@@ -335,6 +244,44 @@
         "hot_spot_content_blur_radius": 0
       }
     },
+    "featured_collection_Kyqjzw": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "the-american-collection",
+        "products": [
+
+        ],
+        "full_width": true,
+        "stack_products": true,
+        "show_progress_bar": false,
+        "products_count": 6,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "The USA Collection",
+        "content": "",
+        "link_url": "",
+        "link_text": "View all",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "170901835337de4451": {
+      "type": "apps",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": true,
+        "remove_horizontal_spacing": true,
+        "background": "#9940b1",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
     "ed5a7074-09b0-4088-943a-2e783f2f7674": {
       "type": "featured-collection",
       "settings": {
@@ -343,10 +290,10 @@
 
         ],
         "full_width": true,
-        "stack_products": false,
+        "stack_products": true,
         "show_progress_bar": true,
-        "products_count": 14,
-        "products_per_row_mobile": "1",
+        "products_count": 10,
+        "products_per_row_mobile": "2",
         "products_per_row_desktop": 3,
         "subheading": "",
         "title": "Our Fairy Tale Collection",
@@ -362,59 +309,31 @@
         "product_card_text_color": ""
       }
     },
-    "170901835337de4451": {
-      "type": "apps",
-      "blocks": {
-        "tolstoy_shoppable_video_ugc_carousel_block_VNzBez": {
-          "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/carousel-block\/06fa8282-42ff-403e-b67c-1936776aed11",
-          "settings": {
-            "publishId": "yez7z3wty3rpk"
-          }
-        }
-      },
-      "block_order": [
-        "tolstoy_shoppable_video_ugc_carousel_block_VNzBez"
-      ],
+    "featured_collection_bwcYKL": {
+      "type": "featured-collection",
       "settings": {
+        "collection": "spring-summer-collection",
+        "products": [
+
+        ],
         "full_width": true,
-        "remove_vertical_spacing": true,
-        "remove_horizontal_spacing": true,
-        "background": "#9940b1",
+        "stack_products": true,
+        "show_progress_bar": true,
+        "products_count": 8,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "The Summer Collection.",
+        "content": "",
+        "link_url": "shopify:\/\/collections\/spring-summer-collection",
+        "link_text": "View all",
+        "background": "",
         "background_gradient": "",
-        "text_color": ""
-      }
-    },
-    "video_8DnLQt": {
-      "type": "video",
-      "blocks": {
-        "play_Ei8tDq": {
-          "type": "play",
-          "settings": {
-          }
-        },
-        "heading_3efTeK": {
-          "type": "heading",
-          "settings": {
-            "text": "",
-            "heading_tag": "h1"
-          }
-        }
-      },
-      "block_order": [
-        "play_Ei8tDq",
-        "heading_3efTeK"
-      ],
-      "disabled": true,
-      "settings": {
-        "full_width": true,
-        "allow_transparent_header": true,
-        "autoplay": true,
-        "video_size": "md",
-        "video": "shopify:\/\/files\/videos\/INTRO.MP4",
-        "external_video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 5
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
       }
     },
     "1680882322f20142eb": {
@@ -426,33 +345,6 @@
         "background": "#ffffff",
         "background_gradient": "",
         "text_color": "#000000"
-      }
-    },
-    "f73c6877-1e72-4e4c-aa61-604102d70781": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "cinco-de-mayo",
-        "products": [
-
-        ],
-        "full_width": true,
-        "stack_products": false,
-        "show_progress_bar": false,
-        "products_count": 35,
-        "products_per_row_mobile": "1",
-        "products_per_row_desktop": 3,
-        "subheading": "",
-        "title": "The Cinco De Mayo Collection.",
-        "content": "",
-        "link_url": "shopify:\/\/collections\/cinco-de-mayo",
-        "link_text": "View all",
-        "background": "#ffffff",
-        "background_gradient": "",
-        "text_color": "",
-        "heading_color": "",
-        "heading_gradient": "",
-        "product_card_background": "",
-        "product_card_text_color": ""
       }
     },
     "image-with-text-overlay": {
@@ -524,14 +416,14 @@
 
         ],
         "full_width": true,
-        "stack_products": false,
+        "stack_products": true,
         "show_progress_bar": true,
         "products_count": 10,
         "products_per_row_mobile": "2",
         "products_per_row_desktop": 3,
         "subheading": "",
-        "title": "Elite Running Socks",
-        "content": "",
+        "title": "",
+        "content": "<p>Elite Running Socks<\/p>",
         "link_url": "",
         "link_text": "View all",
         "background": "",
@@ -541,108 +433,6 @@
         "heading_gradient": "",
         "product_card_background": "",
         "product_card_text_color": ""
-      }
-    },
-    "collection-list": {
-      "type": "collection-list",
-      "blocks": {
-        "collection-1": {
-          "type": "collection",
-          "settings": {
-            "collection": "crazy-360-over-the-calf-compression-socks",
-            "subheading": "",
-            "title": "",
-            "url": "",
-            "heading_tag": "h2",
-            "text_position": "place-self-center text-center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "collection-2": {
-          "type": "collection",
-          "settings": {
-            "collection": "extra-wide-calf-collection",
-            "subheading": "",
-            "title": "",
-            "url": "",
-            "heading_tag": "h2",
-            "text_position": "place-self-center text-center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "collection-3": {
-          "type": "collection",
-          "settings": {
-            "collection": "all-about-stripes",
-            "image": "shopify:\/\/shop_images\/33_f714482a-7a89-4d8e-bf9e-91233e32285c.jpg",
-            "subheading": "",
-            "title": "",
-            "url": "",
-            "heading_tag": "h2",
-            "text_position": "place-self-center text-center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "5d084f72-220b-4a2f-ba87-7913a10142cd": {
-          "type": "collection",
-          "settings": {
-            "collection": "crazy-w-cushion",
-            "image": "shopify:\/\/shop_images\/Cush_cat.jpg",
-            "subheading": "",
-            "title": "",
-            "url": "",
-            "heading_tag": "h2",
-            "text_position": "place-self-center text-center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "54df9a0d-6b06-402c-ad11-89d53e313c51": {
-          "type": "collection",
-          "settings": {
-            "collection": "crazy-compression-elite-runners",
-            "image": "shopify:\/\/shop_images\/44.jpg",
-            "subheading": "",
-            "title": "",
-            "url": "",
-            "heading_tag": "h2",
-            "text_position": "place-self-center text-center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        }
-      },
-      "block_order": [
-        "collection-1",
-        "collection-2",
-        "collection-3",
-        "5d084f72-220b-4a2f-ba87-7913a10142cd",
-        "54df9a0d-6b06-402c-ad11-89d53e313c51"
-      ],
-      "disabled": true,
-      "settings": {
-        "full_width": true,
-        "stack_collections": false,
-        "collections_per_row": 5,
-        "show_progress_bar": false,
-        "subheading": "",
-        "title": "Shop by Collection",
-        "content": "",
-        "link_url": "",
-        "link_text": "View all",
-        "background": "#9940b1",
-        "background_gradient": "",
-        "text_color": "#ffffff",
-        "heading_color": "",
-        "heading_gradient": ""
       }
     },
     "69746d76-70c0-47bb-bfe2-48640b655c52": {
@@ -670,6 +460,106 @@
         "heading_gradient": "",
         "product_card_background": "",
         "product_card_text_color": ""
+      }
+    },
+    "featured_product_qV3GyL": {
+      "type": "featured-product",
+      "blocks": {
+        "title_rDEfgR": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h3"
+          }
+        },
+        "badges_wwigUA": {
+          "type": "badges",
+          "settings": {
+          }
+        },
+        "price_QJCBRE": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "rating_DnTArY": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "separator_8MRkgc": {
+          "type": "separator",
+          "settings": {
+          }
+        },
+        "description_BeLzrk": {
+          "type": "description",
+          "settings": {
+            "collapse_content": true
+          }
+        },
+        "variant_picker_U79RHQ": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "stack_blocks": true,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "quantity_selector_YLQCj9": {
+          "type": "quantity_selector",
+          "settings": {
+          }
+        },
+        "buy_buttons_iHtR7K": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "pickup_availability_PxG7Jd": {
+          "type": "pickup_availability",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "title_rDEfgR",
+        "badges_wwigUA",
+        "price_QJCBRE",
+        "rating_DnTArY",
+        "separator_8MRkgc",
+        "description_BeLzrk",
+        "variant_picker_U79RHQ",
+        "quantity_selector_YLQCj9",
+        "buy_buttons_iHtR7K",
+        "pickup_availability_PxG7Jd"
+      ],
+      "settings": {
+        "full_width": true,
+        "product": "crazy-no-show-berry",
+        "desktop_media_width": 55,
+        "desktop_media_layout": "carousel_thumbnails_left",
+        "mobile_media_size": "expanded",
+        "mobile_carousel_control": "floating_dots",
+        "enable_video_autoplay": true,
+        "enable_video_looping": false,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3,
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "input_background": "rgba(0,0,0,0)",
+        "input_text_color": ""
       }
     },
     "faq": {
@@ -811,6 +701,7 @@
       "settings": {
         "full_width": true,
         "stack_collections": false,
+        "collections_per_row_mobile": "1",
         "collections_per_row": 3,
         "show_progress_bar": false,
         "subheading": "",
@@ -827,23 +718,22 @@
     }
   },
   "order": [
-    "video_VXMjwC",
     "slideshow",
-    "impact-text",
     "slideshow_zjTNcT",
-    "press_zpKkbH",
+    "scrolling_text_tiQwEK",
+    "f73c6877-1e72-4e4c-aa61-604102d70781",
     "featured-collection",
     "149eb9c8-7a75-4f22-b0fc-6c44b4887ce6",
-    "ed5a7074-09b0-4088-943a-2e783f2f7674",
+    "featured_collection_Kyqjzw",
     "170901835337de4451",
-    "video_8DnLQt",
+    "ed5a7074-09b0-4088-943a-2e783f2f7674",
+    "featured_collection_bwcYKL",
     "1680882322f20142eb",
-    "f73c6877-1e72-4e4c-aa61-604102d70781",
     "image-with-text-overlay",
     "scrolling-text",
     "743748ad-6171-4ce3-b999-815e456971fb",
-    "collection-list",
     "69746d76-70c0-47bb-bfe2-48640b655c52",
+    "featured_product_qV3GyL",
     "faq",
     "collection_list_UqArEe"
   ]

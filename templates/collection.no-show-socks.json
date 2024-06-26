@@ -1,0 +1,167 @@
+{
+  "sections": {
+    "banner": {
+      "type": "collection-banner",
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": true,
+        "enable_parallax": false,
+        "show_collection_title": true,
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "collection_title_size": "h2",
+        "image_size": "auto",
+        "mobile_text_position": "place-self-start text-start",
+        "desktop_text_position": "sm:place-self-start sm:text-start",
+        "featured_product": "",
+        "featured_product_heading": "Featured product",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "video_gVtRka": {
+      "type": "video",
+      "blocks": {
+        "play_a3gQXT": {
+          "type": "play",
+          "settings": {
+          }
+        },
+        "heading_Nc7U7F": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "play_a3gQXT",
+        "heading_Nc7U7F"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "autoplay": true,
+        "video_size": "auto",
+        "video": "shopify:\/\/files\/videos\/NOSHOW_BANNER.mp4",
+        "mobile_video": "shopify:\/\/files\/videos\/NOSHOW_BANNER copy.mp4",
+        "external_video_url": "",
+        "text_color": "#ffffff",
+        "overlay_color": "#ffffff",
+        "overlay_opacity": 0
+      }
+    },
+    "image_with_text_overlay_bqJ4M8": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_WVbciK": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_pTtnJf": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_U4mi3K": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_WVbciK",
+        "heading_pTtnJf",
+        "richtext_U4mi3K"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/Blue_Modern_Gym_Fitness_Website_Landing_Page_Desktop_Prototype_07e9002b-da56-47ba-88ea-983f943a9715.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/Blue_Modern_Gym_Fitness_Website_Landing_Page_Desktop_Prototype_6735cc55-101d-495d-9856-7cd2df8212d6.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "products_per_page": 50,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "filter_layout": "sidebar",
+        "show_sort_by": true,
+        "show_filters": true,
+        "show_filter_group_name": false,
+        "show_filter_values_count": false,
+        "open_first_filter_group": false
+      }
+    },
+    "17090576115ec1a232": {
+      "type": "apps",
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "video_QBgUr4": {
+      "type": "video",
+      "blocks": {
+        "play_rBh7QR": {
+          "type": "play",
+          "settings": {
+          }
+        },
+        "heading_eJcxqx": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "play_rBh7QR",
+        "heading_eJcxqx"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "autoplay": true,
+        "video_size": "auto",
+        "video": "shopify:\/\/files\/videos\/NOSHOW_BANNER copy.mp4",
+        "mobile_video": "shopify:\/\/files\/videos\/NOSHOW_BANNER copy.mp4",
+        "external_video_url": "",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "video_gVtRka",
+    "image_with_text_overlay_bqJ4M8",
+    "main",
+    "17090576115ec1a232",
+    "video_QBgUr4"
+  ]
+}

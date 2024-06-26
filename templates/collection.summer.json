@@ -1,5 +1,80 @@
 {
   "sections": {
+    "video_fdj9fy": {
+      "type": "video",
+      "blocks": {
+        "play_j79kYj": {
+          "type": "play",
+          "settings": {
+          }
+        },
+        "heading_tC6kHN": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "play_j79kYj",
+        "heading_tC6kHN"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "autoplay": true,
+        "video_size": "auto",
+        "video": "shopify:\/\/files\/videos\/Blue Illustration Happy Fathers Day Instagram Story (1300 x 500 px).mp4",
+        "mobile_video": "shopify:\/\/files\/videos\/Blue Illustration Happy Fathers Day Instagram Story (1300 x 500 px).mp4",
+        "external_video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "image_with_text_overlay_RjwyHx": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_nCJjLG": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_Uy3yfy": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_HRjmqB": {
+          "type": "richtext",
+          "settings": {
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_nCJjLG",
+        "heading_Uy3yfy",
+        "richtext_HRjmqB"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/famliy_bd2037a0-0053-4f0e-849b-b750fff7ffcb.png",
+        "mobile_image": "shopify:\/\/shop_images\/famliy_4b45edfa-026d-48b4-a294-9ac8bec86bed.png",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#ffffff",
+        "overlay_opacity": 0
+      }
+    },
     "image_with_text_overlay_bqJ4M8": {
       "type": "image-with-text-overlay",
       "blocks": {
@@ -59,6 +134,7 @@
     },
     "banner": {
       "type": "collection-banner",
+      "disabled": true,
       "settings": {
         "full_width": true,
         "allow_transparent_header": true,
@@ -102,6 +178,8 @@
     }
   },
   "order": [
+    "video_fdj9fy",
+    "image_with_text_overlay_RjwyHx",
     "image_with_text_overlay_bqJ4M8",
     "main",
     "banner",

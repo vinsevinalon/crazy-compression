@@ -20,11 +20,10 @@
           "settings": {
           }
         },
-        "7afa0401-c0c1-48f7-bc3c-901b32690fc5": {
+        "text_9f9w33": {
           "type": "text",
-          "disabled": true,
           "settings": {
-            "content": ""
+            "content": "<p>6000+ 5-Star Reviews ⭐<br\/>All-Day Support 💪<br\/>USA Made 🇺🇸<br\/>Lifetime Guarantee 🛡️<br\/>Family Owned & Operated in NC 🏡<\/p>"
           }
         }
       },
@@ -32,15 +31,132 @@
         "totals",
         "cart_note",
         "checkout_button",
-        "7afa0401-c0c1-48f7-bc3c-901b32690fc5"
+        "text_9f9w33"
       ],
       "settings": {
-        "show_shipping_estimator": false,
+        "show_shipping_estimator": true,
         "show_payment_icons": true
+      }
+    },
+    "featured_collection_8cxyhA": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "products": [
+          "3-pair-pack-360-mermaid-teal-standard-extra-wide-cart",
+          "3-pair-pack-360-tie-dye-black-standard-extra-wide-cart",
+          "black-otc-compression-socks-standard-extra-wide-cart",
+          "cool-grey-runners-elite-running-socks-cart",
+          "crazy-no-show-3-pairs-neon-pack-cart"
+        ],
+        "full_width": true,
+        "stack_products": true,
+        "show_progress_bar": false,
+        "products_count": 6,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "🎉 A Special VIP Price Just For You 🎉",
+        "content": "",
+        "link_url": "",
+        "link_text": "",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "recently_viewed_products_fARatD": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "full_width": true,
+        "products_count": 6,
+        "stack_products": true,
+        "show_progress_bar": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "subheading": "",
+        "title": "Recently viewed products",
+        "content": "",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    },
+    "testimonials_tryTKz": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_JM4bDY": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/three-mature-women-laugh-in-friendship.jpg",
+            "round_avatar": true,
+            "show_rating": true,
+            "rating": 5,
+            "author": "Brittany",
+            "title": "",
+            "content": "<p>I absolutely love these compression socks! The designs are so fun, and the comfort is fabulous. PLUS, they are American made and family-owned. Highly recommend!<\/p>"
+          }
+        },
+        "testimonial_Kf7HwF": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/grey-woman-on-steps.jpg",
+            "round_avatar": true,
+            "show_rating": true,
+            "rating": 5,
+            "author": "Mary U.",
+            "title": "",
+            "content": "<p>I'm loving my Crazy Compression socks! They make my legs and feet feel so good! Definitely a returning customer for sure.<\/p>"
+          }
+        },
+        "testimonial_Y6XBfL": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/young-woman-in-casual-fashion.jpg",
+            "round_avatar": true,
+            "show_rating": true,
+            "rating": 5,
+            "author": "Lindsey B.",
+            "title": "",
+            "content": "<p>These socks are a game-changer! They fit like a dream and feel fantastic. Crazy good product!<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_JM4bDY",
+        "testimonial_Kf7HwF",
+        "testimonial_Y6XBfL"
+      ],
+      "settings": {
+        "full_width": true,
+        "stack_testimonials": true,
+        "subheading": "",
+        "title": "Testimonials",
+        "content": "",
+        "link_url": "",
+        "link_text": "",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "testimonial_card_background": "",
+        "testimonial_card_text_color": ""
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "featured_collection_8cxyhA",
+    "recently_viewed_products_fARatD",
+    "testimonials_tryTKz"
   ]
 }

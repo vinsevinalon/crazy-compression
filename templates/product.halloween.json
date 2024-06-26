@@ -9,10 +9,16 @@
           "settings": {
           }
         },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
-            "heading_tag": "h3"
+            "heading_tag": "h5"
           }
         },
         "price": {
@@ -21,9 +27,13 @@
             "show_taxes_notice": false
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector",
+        "d0734d67-c3ca-4dc2-a72a-fc5fa7bc5188": {
+          "type": "product_variations",
           "settings": {
+            "option_name": "Color",
+            "option_value_metafield": "{{ product.metafields.custom.product_value_halloween.value }}",
+            "products": "{{ product.metafields.custom.product_variation_halloween.value }}",
+            "selector_style": "variant_image"
           }
         },
         "variant_picker": {
@@ -35,6 +45,11 @@
             "swatch_selector_style": "swatch",
             "variant_image_options": "",
             "size_chart_page": ""
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
           }
         },
         "buy_buttons": {
@@ -54,19 +69,14 @@
           "settings": {
           }
         },
-        "rating": {
-          "type": "rating",
+        "associated_products_fjaf9N": {
+          "type": "associated_products",
           "settings": {
-            "show_empty": false
-          }
-        },
-        "d0734d67-c3ca-4dc2-a72a-fc5fa7bc5188": {
-          "type": "product_variations",
-          "settings": {
-            "option_name": "Color",
-            "option_value_metafield": "{{ product.metafields.custom.product_value_halloween.value }}",
-            "products": "{{ product.metafields.custom.product_variation_halloween.value }}",
-            "selector_style": "swatch"
+            "title": "Buy it with",
+            "stack_products": true,
+            "products_count": 5,
+            "background": "",
+            "text_color": ""
           }
         },
         "payment_terms": {
@@ -79,64 +89,36 @@
           "settings": {
           }
         },
-        "collapsible_text_7AXinE": {
-          "type": "collapsible_text",
+        "description": {
+          "type": "description",
           "settings": {
-            "title": "SIZE CHART",
-            "content": "<p>Share some content to your customers about your products.<\/p>",
-            "page": ""
+            "collapse_content": false
           }
         },
-        "collapsible_text_ga48Tf": {
-          "type": "collapsible_text",
+        "image_Y8WqDc": {
+          "type": "image",
           "settings": {
-            "title": "WHERE ARE CRAZY COMPRESSION SOCKS MADE",
-            "content": "<p>Share some content to your customers about your products.<\/p>",
-            "page": ""
-          }
-        },
-        "collapsible_text_REBxQr": {
-          "type": "collapsible_text",
-          "settings": {
-            "title": "WHAT MATERIAL ARE CRAZY COMPRESSION SOCKS MADE OF",
-            "content": "<p>Share some content to your customers about your products.<\/p>",
-            "page": ""
-          }
-        },
-        "collapsible_text_tcmw3p": {
-          "type": "collapsible_text",
-          "settings": {
-            "title": "SHIPPING AND DELIVERY",
-            "content": "<p>Share some content to your customers about your products.<\/p>",
-            "page": ""
-          }
-        },
-        "collapsible_text_M848bN": {
-          "type": "collapsible_text",
-          "settings": {
-            "title": "RETURN AND REFUND POLICY",
-            "content": "<p>Share some content to your customers about your products.<\/p>",
-            "page": ""
+            "image": "shopify:\/\/shop_images\/CC_lineup_dae2def9-cf46-47f8-b808-89c5feac4005.jpg",
+            "alignment": "start",
+            "max_width": 500
           }
         }
       },
       "block_order": [
         "vendor",
+        "rating",
         "title",
         "price",
-        "quantity_selector",
+        "d0734d67-c3ca-4dc2-a72a-fc5fa7bc5188",
         "variant_picker",
+        "quantity_selector",
         "buy_buttons",
         "badges",
-        "rating",
-        "d0734d67-c3ca-4dc2-a72a-fc5fa7bc5188",
+        "associated_products_fjaf9N",
         "payment_terms",
         "separator",
-        "collapsible_text_7AXinE",
-        "collapsible_text_ga48Tf",
-        "collapsible_text_REBxQr",
-        "collapsible_text_tcmw3p",
-        "collapsible_text_M848bN"
+        "description",
+        "image_Y8WqDc"
       ],
       "settings": {
         "full_width": true,
@@ -154,6 +136,23 @@
         "text_color": "",
         "input_background": "rgba(0,0,0,0)",
         "input_text_color": ""
+      }
+    },
+    "fb42f947-2382-4ed7-8336-1d42d54dc8cc": {
+      "type": "image-with-text-overlay",
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/CC_lineup_36cdc9b5-3f2d-4189-876e-41b3e34525b7.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/CC_lineup_1ef7de63-e6a5-45a5-b9c7-0587bdeebdbf.jpg",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
       }
     },
     "video_yKP784": {
@@ -186,6 +185,29 @@
         "text_color": "#ffffff",
         "overlay_color": "#000000",
         "overlay_opacity": 0
+      }
+    },
+    "17174421514e8e0f8d": {
+      "type": "apps",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "custom_liquid_VGKgMy": {
+      "type": "custom-liquid",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<div class=\"sendlane-reviews\" sl-product-id=\"{{product.id}}\"><\/div>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
       }
     },
     "346dd38f-3483-455f-9262-e818ad6a56cf": {
@@ -325,66 +347,17 @@
         "background_gradient": "",
         "text_color": ""
       }
-    },
-    "press_E8tz4A": {
-      "type": "press",
-      "blocks": {
-        "quote_Bt8Vg6": {
-          "type": "quote",
-          "settings": {
-            "logo_width": 100,
-            "author": "",
-            "content": "Write some content about what they says about your store.",
-            "show_rating": true,
-            "rating": 4
-          }
-        },
-        "quote_8KaAGN": {
-          "type": "quote",
-          "settings": {
-            "logo_width": 100,
-            "author": "",
-            "content": "Write some content about what they says about your store.",
-            "show_rating": true,
-            "rating": 4
-          }
-        },
-        "quote_pXNzdn": {
-          "type": "quote",
-          "settings": {
-            "logo_width": 100,
-            "author": "",
-            "content": "Write some content about what they says about your store.",
-            "show_rating": true,
-            "rating": 4
-          }
-        }
-      },
-      "block_order": [
-        "quote_Bt8Vg6",
-        "quote_8KaAGN",
-        "quote_pXNzdn"
-      ],
-      "settings": {
-        "full_width": true,
-        "content_size": "medium",
-        "background": "",
-        "background_gradient": "",
-        "text_color": "",
-        "heading_color": "",
-        "heading_gradient": "",
-        "logo_item_background": "",
-        "logo_item_border": ""
-      }
     }
   },
   "order": [
     "main",
+    "fb42f947-2382-4ed7-8336-1d42d54dc8cc",
     "video_yKP784",
+    "17174421514e8e0f8d",
+    "custom_liquid_VGKgMy",
     "346dd38f-3483-455f-9262-e818ad6a56cf",
     "related-products",
     "1680883393461ba659",
-    "1681455389bf7356e9",
-    "press_E8tz4A"
+    "1681455389bf7356e9"
   ]
 }

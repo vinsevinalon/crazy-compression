@@ -3,24 +3,6 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
-          "type": "vendor",
-          "disabled": true,
-          "settings": {
-          }
-        },
-        "title": {
-          "type": "title",
-          "settings": {
-            "heading_tag": "h3"
-          }
-        },
-        "badges": {
-          "type": "badges",
-          "disabled": true,
-          "settings": {
-          }
-        },
         "price": {
           "type": "price",
           "settings": {
@@ -33,12 +15,31 @@
             "show_empty": false
           }
         },
+        "vendor": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h5"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "disabled": true,
+          "settings": {
+          }
+        },
         "d0734d67-c3ca-4dc2-a72a-fc5fa7bc5188": {
           "type": "product_variations",
           "settings": {
-            "option_name": "Color",
+            "option_name": "Choose Your Own Color",
             "option_value_metafield": "{{ product.metafields.custom.product_value_summer.value }}",
-            "products": "{{ product.metafields.custom.product_variation_summer.value }}"
+            "products": "{{ product.metafields.custom.product_variation_summer.value }}",
+            "selector_style": "variant_image"
           }
         },
         "variant_picker": {
@@ -46,6 +47,9 @@
           "settings": {
             "hide_sold_out_variants": false,
             "stack_blocks": true,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
             "size_chart_page": ""
           }
         },
@@ -57,11 +61,22 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_payment_button": true,
+            "show_payment_button": false,
+            "show_gift_card_recipient": true,
             "atc_button_background": "#94f8eb",
             "atc_button_text_color": "#4e4d4d",
             "payment_button_background": "",
             "payment_button_text_color": ""
+          }
+        },
+        "shop_shop_login_button_app_block_kPcC7M": {
+          "type": "shopify:\/\/apps\/shop\/blocks\/shop-login-button-app-block\/7cab7c4a-1dfc-4b7e-8e53-31f104f2fa4e",
+          "settings": {
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {
           }
         },
         "description": {
@@ -71,9 +86,55 @@
             "collapse_content": false
           }
         },
-        "payment_terms": {
-          "type": "payment_terms",
+        "liquid_AJjwYF": {
+          "type": "liquid",
           "settings": {
+            "liquid": "<div class=\"icon-container\">\n    <div class=\"icon-item\">\n      <i class=\"fas fa-flag-usa\"><\/i>\n      <p>Made In USA<\/p>\n    <\/div>\n    <div class=\"icon-item\">\n      <i class=\"fas fa-compress-arrows-alt\"><\/i>\n      <p>True Graduated Compression<\/p>\n    <\/div>\n    <div class=\"icon-item\">\n      <i class=\"fas fa-shield-alt\"><\/i>\n      <p>Lifetime Guarantee<\/p>\n    <\/div>\n    <div class=\"icon-item\">\n      <i class=\"fas fa-users\"><\/i>\n      <p>Family Owned<\/p>\n    <\/div>\n  <\/div>\n\n<style>\n  .icon-container {\n    display: flex;\n    justify-content: space-between; \/* Make sure the icons are spaced evenly *\/\n  }\n  .icon-item {\n    text-align: center;\n    flex: 1; \/* Optional: Ensures all icons take up equal width *\/\n  }\n  .icon-item i {\n    font-size: 2em; \/* Adjust size as needed *\/\n    margin-bottom: 5px;\ncolor: #8F4A9D; \/* Icon color *\/\n  }\n<\/style>\n\n<script>\n  \/\/ Ensure Font Awesome is loaded\n  (function(d) {\n    var link = d.createElement('link');\n    link.href = 'https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/font-awesome\/5.15.3\/css\/all.min.css';\n    link.rel = 'stylesheet';\n    d.head.appendChild(link);\n  })(document);\n<\/script>"
+          }
+        },
+        "collapsible_text_ytT844": {
+          "type": "collapsible_text",
+          "disabled": true,
+          "settings": {
+            "title": "SIZE CHART",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_text_jKgThT": {
+          "type": "collapsible_text",
+          "disabled": true,
+          "settings": {
+            "title": "WHERE ARE CRAZY COMPRESSION SOCKS MADE",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_text_YbNNJU": {
+          "type": "collapsible_text",
+          "disabled": true,
+          "settings": {
+            "title": "WHAT MATERIAL ARE CRAZY COMPRESSION SOCKS MADE OF",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_text_BiBe7F": {
+          "type": "collapsible_text",
+          "disabled": true,
+          "settings": {
+            "title": "SHIPPING AND DELIVERY",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_text_Rkdy7d": {
+          "type": "collapsible_text",
+          "disabled": true,
+          "settings": {
+            "title": "RETURN AND REFUND POLICY",
+            "content": "<p>Share some content to your customers about your products.<\/p>",
+            "page": ""
           }
         },
         "separator": {
@@ -92,17 +153,24 @@
         }
       },
       "block_order": [
+        "price",
+        "rating",
         "vendor",
         "title",
         "badges",
-        "price",
-        "rating",
         "d0734d67-c3ca-4dc2-a72a-fc5fa7bc5188",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "description",
+        "shop_shop_login_button_app_block_kPcC7M",
         "payment_terms",
+        "description",
+        "liquid_AJjwYF",
+        "collapsible_text_ytT844",
+        "collapsible_text_jKgThT",
+        "collapsible_text_YbNNJU",
+        "collapsible_text_BiBe7F",
+        "collapsible_text_Rkdy7d",
         "separator",
         "b6242e90-b007-4dfc-8979-3300b63864d5"
       ],
@@ -138,6 +206,7 @@
     },
     "image_with_text_overlay_BpkrA4": {
       "type": "image-with-text-overlay",
+      "disabled": true,
       "settings": {
         "full_width": true,
         "allow_transparent_header": false,
@@ -161,6 +230,38 @@
         "image": "shopify:\/\/shop_images\/sizechart-person.png",
         "mobile_text_position": "place-self-center text-center",
         "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "video_3egTza": {
+      "type": "video",
+      "blocks": {
+        "play_UAmjNh": {
+          "type": "play",
+          "settings": {
+          }
+        },
+        "heading_L3UnPV": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "play_UAmjNh",
+        "heading_L3UnPV"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "autoplay": false,
+        "video_size": "auto",
+        "external_video_url": "https:\/\/youtu.be\/4GdW_o4-C8o",
+        "poster": "shopify:\/\/shop_images\/Pink_Simple_Ideas_Youtube_Thumbnail_4fee86ac-84ba-4369-818c-18ab1706c358.png",
         "text_color": "#ffffff",
         "overlay_color": "#000000",
         "overlay_opacity": 0
@@ -322,36 +423,15 @@
         "spacing": "small"
       }
     },
-    "video_3egTza": {
-      "type": "video",
-      "blocks": {
-        "play_UAmjNh": {
-          "type": "play",
-          "settings": {
-          }
-        },
-        "heading_L3UnPV": {
-          "type": "heading",
-          "settings": {
-            "text": "",
-            "heading_tag": "h1"
-          }
-        }
-      },
-      "block_order": [
-        "play_UAmjNh",
-        "heading_L3UnPV"
-      ],
+    "17174422633bd9333e": {
+      "type": "apps",
       "settings": {
         "full_width": true,
-        "allow_transparent_header": false,
-        "autoplay": false,
-        "video_size": "auto",
-        "external_video_url": "https:\/\/youtu.be\/4GdW_o4-C8o",
-        "poster": "shopify:\/\/shop_images\/Pink_Simple_Ideas_Youtube_Thumbnail_4fee86ac-84ba-4369-818c-18ab1706c358.png",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
       }
     },
     "related-products": {
@@ -376,6 +456,18 @@
         "heading_gradient": "",
         "product_card_background": "",
         "product_card_text_color": ""
+      }
+    },
+    "custom_liquid_9cgm7A": {
+      "type": "custom-liquid",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<div class=\"sendlane-reviews\" sl-product-id=\"{{product.id}}\"><\/div>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
       }
     },
     "346dd38f-3483-455f-9262-e818ad6a56cf": {
@@ -498,11 +590,13 @@
     "custom_liquid_eDFxEH",
     "image_with_text_overlay_BpkrA4",
     "image_with_text_overlay_jFqtWw",
+    "video_3egTza",
     "multi_column_8ePxQV",
     "multi_column_TUtwef",
     "media_with_text_w7rXnT",
-    "video_3egTza",
+    "17174422633bd9333e",
     "related-products",
+    "custom_liquid_9cgm7A",
     "346dd38f-3483-455f-9262-e818ad6a56cf",
     "1680883393461ba659",
     "1681455389bf7356e9"

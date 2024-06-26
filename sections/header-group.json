@@ -5,28 +5,30 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "message": {
-          "type": "message",
-          "settings": {
-            "text": "60% Off Today | 🇺🇸 USA Made | Free Shipping $65+",
-            "url": ""
-          }
-        },
         "a2dbe60c-1472-4fa0-b80e-10e47d6a0bac": {
           "type": "message",
           "disabled": true,
           "settings": {
-            "text": "Grab Gifts for a Fabulous New Year! 🎁🎉",
+            "text": "🎉 BUY 2 Get 1 FREE!! CODE: BOGO21 🎉",
+            "url": ""
+          }
+        },
+        "message": {
+          "type": "message",
+          "settings": {
+            "text": "60% Off - USA Made - Free Shipping $70+",
             "url": ""
           }
         }
       },
       "block_order": [
-        "message",
-        "a2dbe60c-1472-4fa0-b80e-10e47d6a0bac"
+        "a2dbe60c-1472-4fa0-b80e-10e47d6a0bac",
+        "message"
       ],
       "settings": {
-        "enable_sticky": false,
+        "enable_sticky": true,
+        "autoplay": false,
+        "cycle_speed": 6,
         "text_size": "text-base",
         "navigation_mode": "arrows",
         "scrolling_speed": 20,
@@ -39,6 +41,75 @@
       "type": "header",
       "blocks": {
         "mega_menu_NtqdQL": {
+          "type": "mega_menu",
+          "settings": {
+            "menu_item": "",
+            "layout": "horizontal",
+            "submenu_style": "bold_heading",
+            "image_heading_1": "",
+            "image_link_1": "",
+            "image_text_color_1": "#ffffff",
+            "image_heading_2": "",
+            "image_link_2": "",
+            "image_text_color_2": "#ffffff",
+            "image_heading_3": "",
+            "image_link_3": "",
+            "image_text_color_3": "#ffffff",
+            "product": "",
+            "product_card_background": "",
+            "product_card_text_color": "",
+            "promo_content_layout": "grid",
+            "stretch_promo": false,
+            "drawer_link_image": "hide"
+          }
+        },
+        "mega_menu_nRaAHN": {
+          "type": "mega_menu",
+          "settings": {
+            "menu_item": "",
+            "layout": "horizontal",
+            "submenu_style": "bold_heading",
+            "image_heading_1": "",
+            "image_link_1": "",
+            "image_text_color_1": "#ffffff",
+            "image_heading_2": "",
+            "image_link_2": "",
+            "image_text_color_2": "#ffffff",
+            "image_heading_3": "",
+            "image_link_3": "",
+            "image_text_color_3": "#ffffff",
+            "product": "",
+            "product_card_background": "",
+            "product_card_text_color": "",
+            "promo_content_layout": "grid",
+            "stretch_promo": false,
+            "drawer_link_image": "hide"
+          }
+        },
+        "mega_menu_AEBJ6L": {
+          "type": "mega_menu",
+          "settings": {
+            "menu_item": "",
+            "layout": "horizontal",
+            "submenu_style": "bold_heading",
+            "image_heading_1": "",
+            "image_link_1": "",
+            "image_text_color_1": "#ffffff",
+            "image_heading_2": "",
+            "image_link_2": "",
+            "image_text_color_2": "#ffffff",
+            "image_heading_3": "",
+            "image_link_3": "",
+            "image_text_color_3": "#ffffff",
+            "product": "",
+            "product_card_background": "",
+            "product_card_text_color": "",
+            "promo_content_layout": "grid",
+            "stretch_promo": false,
+            "drawer_link_image": "hide"
+          }
+        },
+        "mega_menu_AqcM6U": {
           "type": "mega_menu",
           "settings": {
             "menu_item": "",
@@ -87,6 +158,9 @@
       },
       "block_order": [
         "mega_menu_NtqdQL",
+        "mega_menu_nRaAHN",
+        "mega_menu_AEBJ6L",
+        "mega_menu_AqcM6U",
         "5f109cee-1792-49af-855c-0372cab915ab"
       ],
       "settings": {
@@ -156,18 +230,6 @@
     },
     "17090573488f0a2dab": {
       "type": "apps",
-      "blocks": {
-        "tolstoy_shoppable_video_ugc_carousel_block_DbqmYK": {
-          "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/carousel-block\/06fa8282-42ff-403e-b67c-1936776aed11",
-          "disabled": true,
-          "settings": {
-            "publishId": "yez7z3wty3rpk"
-          }
-        }
-      },
-      "block_order": [
-        "tolstoy_shoppable_video_ugc_carousel_block_DbqmYK"
-      ],
       "disabled": true,
       "settings": {
         "full_width": true,

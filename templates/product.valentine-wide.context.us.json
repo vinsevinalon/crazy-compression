@@ -1,8 +1,0 @@
-{
-  "parent": "product.valentine-wide.json",
-  "context": {
-    "market": "us"
-  },
-  "sections": {
-  }
-}

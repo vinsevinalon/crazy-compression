@@ -12,7 +12,7 @@
         "title": {
           "type": "title",
           "settings": {
-            "heading_tag": "h3"
+            "heading_tag": "h5"
           }
         },
         "badges": {
@@ -38,7 +38,8 @@
           "settings": {
             "option_name": "Color",
             "option_value_metafield": "{{ product.metafields.custom.product_mom.value }}",
-            "products": "{{ product.metafields.custom.product_variation_mom.value }}"
+            "products": "{{ product.metafields.custom.product_variation_mom.value }}",
+            "selector_style": "variant_image"
           }
         },
         "variant_picker": {
@@ -46,6 +47,9 @@
           "settings": {
             "hide_sold_out_variants": false,
             "stack_blocks": true,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
             "size_chart_page": ""
           }
         },
@@ -58,6 +62,7 @@
           "type": "buy_buttons",
           "settings": {
             "show_payment_button": true,
+            "show_gift_card_recipient": true,
             "atc_button_background": "#94f8eb",
             "atc_button_text_color": "#4e4d4d",
             "payment_button_background": "",

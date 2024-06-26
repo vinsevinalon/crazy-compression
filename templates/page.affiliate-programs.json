@@ -7,6 +7,100 @@
         "content_width": "100%"
       }
     },
+    "image_with_text_overlay_9UyJwY": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_8EzYad": {
+          "type": "subheading",
+          "settings": {
+            "text": "REFER AND EARN"
+          }
+        },
+        "heading_rLwbcU": {
+          "type": "heading",
+          "settings": {
+            "text": "Step into Crazy Compression's Affiliate Adventure!",
+            "heading_tag": "h1"
+          }
+        },
+        "subheading_79hfhk": {
+          "type": "subheading",
+          "settings": {
+            "text": "Join Our Tight-Knit Affiliate Family"
+          }
+        },
+        "liquid_Wi4XHq": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<div style=\"display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 1rem; align-items: center; justify-content: center;\">\n  <div style=\"text-align: center; padding: 1rem; border-radius: 0.5rem;\">\n    <img src=\"https:\/\/cdn.jsdelivr.net\/npm\/@iconscout\/unicons@4.0.1\/svg\/line\/sign-in-alt.svg\" style=\"height: 3rem; width: 3rem; margin: 0 auto 0.5rem; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);\" alt=\"Join Icon\">\n    <h2 style=\"font-size: 1.25rem; font-weight: 600; color: white;\">Join<\/h2>\n  <\/div>\n  <div style=\"text-align: center; padding: 1rem; border-radius: 0.5rem;\">\n    <img src=\"https:\/\/cdn.jsdelivr.net\/npm\/@iconscout\/unicons@4.0.1\/svg\/line\/megaphone.svg\" style=\"height: 3rem; width: 3rem; margin: 0 auto 0.5rem; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);\" alt=\"Promote Icon\">\n    <h2 style=\"font-size: 1.25rem; font-weight: 600; color: white;\">Promote<\/h2>\n  <\/div>\n  <div style=\"text-align: center; padding: 1rem; border-radius: 0.5rem;\">\n    <img src=\"https:\/\/cdn.jsdelivr.net\/npm\/@iconscout\/unicons@4.0.1\/svg\/line\/money-stack.svg\" style=\"height: 3rem; width: 3rem; margin: 0 auto 0.5rem; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);\" alt=\"Earn Icon\">\n    <h2 style=\"font-size: 1.25rem; font-weight: 600; color: white;\">Earn<\/h2>\n  <\/div>\n<\/div>"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_8EzYad",
+        "heading_rLwbcU",
+        "subheading_79hfhk",
+        "liquid_Wi4XHq"
+      ],
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "image_size": "fill",
+        "image": "shopify:\/\/shop_images\/Affiliate-Image.png",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      }
+    },
+    "text_with_icons_RaGXni": {
+      "type": "text-with-icons",
+      "blocks": {
+        "item_eDwikJ": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-send",
+            "mobile_icon_width": 24,
+            "icon_width": 44,
+            "icon_background_type": "none",
+            "icon_background": "",
+            "icon_color": "",
+            "title": "SHARE YOUR LINK",
+            "content": "<ul><li>Sign up for our affiliate program and get your unique link.<br\/><\/li><li>Share Crazy Compression with your friends, family, and followers using your special link. Your friends and followers will score a discount on their first purchase.<\/li><\/ul>"
+          }
+        },
+        "item_7bYj8h": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-money",
+            "mobile_icon_width": 24,
+            "icon_width": 44,
+            "icon_background_type": "none",
+            "icon_background": "",
+            "icon_color": "",
+            "title": "GET PAID",
+            "content": "<ul><li>Earn commission on every sale made through your link.<\/li><li>Watch your earnings grow with each cozy pair sold!<\/li><\/ul>"
+          }
+        }
+      },
+      "block_order": [
+        "item_eDwikJ",
+        "item_7bYj8h"
+      ],
+      "settings": {
+        "full_width": true,
+        "stack_on_mobile": false,
+        "title": "",
+        "heading_tag": "h5",
+        "text_alignment": "center",
+        "icon_spacing": "medium",
+        "background": "#9940b1",
+        "background_gradient": "",
+        "text_color": "#ffffff"
+      }
+    },
     "faq_zy99hj": {
       "type": "faq",
       "blocks": {
@@ -246,7 +340,7 @@
         "snowball_affiliate_marketing_affiliate_sign_up_wfb34C": {
           "type": "shopify:\/\/apps\/snowball-affiliate-marketing\/blocks\/affiliate-sign-up\/6e5feda3-ec24-4171-ae41-64028b660bc7",
           "settings": {
-            "form_id": "3855f19f-8e7b-45c8-8185-d72f54fe3e97"
+            "form_id": "b376165c-0199-44b7-bf6e-0f9c63873109"
           }
         }
       },
@@ -261,14 +355,218 @@
         "background_gradient": "",
         "text_color": ""
       }
+    },
+    "multi_column_aTxJWQ": {
+      "type": "multi-column",
+      "blocks": {
+        "item_6amdy7": {
+          "type": "item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/b_noellefitness-3.OTC.General.Feed.0424_Compressed.png",
+            "column_size": "3",
+            "title": "Sarah, lifestyle blogger",
+            "heading_tag": "h4",
+            "content": "<p>\"I've been an affiliate for Crazy Compression for 6 months now and I'm loving it! Not only are their socks top-notch quality, but the family behind the brand is so supportive and welcoming. They truly care about their affiliates and customers. It's been a joy promoting a product I genuinely believe in and seeing my earnings grow. 🧦💕\"<\/p>",
+            "link_url": "",
+            "link_text": "",
+            "link_style": "link"
+          }
+        },
+        "item_MQFAb7": {
+          "type": "item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/jenrunsthe50.OTC.General.Feed.0424_Medium_00ae7ffd-2a9a-4720-9787-539b7b9a7524.png",
+            "column_size": "3",
+            "title": "Terresa, Instagram influencer",
+            "heading_tag": "h4",
+            "content": "<p>\"As someone who's always on the lookout for cozy socks, discovering Crazy Compression was a game-changer. Their socks are insanely comfortable and come in the cutest designs. When I found out they had an affiliate program, I jumped at the chance to join. The process was super easy and the team has been incredibly helpful. I'm excited to continue sharing my love for these socks with my followers! 😊👍\" <\/p>",
+            "link_url": "",
+            "link_text": "",
+            "link_style": "link"
+          }
+        },
+        "item_FVQgae": {
+          "type": "item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/stairmystress-3.OTC.General.Feed.0424_Compressed.png",
+            "column_size": "3",
+            "title": "Emily, YouTube creator",
+            "heading_tag": "h4",
+            "content": "<p>\"I've been a loyal customer of Crazy Compression for years, so becoming an affiliate felt like a natural next step. I love that they're a family-owned business with a commitment to quality and giving back. Every time someone makes a purchase through my link, I feel like I'm part of something bigger. The commissions are just the cherry on top! 🍒\" <\/p>",
+            "link_url": "",
+            "link_text": "",
+            "link_style": "link"
+          }
+        }
+      },
+      "block_order": [
+        "item_6amdy7",
+        "item_MQFAb7",
+        "item_FVQgae"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "stack_on_mobile": false,
+        "gap": "x-large",
+        "text_alignment": "start",
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "faq_CtCGPY": {
+      "type": "faq",
+      "blocks": {
+        "item_JwiUrJ": {
+          "type": "item",
+          "settings": {
+            "title": "Where is my link\/code?",
+            "content": "<p>Your affiliate link has been emailed to you. If you haven’t received it yet please check your junk or spam folder. If it’s not there click here to get in contact with our Customer Experience team.<\/p>"
+          }
+        },
+        "item_mURGgm": {
+          "type": "item",
+          "settings": {
+            "title": "How are sales tracked?",
+            "content": "<p>All commissions and payouts are tracked through the Social Snowball dashboard. You can <a href=\"https:\/\/socialsnowball.io\/sign-up\" target=\"_blank\">complete your registration or login in here<\/a>. If you are registering your account, please ensure you use the same email you place your Crazy Compression orders with, or the email you used to sign up for the affiliate program.<\/p>"
+          }
+        },
+        "item_8NetGc": {
+          "type": "item",
+          "settings": {
+            "title": "How much will I get paid?",
+            "content": "<p>All affiliates are awarded \"Store Credit\" until their sales exceed over $1,000. Then they'll have the ability to earn up to 20% in commissions of gross sales they generate.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_JwiUrJ",
+        "item_mURGgm",
+        "item_8NetGc"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".section-full {padding-bottom: 10px;}"
+      ],
+      "settings": {
+        "full_width": true,
+        "subheading": "",
+        "title": "Frequently Asked Questions",
+        "content": "",
+        "team_avatar_width": 160,
+        "support_hours": "",
+        "answer_time": "",
+        "button_text": "",
+        "button_url": "",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "button_background": "",
+        "button_text_color": "",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
+    },
+    "faq_cjfGfT": {
+      "type": "faq",
+      "blocks": {
+        "item_Bn89LA": {
+          "type": "item",
+          "settings": {
+            "title": "How it works",
+            "content": "<ul><li>Complete the form above and receive your custom link. <\/li><li>Share your link with friends and give them access to our store <\/li><li>Each time someone makes their first purchase with your affiliate link\/code you’ll earn the exact amount in Store Credit - paid out monthly<\/li><\/ul>"
+          }
+        }
+      },
+      "block_order": [
+        "item_Bn89LA"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".section-full {padding-bottom: 10px;}"
+      ],
+      "settings": {
+        "full_width": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "team_avatar_width": 160,
+        "support_hours": "",
+        "answer_time": "",
+        "button_text": "",
+        "button_url": "",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "button_background": "",
+        "button_text_color": "",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
+    },
+    "faq_U66McB": {
+      "type": "faq",
+      "blocks": {
+        "item_3NBYa3": {
+          "type": "item",
+          "settings": {
+            "title": "Term & Conditions",
+            "content": "<ul><li>Any commissions produced or referred by discount aggregators such as Honey Browser Extension will not be paid out to affiliate members. If your affiliate code has been detected by our fraud center you may be banned from the affiliate program at our discretion. We recognize that affiliate codes being picked up by discount aggregators may be caused by external factors. If you have been banned and would like us to review your account, please reach out to hello@shopforefathers.com to further investigate the matter.<\/li><li>Your discount link will remain the same for the lifetime of the program. If Fore Fathers makes any changes to the affiliate program you will be notified via email with further instructions. Please ensure to check your spam folder if you can not locate the email.<\/li><li>You may distribute your referral link to as many people as you would like, but commissions will only be paid out one time per customer using your referral link.<\/li><li>All commissions are produced in USD currency value of % of sales. If you qualify for a payment you will be sent a digital prepaid visa to your email via Tremendous. All payments are sent out on a monthly basis within 5 working days of the following month.<\/li><li>When you make a purchase with Fore Fathers you will be automatically placed into our affiliate program and given a unique link to refer friends. You are not obligated to take any action with your unique referral link. Any individual that wishes to be removed from this program, please reach out to hello@shopforefathers.com<\/li><\/ul>"
+          }
+        }
+      },
+      "block_order": [
+        "item_3NBYa3"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".section-full {padding-bottom: 10px;}"
+      ],
+      "settings": {
+        "full_width": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "team_avatar_width": 160,
+        "support_hours": "",
+        "answer_time": "",
+        "button_text": "",
+        "button_url": "",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "button_background": "",
+        "button_text_color": "",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
     }
   },
   "order": [
     "main",
+    "image_with_text_overlay_9UyJwY",
+    "text_with_icons_RaGXni",
     "faq_zy99hj",
     "faq_x68CgG",
     "d2747009-79fd-4758-ae91-60f7fd2f87de",
     "1680883704bd15aef1",
-    "1715195259a51d830d"
+    "1715195259a51d830d",
+    "multi_column_aTxJWQ",
+    "faq_CtCGPY",
+    "faq_cjfGfT",
+    "faq_U66McB"
   ]
 }
