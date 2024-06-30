@@ -144,17 +144,6 @@
     },
     "17090576115ec1a232": {
       "type": "apps",
-      "blocks": {
-        "tolstoy_shoppable_video_ugc_carousel_block_WW7m7j": {
-          "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/carousel-block\/06fa8282-42ff-403e-b67c-1936776aed11",
-          "settings": {
-            "publishId": "yez7z3wty3rpk"
-          }
-        }
-      },
-      "block_order": [
-        "tolstoy_shoppable_video_ugc_carousel_block_WW7m7j"
-      ],
       "disabled": true,
       "settings": {
         "full_width": true,

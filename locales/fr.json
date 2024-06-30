@@ -200,7 +200,7 @@
       "welcome": "Bienvenue, {{first_name}}",
       "tagline": "Accédez à vos commandes et configurez votre compte.",
       "orders": "Commandes",
-      "addresses": "Addresses",
+      "addresses": "Adresses",
       "logout": "Déconnexion",
       "no_orders": "Vous n'avez effectué aucune commande.",
       "continue_shopping": "Explorer nos produits"

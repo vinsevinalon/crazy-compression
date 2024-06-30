@@ -10,12 +10,7 @@ NOTE TO DEVELOPERS: welcome to Impact theme! We hope that you will enjoy editing
 <!doctype html>
 
 <html lang="{{ request.locale.iso_code }}" dir="{% render 'direction' %}">
-
-  <script src="https://sendlane.com/scripts/sendlane-reviews-widget.lib.js" sendlane-review-key="eyJkb21haW4iOiJjcmF6eWNvbXByZXNzaW9uIiwicmV2aWV3X3NldHRpbmdfaWQiOiJlNzU4NjZhYy0xMjEyLTRkMDEtODc4Yi0zNzVjMmRmMGVlNjgifQ==" defer></script>
-  
-  
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="theme-color" content="{{ settings.header_background }}">
@@ -51,28 +46,29 @@ NOTE TO DEVELOPERS: welcome to Impact theme! We hope that you will enjoy editing
     {%- render 'css-variables' -%}
     {%- render 'js-variables' -%}
 
+    <script>
+      if (!(HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'))) {
+        const importMapPolyfill = document.createElement('script');
+        importMapPolyfill.async = true;
+        importMapPolyfill.src = "{{ 'es-module-shims.min.js' | asset_url }}";
+
+        document.head.appendChild(importMapPolyfill);
+      }
+    </script>
+
+    <script type="importmap">
+      {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
+      {
+        "imports": {
+          "vendor": "{{ 'vendor.min.js' | asset_url }}",
+          "theme": "{{ 'theme.js' | asset_url }}",
+          "photoswipe": "{{ 'photoswipe.min.js' | asset_url }}"
+        }
+      }
+    </script>
+
     <script type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
     <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
-    <script type="module" src="{{ 'sections.js' | asset_url }}"></script>
-
-    <script>
-    (function(w,d,t,r,u)
-    {
-        var f,n,i;
-        w[u]=w[u]||[],f=function()
-        {
-            var o={ti:"56378900", tm:"shpfy_ui", enableAutoSpaTracking: true};
-            o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")
-        },
-        n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function()
-        {
-            var s=this.readyState;
-            s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)
-        },
-        i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
-    })
-    (window,document,"script","//bat.bing.com/bat.js","uetq");
-</script>
 
     {{ content_for_header }}
 

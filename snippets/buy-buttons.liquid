@@ -35,7 +35,10 @@ Supported variables
   {%- assign button_disabled = false -%}
   {%- assign button_size = button_size | default: 'xl' -%}
 
-  {%- if product.selected_or_first_available_variant.available -%}
+  {%- if product.selected_or_first_available_variant == nil -%}
+    {%- capture button_content -%}{{ 'product.general.unavailable_button' | t }}{%- endcapture -%}
+    {%- assign button_disabled = true -%}
+  {%- elsif product.selected_or_first_available_variant.available -%}
     {%- if product.template_suffix contains 'pre-order' -%}
       {%- capture button_content -%}{{ 'product.general.pre_order_button' | t }}{%- endcapture -%}
     {%- else -%}
@@ -80,18 +83,18 @@ Supported variables
         {{- form | payment_button -}}
 
         <style>
-          #shopify-section-{{ section.id }} .shopify-payment-button {
-          {%- unless product.selected_or_first_available_variant.available -%}
-            display: none;
-          {%- endunless -%}
+          #{{ form_id }} .shopify-payment-button {
+            {%- unless product.selected_or_first_available_variant.available -%}
+              display: none;
+            {%- endunless -%}
 
-          {%- if payment_button_background != blank and payment_button_background != 'rgba(0,0,0,0)' -%}
-            --button-background: {{ payment_button_background.rgb }};
-          {%- endif -%}
+            {%- if payment_button_background != blank and payment_button_background != 'rgba(0,0,0,0)' -%}
+              --button-background: {{ payment_button_background.rgb }};
+            {%- endif -%}
 
-          {%- if payment_button_text_color != blank and payment_button_text_color != 'rgba(0,0,0,0)' -%}
-            --button-text-color: {{ payment_button_text_color.rgb }};
-          {%- endif -%}
+            {%- if payment_button_text_color != blank and payment_button_text_color != 'rgba(0,0,0,0)' -%}
+              --button-text-color: {{ payment_button_text_color.rgb }};
+            {%- endif -%}
           }
         </style>
       {%- endif -%}

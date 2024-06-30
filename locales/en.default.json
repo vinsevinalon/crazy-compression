@@ -69,7 +69,7 @@
     "general": {
       "description": "Description",
       "view_product": "View product",
-      "quick_add": "+ Add to Cart",
+      "quick_add": "+ Quick add",
       "add_to_cart_short": "+ Add",
       "add_to_cart_button": "Add to cart",
       "pre_order_button": "Pre-order",
@@ -414,54 +414,6 @@
         "one": "It has received {{ count }} review.",
         "other": "It has received {{ count }} reviews."
       }
-    }
-  },
-  "pagefly": {
-    "products": {
-      "product": {
-      }
-    },
-    "article": {
-    },
-    "comments": {
-      "comments_with_count": {
-      }
-    },
-    "password_page": {
-    }
-  },
-  "gempages": {
-    "Carousel": {
-      "no_slider": "No Slider"
-    },
-    "Newsletter": {
-      "err_msg_default": "Can’t send email. Please try again later.",
-      "success_msg_default": "Thanks for contacting us. We'll get back to you as soon as possible."
-    },
-    "IconListV2": {
-      "icons_not_found": "Icons not found"
-    },
-    "IconList": {
-      "icons_not_found": "Icons not found"
-    },
-    "IconListHoz": {
-      "icons_not_found": "Icons not found"
-    },
-    "Product": {
-      "product_not_found": "Product not found"
-    },
-    "ProductList": {
-      "product_not_found": "Product Not Found!",
-      "no_products_found": "No products found!"
-    },
-    "ProductTitle": {
-      "product_not_found": "Product Not Found"
-    },
-    "ProductVariants": {
-      "please_select": "Please select an option"
-    },
-    "StockCounter": {
-      "let_buy_now": "<mark>HURRY!<\/mark> LET BUY NOW"
     }
   }
 }

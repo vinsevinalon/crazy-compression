@@ -1190,6 +1190,10 @@ scroll-carousel {
   color: rgb(var(--text-color));
 }
 
+.popover-listbox__option:has(:checked) {
+  color: rgb(var(--text-color));
+}
+
 @media screen and (min-width: 1000px) {
   .popover-listbox__option {
     justify-content: start;
@@ -2783,6 +2787,7 @@ model-media model-viewer, model-media .shopify-model-viewer-ui {
   border-radius: var(--rounded-sm);
   grid-template-columns: minmax(0, 1fr);
   align-content: start;
+  align-items: start;
   display: grid;
   position: relative;
 }
@@ -3649,8 +3654,12 @@ tfoot td {
   position: relative;
 }
 
-:disabled + .color-swatch, .color-swatch.is-disabled {
+.color-swatch.is-disabled {
   background: linear-gradient(to bottom right, transparent calc(50% - 1px), rgb(var(--background)) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)), var(--swatch-background) center / cover;
+}
+
+:disabled + .color-swatch {
+  display: none;
 }
 
 .color-swatch:before {
@@ -3741,6 +3750,10 @@ tfoot td {
   box-shadow: 0 0 0 2px;
 }
 
+:disabled + .thumbnail-swatch {
+  display: none;
+}
+
 .thumbnail-swatch.is-disabled:after {
   content: "";
   background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), rgb(var(--text-color) / .5) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px));
@@ -3795,6 +3808,10 @@ tfoot td {
 .block-swatch.is-disabled {
   color: rgb(var(--text-color) / .5);
   background-image: linear-gradient(to bottom right, #0000 50%, currentColor 50% calc(50% + 2px), #0000 calc(50% + 2px));
+}
+
+:disabled + .block-swatch {
+  display: none;
 }
 
 .block-swatch:before {
@@ -4061,6 +4078,10 @@ scroll-shadow {
 
 split-lines {
   overflow-wrap: anywhere;
+}
+
+product-rerender {
+  display: contents;
 }
 
 .customer-form__image {
@@ -7504,6 +7525,14 @@ split-lines {
 
 .native-share--enabled .product-info__native-share:hover {
   opacity: 1;
+}
+
+.product-info__block-item:empty {
+  display: none;
+}
+
+.product-info__block-item:has(.accordion) + .product-info__block-item:has(.accordion) .accordion {
+  border-block-start-width: 0;
 }
 
 @media screen and (min-width: 700px) {

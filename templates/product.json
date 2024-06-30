@@ -74,12 +74,6 @@
           "settings": {
           }
         },
-        "tolstoy_shoppable_video_ugc_stories_block_cUb6G4": {
-          "type": "shopify:\/\/apps\/tolstoy-shoppable-video-ugc\/blocks\/stories-block\/06fa8282-42ff-403e-b67c-1936776aed11",
-          "settings": {
-            "publishId": "oxa4ikfl6322l"
-          }
-        },
         "description": {
           "type": "description",
           "settings": {
@@ -111,7 +105,6 @@
         "quantity_selector",
         "buy_buttons",
         "payment_terms",
-        "tolstoy_shoppable_video_ugc_stories_block_cUb6G4",
         "description",
         "9df57de9-1126-4f18-a7f2-4663fd733a6e",
         "separator"

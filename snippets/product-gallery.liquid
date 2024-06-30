@@ -1,5 +1,19 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+PRODUCT GALLERY COMPONENT
+----------------------------------------------------------------------------------------------------------------------
+
+This component is used to show the product gallery (used in product page and featured product section)
+
+********************************************
+Supported variables
+********************************************
+
+* product: the product to render (if empty, renders placeholder content)
+* product_form_id: the product form id
+{%- endcomment -%}
+
 {%- assign default_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
-{%- capture product_form_id -%}product-form-{{ product.id }}-{{ section.id }}{%- endcapture -%}
 {%- capture product_gallery_id -%}product-gallery-{{ product.id }}-{{ section.id }}{%- endcapture -%}
 
 {%- comment -%}
@@ -31,7 +45,7 @@ only way to do it on Shopify right now.
   {%- endfor -%}
 {%- endif -%}
 
-<product-gallery form="{{ product_form_id }}" {%- if section.settings.enable_image_zoom -%}allow-zoom="{{ section.settings.max_image_zoom_level }}"{% endif %} class="product-gallery {% if section.settings.mobile_carousel_control contains 'dots' %}product-gallery--mobile-dots{% endif %} {% if section.settings.desktop_media_layout contains 'grid' %}product-gallery--desktop-grid{% else %}product-gallery--desktop-carousel{% endif %} {% if section.settings.desktop_media_layout == 'carousel_thumbnails_left' %}product-gallery--desktop-thumbnails-left{% endif %} {% if section.settings.mobile_media_size == 'expanded' %}product-gallery--mobile-expanded{% endif %}">
+<product-gallery form="{{ product_form_id }}" filtered-indexes="{{ filtered_indexes | json }}" {%- if section.settings.enable_image_zoom -%}allow-zoom="{{ section.settings.max_image_zoom_level }}"{% endif %} class="product-gallery {% if section.settings.mobile_carousel_control contains 'dots' %}product-gallery--mobile-dots{% endif %} {% if section.settings.desktop_media_layout contains 'grid' %}product-gallery--desktop-grid{% else %}product-gallery--desktop-carousel{% endif %} {% if section.settings.desktop_media_layout == 'carousel_thumbnails_left' %}product-gallery--desktop-thumbnails-left{% endif %} {% if section.settings.mobile_media_size == 'expanded' %}product-gallery--mobile-expanded{% endif %}">
   {%- capture page_dots -%}
     <page-dots class="page-dots {% if section.settings.mobile_carousel_control == 'floating_dots' %}page-dots--blurred{% endif %} md:hidden" aria-controls="{{ product_gallery_id }}">
       {%- for media in product.media -%}

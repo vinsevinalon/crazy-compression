@@ -10,11 +10,11 @@ Supported variables
 ********************************************
 
 * product: the product for which to render the selector (required)
+* form_id: the ID of the form to which the variant picker belongs (required)
 * update_url: if set to true, the URL is updated when the variant changes (usually used for product page)
 * hide_sold_out_variants: if set to true, the sold out or unavailable variants are hidden
 * hide_size_chart: if set to true, size chart is always hidden
 * force_dropdown_as_block: if set to true, the dropdown selectors are replaced by blocks, which is useful for quick buy where dropdown are not convenient to use
-* form_id: the ID of the form that is listening
 * block: the block itself, for theme-specific options (such as selector types)
 {%- endcomment -%}
 
@@ -22,8 +22,15 @@ Supported variables
 {%- assign size_label_list = 'general.label.size' | t | replace: ', ', ',' | downcase | split: ',' -%}
 {%- assign variant_image_options = block.settings.variant_image_options | replace: ', ', ',' | downcase | split: ',' -%}
 
-{%- unless product.has_only_default_variant or hide_sold_out_variants and product.available == false -%}
-  <variant-picker class="variant-picker" handle="{{ product.handle }}" form="{{ form_id }}" {% if update_url %}update-url{% endif %} {% if hide_sold_out_variants %}hide-sold-out-variants{% endif %}>
+{%- unless product.has_only_default_variant -%}
+  <variant-picker class="variant-picker" section-id="{{ section.id }}" handle="{{ product.handle }}" form-id="{{ form_id }}" {% if update_url %}update-url{% endif %}>
+    {%- comment -%}
+    The variant data is outputted as a JSON, which allows the theme to emit an event with the data when the variant changes. This must not be removed.
+    {%- endcomment -%}
+    <script data-variant type="application/json">
+      {{- product.selected_or_first_available_variant | json -}}
+    </script>
+
     {%- for option in product.options_with_values -%}
       {% liquid
         assign option_downcase = option.name | downcase
@@ -56,11 +63,11 @@ Supported variables
         <div class="variant-picker__option-info">
           <div class="h-stack gap-2">
             <legend class="text-subdued">{{ option.name }}:</legend>
-            <variant-option-value form="{{ form_id }}" for="option{{ option.position }}">{{ option.selected_value }}</variant-option-value>
+            <span>{{ option.selected_value }}</span>
           </div>
 
           {%- if hide_size_chart != true and block.settings.size_chart_page != blank and size_label_list contains option_downcase -%}
-            {%- capture drawer_id -%}size-chart-{{ section.id }}-{{ block.id }}{%- endcapture -%}
+            {%- capture drawer_id -%}size-chart-{{ option.position }}-{{ form_id }}{%- endcapture -%}
 
             <button type="button" class="text-sm text-subdued" aria-controls="{{ drawer_id | escape }}" aria-expanded="false">
               <span class="link">{{ 'product.general.size_chart' | t }}</span>
@@ -88,47 +95,47 @@ Supported variables
             <x-popover id="{{ popover_id }}" class="popover" initial-focus="[aria-selected='true']" close-on-listbox-select anchor-horizontal="start" anchor-vertical="end">
               <p class="h5" slot="title">{{ option.name }}</p>
 
-              <x-listbox data-option-selector class="popover-listbox" aria-owns="{{ popover_id }}-selected-value">
-                <input type="hidden" name="option{{ option.position }}" form="{{ form_id }}" value="{{ option.selected_value | escape }}">
+              {%- assign param_name = form_id | append: '-option' | append: option.position -%}
 
-                {%- for value in option.values -%}
-                  <button type="button" class="popover-listbox__option" role="option" value="{{ value | escape }}" {% if value == option.selected_value %}aria-selected="true"{% endif %} data-option-value>{{ value }}</button>
+              <div data-option-selector class="popover-listbox">
+                {%- for option_value in option.values -%}
+                  {%- if hide_sold_out_variants == false or option_value.available or option_value.selected -%}
+                    {%- if update_url and option_value.product_url != blank -%}
+                      {%- if option_value.selected -%}
+                        <input class="sr-only" type="radio" id="{{ param_name }}-{{ option_value.id }}" form="{{ form_id }}" name="{{ param_name }}" data-option-position="{{ option.position }}" value="{{ option_value.id }}" checked>
+                      {%- endif -%}
+
+                      <a href="{{ option_value.variant.url | default: option_value.product_url }}" class="popover-listbox__option">
+                        {{- option_value.name -}}
+                      </a>
+                    {%- else -%}
+                      <label class="popover-listbox__option" for="{{ param_name }}-{{ option_value.id }}">
+                        <input class="sr-only" form="{{ form_id }}" type="radio" id="{{ param_name }}-{{ option_value.id }}" name="{{ param_name }}" {% if option_value.product_url != blank %}data-product-url="{{ option_value.product_url | escape }}"{% endif %} data-option-position="{{ option.position }}" value="{{ option_value.id }}" {% if option_value.selected %}checked{% endif %}>
+
+                        {{- option_value.name -}}
+                      </label>
+                    {%- endif -%}
+                  {%- endif -%}
                 {%- endfor -%}
-              </x-listbox>
+              </div>
             </x-popover>
           </div>
         {%- else -%}
           <div {% unless block.settings.stack_blocks %}class="scroll-area bleed sm:unbleed"{% endunless %}>
-            <div data-option-selector class="variant-picker__option-values {% if block.settings.stack_blocks %}wrap{% else %}scroll-area bleed sm:unbleed{% endif %} {% if resolved_option_selector_style == 'swatch' and settings.color_swatch_style == 'rectangle' %}variant-picker__option-values--color gap-4{% else %}gap-2{% endif %}">
+            <div class="variant-picker__option-values {% if block.settings.stack_blocks %}wrap{% else %}scroll-area bleed sm:unbleed{% endif %} {% if resolved_option_selector_style == 'swatch' and settings.color_swatch_style == 'rectangle' %}variant-picker__option-values--color gap-4{% else %}gap-2{% endif %}">
               {% liquid
-                assign name = 'option' | append: option.position
+                assign name = form_id | append: '-option' | append: option.position
 
-                for value in option.values
-                  assign selected = false
-  
-                  if value == option.selected_value
-                    assign selected = true
-                  endif
-  
+                for option_value in option.values
                   case resolved_option_selector_style
                     when 'variant_image'
-                      render 'option-value', type: 'thumbnail', value: value, image: value.variant.featured_media, selected: selected, name: name, form: form_id, bordered: true
+                      render 'option-value', type: 'thumbnail', form: form_id, option_value: option_value, param_name: name, option_position: option.position, hide_if_disabled: hide_sold_out_variants, reload_page_for_combined_products: update_url, id_prefix: forloop.index, bordered: true
                     when 'swatch'
-                      if value.swatch != nil
-                        render 'option-value', type: 'swatch', swatch: value.swatch, value: value, selected: selected, name: name, form: form_id
-                      else
-                        # Use the configuration based approach for compatibility reason
-                        render 'option-value', type: 'swatch', value: value, selected: selected, name: name, form: form_id
-                      endif
+                      render 'option-value', type: 'swatch', form: form_id, option_value: option_value, param_name: name, option_position: option.position, hide_if_disabled: hide_sold_out_variants, reload_page_for_combined_products: update_url, id_prefix: forloop.index
                     when 'block'
-                      render 'option-value', type: 'block', value: value, selected: selected, name: name, form: form_id
+                      render 'option-value', type: 'block', form: form_id, option_value: option_value, param_name: name, option_position: option.position, hide_if_disabled: hide_sold_out_variants, reload_page_for_combined_products: update_url, id_prefix: forloop.index
                     when 'block_swatch'
-                      if value.swatch != nil
-                        render 'option-value', type: 'block', swatch: value.swatch, value: value, selected: selected, name: name, form: form_id, show_swatch: true
-                      else
-                        # Use the configuration based approach for compatibility reason
-                        render 'option-value', type: 'block', value: value, selected: selected, name: name, form: form_id, show_swatch: true
-                      endif
+                      render 'option-value', type: 'block', form: form_id, option_value: option_value, param_name: name, option_position: option.position, show_swatch: true, hide_if_disabled: hide_sold_out_variants, reload_page_for_combined_products: update_url, id_prefix: forloop.index
                   endcase
                 endfor
               %}
@@ -137,20 +144,5 @@ Supported variables
         {%- endif -%}
       </fieldset>
     {%- endfor -%}
-
-    <noscript>
-      {%- capture input_label -%}{{ 'product.general.variant' | t }}{%- endcapture -%}
-      {%- capture select_options -%}
-        {%- for variant in product.variants -%}
-          <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} {% unless variant.available %}disabled="disabled"{% endunless %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
-        {%- endfor -%}
-      {%- endcapture -%}
-
-      {%- render 'select', label: input_label, form: form_id, name: 'id', options: select_options -%}
-    </noscript>
   </variant-picker>
-{%- else -%}
-  <noscript>
-    <input type="hidden" name="id" form="{{ form_id }}" value="{{ product.selected_or_first_available_variant.id }}">
-  </noscript>
 {%- endunless -%}

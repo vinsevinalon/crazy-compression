@@ -1,31 +1,11 @@
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
+var __typeError = (msg) => {
+  throw TypeError(msg);
 };
-var __accessCheck = (obj, member, msg) => {
-  if (!member.has(obj))
-    throw TypeError("Cannot " + msg);
-};
-var __privateGet = (obj, member, getter) => {
-  __accessCheck(obj, member, "read from private field");
-  return getter ? getter.call(obj) : member.get(obj);
-};
-var __privateAdd = (obj, member, value) => {
-  if (member.has(obj))
-    throw TypeError("Cannot add the same private member more than once");
-  member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
-};
-var __privateSet = (obj, member, value, setter) => {
-  __accessCheck(obj, member, "write to private field");
-  setter ? setter.call(obj, value) : member.set(obj, value);
-  return value;
-};
-var __privateMethod = (obj, member, method) => {
-  __accessCheck(obj, member, "access private method");
-  return method;
-};
+var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
+var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read from private field"), getter ? getter.call(obj) : member.get(obj));
+var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+var __privateSet = (obj, member, value, setter) => (__accessCheck(obj, member, "write to private field"), setter ? setter.call(obj, value) : member.set(obj, value), value);
+var __privateMethod = (obj, member, method) => (__accessCheck(obj, member, "access private method"), method);
 
 // js/common/utilities/country-selector.js
 var CountrySelector = class extends HTMLElement {
@@ -64,63 +44,6 @@ if (!window.customElements.get("country-selector")) {
   window.customElements.define("country-selector", CountrySelector);
 }
 
-// js/common/utilities/format-money.js
-function formatMoney(cents, format = "") {
-  if (typeof cents === "string") {
-    cents = cents.replace(".", "");
-  }
-  const placeholderRegex = /\{\{\s*(\w+)\s*\}\}/, formatString = format || window.themeVariables.settings.moneyFormat;
-  function defaultTo(value2, defaultValue) {
-    return value2 == null || value2 !== value2 ? defaultValue : value2;
-  }
-  function formatWithDelimiters(number, precision, thousands, decimal) {
-    precision = defaultTo(precision, 2);
-    thousands = defaultTo(thousands, ",");
-    decimal = defaultTo(decimal, ".");
-    if (isNaN(number) || number == null) {
-      return 0;
-    }
-    number = (number / 100).toFixed(precision);
-    let parts = number.split("."), dollarsAmount = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + thousands), centsAmount = parts[1] ? decimal + parts[1] : "";
-    return dollarsAmount + centsAmount;
-  }
-  let value = "";
-  switch (formatString.match(placeholderRegex)[1]) {
-    case "amount":
-      value = formatWithDelimiters(cents, 2);
-      break;
-    case "amount_no_decimals":
-      value = formatWithDelimiters(cents, 0);
-      break;
-    case "amount_with_space_separator":
-      value = formatWithDelimiters(cents, 2, " ", ".");
-      break;
-    case "amount_with_comma_separator":
-      value = formatWithDelimiters(cents, 2, ".", ",");
-      break;
-    case "amount_with_apostrophe_separator":
-      value = formatWithDelimiters(cents, 2, "'", ".");
-      break;
-    case "amount_no_decimals_with_comma_separator":
-      value = formatWithDelimiters(cents, 0, ".", ",");
-      break;
-    case "amount_no_decimals_with_space_separator":
-      value = formatWithDelimiters(cents, 0, " ");
-      break;
-    case "amount_no_decimals_with_apostrophe_separator":
-      value = formatWithDelimiters(cents, 0, "'");
-      break;
-    default:
-      value = formatWithDelimiters(cents, 2);
-      break;
-  }
-  if (formatString.indexOf("with_comma_separator") !== -1) {
-    return formatString.replace(placeholderRegex, value);
-  } else {
-    return formatString.replace(placeholderRegex, value);
-  }
-}
-
 // js/common/utilities/cached-fetch.js
 var cachedMap = /* @__PURE__ */ new Map();
 function cachedFetch(url, options) {
@@ -148,6 +71,19 @@ function extractSectionId(element) {
 }
 
 // js/common/utilities/dom.js
+function deepQuerySelector(root, selector) {
+  let element = root.querySelector(selector);
+  if (element) {
+    return element;
+  }
+  for (const template2 of root.querySelectorAll("template")) {
+    element = deepQuerySelector(template2.content, selector);
+    if (element) {
+      return element;
+    }
+  }
+  return null;
+}
 function throttle(callback) {
   let requestId = null, lastArgs;
   const later = (context) => () => {
@@ -188,18 +124,18 @@ function waitForEvent(element, eventName) {
 }
 
 // js/common/utilities/player.js
-var _callback, _duration, _remainingTime, _startTime, _timer, _state, _onVisibilityChangeListener, _onVisibilityChange, onVisibilityChange_fn;
+var _callback, _duration, _remainingTime, _startTime, _timer, _state, _onVisibilityChangeListener, _Player_instances, onVisibilityChange_fn;
 var Player = class extends EventTarget {
   constructor(durationInSec, stopOnVisibility = true) {
     super();
-    __privateAdd(this, _onVisibilityChange);
-    __privateAdd(this, _callback, void 0);
-    __privateAdd(this, _duration, void 0);
-    __privateAdd(this, _remainingTime, void 0);
-    __privateAdd(this, _startTime, void 0);
-    __privateAdd(this, _timer, void 0);
+    __privateAdd(this, _Player_instances);
+    __privateAdd(this, _callback);
+    __privateAdd(this, _duration);
+    __privateAdd(this, _remainingTime);
+    __privateAdd(this, _startTime);
+    __privateAdd(this, _timer);
     __privateAdd(this, _state, "paused");
-    __privateAdd(this, _onVisibilityChangeListener, __privateMethod(this, _onVisibilityChange, onVisibilityChange_fn).bind(this));
+    __privateAdd(this, _onVisibilityChangeListener, __privateMethod(this, _Player_instances, onVisibilityChange_fn).bind(this));
     __privateSet(this, _callback, () => this.dispatchEvent(new CustomEvent("player:end")));
     this.setDuration(durationInSec);
     if (stopOnVisibility) {
@@ -255,7 +191,7 @@ _startTime = new WeakMap();
 _timer = new WeakMap();
 _state = new WeakMap();
 _onVisibilityChangeListener = new WeakMap();
-_onVisibilityChange = new WeakSet();
+_Player_instances = new WeakSet();
 onVisibilityChange_fn = function() {
   if (document.visibilityState === "hidden") {
     this.pause();
@@ -369,7 +305,7 @@ if (!window.customElements.get("next-button")) {
 }
 
 // js/common/actions/copy-button.js
-import { timeline } from "{{ 'vendor.min.js' | asset_url }}";
+import { timeline } from "vendor";
 var CopyButton = class extends HTMLButtonElement {
   constructor() {
     super();
@@ -412,7 +348,7 @@ if (!window.customElements.get("copy-button")) {
 }
 
 // js/common/actions/custom-button.js
-import { animate, timeline as timeline2, stagger } from "{{ 'vendor.min.js' | asset_url }}";
+import { animate, timeline as timeline2, stagger } from "vendor";
 var CustomButton = class extends HTMLButtonElement {
   static get observedAttributes() {
     return ["aria-busy"];
@@ -481,7 +417,7 @@ if (!window.customElements.get("share-button")) {
 }
 
 // js/common/animation/heading.js
-import { stagger as stagger2 } from "{{ 'vendor.min.js' | asset_url }}";
+import { stagger as stagger2 } from "vendor";
 function getHeadingKeyframe(element, options = {}) {
   if (!element) {
     return [];
@@ -506,18 +442,18 @@ function getHeadingKeyframe(element, options = {}) {
 }
 
 // js/common/animation/reveal-items.js
-import { animate as animate2, stagger as stagger3, inView } from "{{ 'vendor.min.js' | asset_url }}";
-var _reveal, reveal_fn;
+import { animate as animate2, stagger as stagger3, inView } from "vendor";
+var _RevealItems_instances, reveal_fn;
 var RevealItems = class extends HTMLElement {
   constructor() {
     super();
-    __privateAdd(this, _reveal);
+    __privateAdd(this, _RevealItems_instances);
     if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-      inView(this, __privateMethod(this, _reveal, reveal_fn).bind(this), { margin: this.getAttribute("margin") ?? "-50px 0px" });
+      inView(this, __privateMethod(this, _RevealItems_instances, reveal_fn).bind(this), { margin: this.getAttribute("margin") ?? "-50px 0px" });
     }
   }
 };
-_reveal = new WeakSet();
+_RevealItems_instances = new WeakSet();
 reveal_fn = function() {
   this.style.opacity = "1";
   animate2(
@@ -531,29 +467,27 @@ if (!window.customElements.get("reveal-items")) {
 }
 
 // js/common/behavior/custom-cursor.js
-var _abortController, _onPointerLeave, onPointerLeave_fn, _onPointerMove, onPointerMove_fn;
+var _abortController, _CustomCursor_instances, onPointerLeave_fn, onPointerMove_fn;
 var CustomCursor = class extends HTMLElement {
   constructor() {
     super(...arguments);
-    __privateAdd(this, _onPointerLeave);
-    __privateAdd(this, _onPointerMove);
-    __privateAdd(this, _abortController, void 0);
+    __privateAdd(this, _CustomCursor_instances);
+    __privateAdd(this, _abortController);
   }
   connectedCallback() {
     __privateSet(this, _abortController, new AbortController());
-    this.parentElement.addEventListener("pointermove", __privateMethod(this, _onPointerMove, onPointerMove_fn).bind(this), { passive: true, signal: __privateGet(this, _abortController).signal });
-    this.parentElement.addEventListener("pointerleave", __privateMethod(this, _onPointerLeave, onPointerLeave_fn).bind(this), { signal: __privateGet(this, _abortController).signal });
+    this.parentElement.addEventListener("pointermove", __privateMethod(this, _CustomCursor_instances, onPointerMove_fn).bind(this), { passive: true, signal: __privateGet(this, _abortController).signal });
+    this.parentElement.addEventListener("pointerleave", __privateMethod(this, _CustomCursor_instances, onPointerLeave_fn).bind(this), { signal: __privateGet(this, _abortController).signal });
   }
   disconnectedCallback() {
     __privateGet(this, _abortController).abort();
   }
 };
 _abortController = new WeakMap();
-_onPointerLeave = new WeakSet();
+_CustomCursor_instances = new WeakSet();
 onPointerLeave_fn = function() {
   this.classList.remove("is-visible", "is-half-start", "is-half-end");
 };
-_onPointerMove = new WeakSet();
 onPointerMove_fn = function(event) {
   if (event.target.matches("button, a[href], button :scope, a[href] :scope")) {
     return this.classList.remove("is-visible");
@@ -571,32 +505,28 @@ if (!window.customElements.get("custom-cursor")) {
 }
 
 // js/common/behavior/gesture-area.js
-var _domElement, _thresholdDistance, _thresholdTime, _signal, _firstClientX, _tracking, _start, _touchStart, touchStart_fn, _preventTouch, preventTouch_fn, _gestureStart, gestureStart_fn, _gestureMove, gestureMove_fn, _gestureEnd, gestureEnd_fn;
+var _domElement, _thresholdDistance, _thresholdTime, _signal, _firstClientX, _tracking, _start, _GestureArea_instances, touchStart_fn, preventTouch_fn, gestureStart_fn, gestureMove_fn, gestureEnd_fn;
 var GestureArea = class {
   constructor(domElement, { thresholdDistance = 80, thresholdTime = 500, signal = null } = {}) {
-    __privateAdd(this, _touchStart);
-    __privateAdd(this, _preventTouch);
-    __privateAdd(this, _gestureStart);
-    __privateAdd(this, _gestureMove);
-    __privateAdd(this, _gestureEnd);
-    __privateAdd(this, _domElement, void 0);
-    __privateAdd(this, _thresholdDistance, void 0);
-    __privateAdd(this, _thresholdTime, void 0);
-    __privateAdd(this, _signal, void 0);
-    __privateAdd(this, _firstClientX, void 0);
+    __privateAdd(this, _GestureArea_instances);
+    __privateAdd(this, _domElement);
+    __privateAdd(this, _thresholdDistance);
+    __privateAdd(this, _thresholdTime);
+    __privateAdd(this, _signal);
+    __privateAdd(this, _firstClientX);
     __privateAdd(this, _tracking, false);
     __privateAdd(this, _start, {});
     __privateSet(this, _domElement, domElement);
     __privateSet(this, _thresholdDistance, thresholdDistance);
     __privateSet(this, _thresholdTime, thresholdTime);
     __privateSet(this, _signal, signal);
-    __privateGet(this, _domElement).addEventListener("touchstart", __privateMethod(this, _touchStart, touchStart_fn).bind(this), { passive: true, signal: __privateGet(this, _signal) });
-    __privateGet(this, _domElement).addEventListener("touchmove", __privateMethod(this, _preventTouch, preventTouch_fn).bind(this), { passive: false, signal: __privateGet(this, _signal) });
-    __privateGet(this, _domElement).addEventListener("pointerdown", __privateMethod(this, _gestureStart, gestureStart_fn).bind(this), { signal: __privateGet(this, _signal) });
-    __privateGet(this, _domElement).addEventListener("pointermove", __privateMethod(this, _gestureMove, gestureMove_fn).bind(this), { passive: false, signal: __privateGet(this, _signal) });
-    __privateGet(this, _domElement).addEventListener("pointerup", __privateMethod(this, _gestureEnd, gestureEnd_fn).bind(this), { signal: __privateGet(this, _signal) });
-    __privateGet(this, _domElement).addEventListener("pointerleave", __privateMethod(this, _gestureEnd, gestureEnd_fn).bind(this), { signal: __privateGet(this, _signal) });
-    __privateGet(this, _domElement).addEventListener("pointercancel", __privateMethod(this, _gestureEnd, gestureEnd_fn).bind(this), { signal: __privateGet(this, _signal) });
+    __privateGet(this, _domElement).addEventListener("touchstart", __privateMethod(this, _GestureArea_instances, touchStart_fn).bind(this), { passive: true, signal: __privateGet(this, _signal) });
+    __privateGet(this, _domElement).addEventListener("touchmove", __privateMethod(this, _GestureArea_instances, preventTouch_fn).bind(this), { passive: false, signal: __privateGet(this, _signal) });
+    __privateGet(this, _domElement).addEventListener("pointerdown", __privateMethod(this, _GestureArea_instances, gestureStart_fn).bind(this), { signal: __privateGet(this, _signal) });
+    __privateGet(this, _domElement).addEventListener("pointermove", __privateMethod(this, _GestureArea_instances, gestureMove_fn).bind(this), { passive: false, signal: __privateGet(this, _signal) });
+    __privateGet(this, _domElement).addEventListener("pointerup", __privateMethod(this, _GestureArea_instances, gestureEnd_fn).bind(this), { signal: __privateGet(this, _signal) });
+    __privateGet(this, _domElement).addEventListener("pointerleave", __privateMethod(this, _GestureArea_instances, gestureEnd_fn).bind(this), { signal: __privateGet(this, _signal) });
+    __privateGet(this, _domElement).addEventListener("pointercancel", __privateMethod(this, _GestureArea_instances, gestureEnd_fn).bind(this), { signal: __privateGet(this, _signal) });
   }
 };
 _domElement = new WeakMap();
@@ -606,17 +536,15 @@ _signal = new WeakMap();
 _firstClientX = new WeakMap();
 _tracking = new WeakMap();
 _start = new WeakMap();
-_touchStart = new WeakSet();
+_GestureArea_instances = new WeakSet();
 touchStart_fn = function(event) {
   __privateSet(this, _firstClientX, event.touches[0].clientX);
 };
-_preventTouch = new WeakSet();
 preventTouch_fn = function(event) {
   if (Math.abs(event.touches[0].clientX - __privateGet(this, _firstClientX)) > 10) {
     event.preventDefault();
   }
 };
-_gestureStart = new WeakSet();
 gestureStart_fn = function(event) {
   __privateSet(this, _tracking, true);
   __privateSet(this, _start, {
@@ -625,13 +553,11 @@ gestureStart_fn = function(event) {
     y: event.clientY
   });
 };
-_gestureMove = new WeakSet();
 gestureMove_fn = function(event) {
   if (__privateGet(this, _tracking)) {
     event.preventDefault();
   }
 };
-_gestureEnd = new WeakSet();
 gestureEnd_fn = function(event) {
   if (!__privateGet(this, _tracking)) {
     return;
@@ -687,15 +613,14 @@ if (!window.customElements.get("height-observer")) {
 }
 
 // js/common/behavior/safe-sticky.js
-import { inView as inView2 } from "{{ 'vendor.min.js' | asset_url }}";
-var _resizeObserver, _checkPositionListener, _initialTop, _lastKnownY, _currentTop, _position, _recalculateStyles, recalculateStyles_fn, _checkPosition, checkPosition_fn;
+import { inView as inView2 } from "vendor";
+var _resizeObserver, _checkPositionListener, _initialTop, _lastKnownY, _currentTop, _position, _SafeSticky_instances, recalculateStyles_fn, checkPosition_fn;
 var SafeSticky = class extends HTMLElement {
   constructor() {
     super(...arguments);
-    __privateAdd(this, _recalculateStyles);
-    __privateAdd(this, _checkPosition);
-    __privateAdd(this, _resizeObserver, new ResizeObserver(__privateMethod(this, _recalculateStyles, recalculateStyles_fn).bind(this)));
-    __privateAdd(this, _checkPositionListener, throttle(__privateMethod(this, _checkPosition, checkPosition_fn).bind(this)));
+    __privateAdd(this, _SafeSticky_instances);
+    __privateAdd(this, _resizeObserver, new ResizeObserver(__privateMethod(this, _SafeSticky_instances, recalculateStyles_fn).bind(this)));
+    __privateAdd(this, _checkPositionListener, throttle(__privateMethod(this, _SafeSticky_instances, checkPosition_fn).bind(this)));
     __privateAdd(this, _initialTop, 0);
     __privateAdd(this, _lastKnownY, 0);
     /* we could initialize it to window.scrollY but this avoids a costly reflow */
@@ -722,15 +647,14 @@ _initialTop = new WeakMap();
 _lastKnownY = new WeakMap();
 _currentTop = new WeakMap();
 _position = new WeakMap();
-_recalculateStyles = new WeakSet();
+_SafeSticky_instances = new WeakSet();
 recalculateStyles_fn = function() {
   this.style.removeProperty("top");
   const computedStyles = getComputedStyle(this);
   __privateSet(this, _initialTop, parseInt(computedStyles.top));
   __privateSet(this, _position, computedStyles.position);
-  __privateMethod(this, _checkPosition, checkPosition_fn).call(this);
+  __privateMethod(this, _SafeSticky_instances, checkPosition_fn).call(this);
 };
-_checkPosition = new WeakSet();
 checkPosition_fn = function() {
   if (__privateGet(this, _position) !== "sticky") {
     return this.style.removeProperty("top");
@@ -898,7 +822,7 @@ var Updater = class {
       return;
     }
     const maxSize = style.getPropertyValue("--scroll-shadow-size") ? parseInt(style.getPropertyValue("--scroll-shadow-size")) : 0;
-    const scroll = {
+    const scroll5 = {
       top: Math.max(this.element.scrollTop, 0),
       bottom: Math.max(this.element.scrollHeight - this.element.offsetHeight - this.element.scrollTop, 0),
       left: Math.max(this.element.scrollLeft, 0),
@@ -908,7 +832,7 @@ var Updater = class {
       for (const position of ["top", "bottom", "left", "right"]) {
         targetElement.style.setProperty(
           `--${position}`,
-          `${scroll[position] > maxSize ? maxSize : scroll[position]}px`
+          `${scroll5[position] > maxSize ? maxSize : scroll5[position]}px`
         );
       }
     });
@@ -938,21 +862,20 @@ if ("ResizeObserver" in window && !window.customElements.get("scroll-shadow")) {
 }
 
 // js/common/behavior/split-lines.js
-var _requireSplit, _lastScreenWidth, _split, split_fn, _onWindowResized, onWindowResized_fn;
+var _requireSplit, _lastScreenWidth, _SplitLines_instances, split_fn, onWindowResized_fn;
 var SplitLines = class extends HTMLElement {
   constructor() {
     super();
-    __privateAdd(this, _split);
-    __privateAdd(this, _onWindowResized);
+    __privateAdd(this, _SplitLines_instances);
     __privateAdd(this, _requireSplit, true);
     __privateAdd(this, _lastScreenWidth, window.innerWidth);
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(document.createRange().createContextualFragment("<slot></slot>"));
-    window.addEventListener("resize", throttle(__privateMethod(this, _onWindowResized, onWindowResized_fn).bind(this)));
-    new MutationObserver(__privateMethod(this, _split, split_fn).bind(this, true)).observe(this, { characterData: true, attributes: false, childList: false, subtree: true });
+    window.addEventListener("resize", throttle(__privateMethod(this, _SplitLines_instances, onWindowResized_fn).bind(this)));
+    new MutationObserver(__privateMethod(this, _SplitLines_instances, split_fn).bind(this, true)).observe(this, { characterData: true, attributes: false, childList: false, subtree: true });
   }
   connectedCallback() {
-    __privateMethod(this, _split, split_fn).call(this);
+    __privateMethod(this, _SplitLines_instances, split_fn).call(this);
   }
   get lines() {
     return Array.from(this.shadowRoot.children);
@@ -960,7 +883,7 @@ var SplitLines = class extends HTMLElement {
 };
 _requireSplit = new WeakMap();
 _lastScreenWidth = new WeakMap();
-_split = new WeakSet();
+_SplitLines_instances = new WeakSet();
 split_fn = function(force = false) {
   if (!__privateGet(this, _requireSplit) && !force) {
     return;
@@ -978,12 +901,11 @@ split_fn = function(force = false) {
     `)));
   __privateSet(this, _requireSplit, false);
 };
-_onWindowResized = new WeakSet();
 onWindowResized_fn = function() {
   if (__privateGet(this, _lastScreenWidth) === window.innerWidth) {
     return;
   }
-  __privateMethod(this, _split, split_fn).call(this, true);
+  __privateMethod(this, _SplitLines_instances, split_fn).call(this, true);
   __privateSet(this, _lastScreenWidth, window.innerWidth);
 };
 if (!window.customElements.get("split-lines")) {
@@ -991,7 +913,7 @@ if (!window.customElements.get("split-lines")) {
 }
 
 // js/common/carousel/effect-carousel.js
-import { timeline as timeline3, inView as inView3 } from "{{ 'vendor.min.js' | asset_url }}";
+import { timeline as timeline3, inView as inView3 } from "vendor";
 
 // js/common/carousel/base-carousel.js
 var BaseCarousel = class extends HTMLElement {
@@ -1053,11 +975,11 @@ var BaseCarousel = class extends HTMLElement {
   get nextSlide() {
     return this.visibleItems[this.loop ? (this.selectedIndexAmongVisible + 1 + this.visibleItems.length) % this.visibleItems.length : Math.min(this.selectedIndexAmongVisible + 1, this.visibleItems.length - 1)];
   }
-  previous(animate11 = true) {
-    this.select(this.items.indexOf(this.previousSlide), { direction: "previous", animate: animate11 });
+  previous(animate19 = true) {
+    this.select(this.items.indexOf(this.previousSlide), { direction: "previous", animate: animate19 });
   }
-  next(animate11 = true) {
-    this.select(this.items.indexOf(this.nextSlide), { direction: "next", animate: animate11 });
+  next(animate19 = true) {
+    this.select(this.items.indexOf(this.nextSlide), { direction: "next", animate: animate19 });
   }
   _transitionTo(fromSlide, toSlide, options = {}) {
   }
@@ -1111,7 +1033,7 @@ var EffectCarousel = class extends BaseCarousel {
   get swipeable() {
     return this.getAttribute("swipeable") !== "false";
   }
-  async select(index, { direction, animate: animate11 = true } = {}) {
+  async select(index, { direction, animate: animate19 = true } = {}) {
     const indexBeforeChange = this.selectedIndex;
     this._selectedIndex = index;
     this._dispatchEvent("carousel:select", index);
@@ -1122,7 +1044,7 @@ var EffectCarousel = class extends BaseCarousel {
       const [fromSlide, toSlide] = [this.items[indexBeforeChange], this.items[index]];
       this._dispatchEvent("carousel:change", index);
       this.player?.pause();
-      await this._transitionTo(fromSlide, toSlide, { direction, animate: animate11 });
+      await this._transitionTo(fromSlide, toSlide, { direction, animate: animate19 });
       this.player?.resume(true);
       this._dispatchEvent("carousel:settle", index);
     }
@@ -1132,13 +1054,13 @@ var EffectCarousel = class extends BaseCarousel {
    * that extends the EffectCarousel, and implement your own transition. You should make sure to return a promise
    * that resolves when the animation is finished
    */
-  _transitionTo(fromSlide, toSlide, { direction = "next", animate: animate11 = true } = {}) {
+  _transitionTo(fromSlide, toSlide, { direction = "next", animate: animate19 = true } = {}) {
     fromSlide.classList.remove("is-selected");
     toSlide.classList.add("is-selected");
     const timelineControls = timeline3([
       [fromSlide, { opacity: [1, 0], visibility: ["visible", "hidden"], zIndex: 0 }, { zIndex: { easing: "step-end" } }],
       [toSlide, { opacity: [0, 1], visibility: ["hidden", "visible"], zIndex: 1 }, { at: "<", zIndex: { easing: "step-end" } }]
-    ], { duration: animate11 ? 0.3 : 0 });
+    ], { duration: animate19 ? 0.3 : 0 });
     return timelineControls.finished;
   }
 };
@@ -1170,7 +1092,7 @@ var ScrollCarousel = class extends BaseCarousel {
   get totalPages() {
     return this.visibleItems.length < 2 ? 1 : this.visibleItems.length - this.slidesPerPage + 1;
   }
-  select(index, { animate: animate11 = true, force = false } = {}) {
+  select(index, { animate: animate19 = true, force = false } = {}) {
     const indexBeforeChange = this.selectedIndex;
     if (!this.offsetParent || this._scrollArea.scrollDirection === "none") {
       return this._selectedIndex = index;
@@ -1182,14 +1104,14 @@ var ScrollCarousel = class extends BaseCarousel {
     if (index !== indexBeforeChange || force) {
       const [fromSlide, toSlide] = [this.items[indexBeforeChange], this.items[index]];
       this._dispatchEvent("carousel:change", index);
-      this._transitionTo(fromSlide, toSlide, { animate: animate11 });
+      this._transitionTo(fromSlide, toSlide, { animate: animate19 });
     }
   }
   /**
    * Transition using the scrollTo method. To prevent the intersection observer to caught up the change, we set up
    * a "hasPendingProgrammaticScroll" variable to true, that is set back to false once the scroll has settled
    */
-  _transitionTo(fromSlide, toSlide, { animate: animate11 = true } = {}) {
+  _transitionTo(fromSlide, toSlide, { animate: animate19 = true } = {}) {
     fromSlide.classList.remove("is-selected");
     toSlide.classList.add("is-selected");
     let slideAlign = this._extractSlideAlign(toSlide), scrollAmount = 0;
@@ -1201,8 +1123,8 @@ var ScrollCarousel = class extends BaseCarousel {
         scrollAmount = toSlide.offsetLeft - (this.clientWidth / 2 - (parseInt(getComputedStyle(this).scrollPaddingInline) || 0)) + toSlide.clientWidth / 2;
         break;
     }
-    this._hasPendingProgrammaticScroll = animate11;
-    this.scrollTo({ left: scrollAmount, behavior: animate11 ? "smooth" : "auto" });
+    this._hasPendingProgrammaticScroll = animate19;
+    this.scrollTo({ left: scrollAmount, behavior: animate19 ? "smooth" : "auto" });
   }
   /**
    * Update the index when manually scrolling (which allows to update the controls)
@@ -1229,7 +1151,7 @@ var ScrollCarousel = class extends BaseCarousel {
   }
   _adjustHeight() {
     this.style.maxHeight = null;
-    if (this._scrollArea.scrollDirection !== "none") {
+    if (this._scrollArea?.scrollDirection !== "none") {
       super._adjustHeight();
     }
   }
@@ -1242,7 +1164,7 @@ if (!window.customElements.get("scroll-carousel")) {
 }
 
 // js/common/cart/cart-count.js
-import { animate as animate3 } from "{{ 'vendor.min.js' | asset_url }}";
+import { animate as animate3 } from "vendor";
 
 // js/common/cart/fetch-cart.js
 var createCartPromise = () => {
@@ -1305,10 +1227,10 @@ if (!window.customElements.get("cart-count")) {
 }
 
 // js/common/cart/cart-drawer.js
-import { animate as animate4 } from "{{ 'vendor.min.js' | asset_url }}";
+import { animate as animate4 } from "vendor";
 
 // js/common/overlay/dialog-element.js
-import { FocusTrap, Delegate } from "{{ 'vendor.min.js' | asset_url }}";
+import { FocusTrap, Delegate } from "vendor";
 var DialogElement = class _DialogElement extends HTMLElement {
   static get observedAttributes() {
     return ["id", "open"];
@@ -1344,17 +1266,18 @@ var DialogElement = class _DialogElement extends HTMLElement {
   disconnectedCallback() {
     this._abortController.abort();
     this.delegate.off();
-    this.focusTrap?.deactivate({ onDeactivate: false });
+    this.focusTrap?.deactivate({ onDeactivate: () => {
+    } });
     if (this.#isLocked) {
       this.#isLocked = false;
       document.documentElement.classList.toggle("lock", --_DialogElement.#lockLayerCount > 0);
     }
   }
-  show(animate11 = true) {
+  show(animate19 = true) {
     if (this.open) {
       return;
     }
-    this.setAttribute("open", animate11 ? "" : "immediate");
+    this.setAttribute("open", animate19 ? "" : "immediate");
     return waitForEvent(this, "dialog:after-show");
   }
   hide() {
@@ -1455,7 +1378,7 @@ var DialogElement = class _DialogElement extends HTMLElement {
     }
   }
   /* Those methods are used to perform custom show/hide transition, and must return a promise */
-  _showTransition(animate11 = true) {
+  _showTransition(animate19 = true) {
   }
   _hideTransition() {
   }
@@ -1508,8 +1431,8 @@ if (!window.customElements.get("close-button")) {
 }
 
 // js/common/overlay/drawer.js
-import { animate as motionAnimate, timeline as motionTimeline } from "{{ 'vendor.min.js' | asset_url }}";
-var reduceDrawerAnimation = window.matchMedia("(prefers-reduced-motion: reduce)").matches || JSON.parse("{{ settings.reduce_drawer_animation | json }}");
+import { animate as motionAnimate, timeline as motionTimeline } from "vendor";
+var reduceDrawerAnimation = window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.themeVariables.settings.reduceDrawerAnimation;
 var Drawer = class extends DialogElement {
   constructor() {
     super();
@@ -1553,7 +1476,7 @@ var Drawer = class extends DialogElement {
     this.style.bottom = this.openFrom === "bottom" ? "0px" : null;
     this.style.top = this.style.bottom === "" ? "0px" : null;
   }
-  _showTransition(animate11 = true) {
+  _showTransition(animate19 = true) {
     let animationControls;
     this._setInitialPosition();
     if (reduceDrawerAnimation) {
@@ -1567,7 +1490,7 @@ var Drawer = class extends DialogElement {
         [closeButton, { opacity: [0, 1] }, { at: "<", duration: 0.15 }]
       ]);
     }
-    animate11 ? animationControls.play() : animationControls.finish();
+    animate19 ? animationControls.play() : animationControls.finish();
     return animationControls.finished.then(() => this.classList.add("show-close-cursor"));
   }
   _hideTransition() {
@@ -1597,7 +1520,7 @@ if (!window.customElements.get("x-drawer")) {
 }
 
 // js/common/overlay/popover.js
-import { animate as motionAnimate2, timeline as motionTimeline2 } from "{{ 'vendor.min.js' | asset_url }}";
+import { animate as motionAnimate2, timeline as motionTimeline2 } from "vendor";
 var Popover = class extends DialogElement {
   constructor() {
     super();
@@ -1626,7 +1549,7 @@ var Popover = class extends DialogElement {
       horizontal: this.getAttribute("anchor-horizontal") || "end"
     };
   }
-  _showTransition(animate11 = true) {
+  _showTransition(animate19 = true) {
     let animationControls, content = this.shadowRoot.querySelector('[part="content"]'), closeButton = this.shadowRoot.querySelector('[part="outside-close-button"]');
     this.style.display = "block";
     if (window.matchMedia("screen and (max-width: 999px)").matches) {
@@ -1657,7 +1580,7 @@ var Popover = class extends DialogElement {
         [content.children, { opacity: 1 }, { at: "<", duration: 0 }]
       ]);
     }
-    animate11 ? animationControls.play() : animationControls.finish();
+    animate19 ? animationControls.play() : animationControls.finish();
     return animationControls.finished;
   }
   _hideTransition() {
@@ -1681,7 +1604,7 @@ if (!window.customElements.get("x-popover")) {
 }
 
 // js/common/overlay/privacy-bar.js
-import { Delegate as Delegate2 } from "{{ 'vendor.min.js' | asset_url }}";
+import { Delegate as Delegate2 } from "vendor";
 var PrivacyBar = class extends HTMLElement {
   constructor() {
     super();
@@ -1919,6 +1842,7 @@ var FreeShippingBar = class extends HTMLElement {
   constructor() {
     super();
     this._onCartChangedListener = this._onCartChanged.bind(this);
+    this._currencyFormatter = new Intl.NumberFormat(Shopify.locale, { style: "currency", currency: Shopify.currency.active });
   }
   async connectedCallback() {
     this.threshold = Math.round(this.threshold * (Shopify.currency.rate || 1));
@@ -1957,8 +1881,8 @@ var FreeShippingBar = class extends HTMLElement {
     if (this.totalPrice >= this.threshold) {
       messageElement.innerHTML = this.getAttribute("reached-message");
     } else {
-      const replacement = `<span class="bold text-accent">${formatMoney(this.threshold - this.totalPrice).replace(/\$/g, "$$$$")}</span>`;
-      messageElement.innerHTML = this.getAttribute("unreached-message").replace(new RegExp("{% raw %}({{.*}}){% endraw %}", "g"), replacement);
+      const replacement = `<span class="bold text-accent">${this._currencyFormatter.format((this.threshold - this.totalPrice) / 100).replace(/\$/g, "$$$$")}</span>`;
+      messageElement.innerHTML = this.getAttribute("unreached-message").replace(new RegExp("({{.*}})", "g"), replacement);
     }
   }
   _onCartChanged(event) {
@@ -2154,7 +2078,7 @@ if (!window.customElements.get("facet-drawer")) {
 }
 
 // js/common/facets/facet-floating-filter.js
-import { animate as animate5 } from "{{ 'vendor.min.js' | asset_url }}";
+import { animate as animate5 } from "vendor";
 var FacetFloatingFilter = class extends HTMLElement {
   connectedCallback() {
     new IntersectionObserver(this._onFooterVisibilityChanged.bind(this), { rootMargin: "50px 0px" }).observe(document.querySelector(".shopify-section--footer"));
@@ -2309,7 +2233,7 @@ if (!window.customElements.get("facet-sort-by")) {
 }
 
 // js/common/feedback/pill-loader.js
-import { animate as animate6, timeline as timeline4, stagger as stagger4 } from "{{ 'vendor.min.js' | asset_url }}";
+import { animate as animate6, timeline as timeline4, stagger as stagger4 } from "vendor";
 var PillLoader = class extends HTMLElement {
   static get observedAttributes() {
     return ["aria-busy"];
@@ -2500,16 +2424,14 @@ if (!window.customElements.get("resizable-textarea")) {
 }
 
 // js/common/list/listbox.js
-var _accessibilityInitialized, _hiddenInput, _onOptionClicked, onOptionClicked_fn, _onInputChanged, onInputChanged_fn, _onKeyDown, onKeyDown_fn;
+var _accessibilityInitialized, _hiddenInput, _Listbox_instances, onOptionClicked_fn, onInputChanged_fn, onKeyDown_fn;
 var Listbox = class extends HTMLElement {
   constructor() {
     super();
-    __privateAdd(this, _onOptionClicked);
-    __privateAdd(this, _onInputChanged);
-    __privateAdd(this, _onKeyDown);
+    __privateAdd(this, _Listbox_instances);
     __privateAdd(this, _accessibilityInitialized, false);
-    __privateAdd(this, _hiddenInput, void 0);
-    this.addEventListener("keydown", __privateMethod(this, _onKeyDown, onKeyDown_fn));
+    __privateAdd(this, _hiddenInput);
+    this.addEventListener("keydown", __privateMethod(this, _Listbox_instances, onKeyDown_fn));
   }
   static get observedAttributes() {
     return ["aria-activedescendant"];
@@ -2518,9 +2440,9 @@ var Listbox = class extends HTMLElement {
     if (!__privateGet(this, _accessibilityInitialized)) {
       this.setAttribute("role", "listbox");
       __privateSet(this, _hiddenInput, this.querySelector('input[type="hidden"]'));
-      __privateGet(this, _hiddenInput)?.addEventListener("change", __privateMethod(this, _onInputChanged, onInputChanged_fn).bind(this));
+      __privateGet(this, _hiddenInput)?.addEventListener("change", __privateMethod(this, _Listbox_instances, onInputChanged_fn).bind(this));
       Array.from(this.querySelectorAll('[role="option"]')).forEach((option) => {
-        option.addEventListener("click", __privateMethod(this, _onOptionClicked, onOptionClicked_fn).bind(this));
+        option.addEventListener("click", __privateMethod(this, _Listbox_instances, onOptionClicked_fn).bind(this));
         option.id = "option-" + (crypto.randomUUID ? crypto.randomUUID() : Math.floor(Math.random() * 1e4));
         if (option.getAttribute("aria-selected") === "true") {
           this.setAttribute("aria-activedescendant", option.id);
@@ -2558,7 +2480,7 @@ var Listbox = class extends HTMLElement {
 };
 _accessibilityInitialized = new WeakMap();
 _hiddenInput = new WeakMap();
-_onOptionClicked = new WeakSet();
+_Listbox_instances = new WeakSet();
 onOptionClicked_fn = function(event) {
   this.setAttribute("aria-activedescendant", event.currentTarget.id);
   event.currentTarget.dispatchEvent(new CustomEvent("listbox:select", {
@@ -2568,11 +2490,9 @@ onOptionClicked_fn = function(event) {
     }
   }));
 };
-_onInputChanged = new WeakSet();
 onInputChanged_fn = function(event) {
   this.setAttribute("aria-activedescendant", this.querySelector(`[role="option"][value="${CSS.escape(event.target.value)}"]`).id);
 };
-_onKeyDown = new WeakSet();
 onKeyDown_fn = function(event) {
   if (event.key === "ArrowUp") {
     event.target.previousElementSibling?.focus();
@@ -2602,15 +2522,22 @@ function imageLoaded(imageOrArray) {
     });
   }));
 }
-function generateSrcset(imageObject, widths = []) {
-  const imageUrl = new URL(imageObject["src"]);
-  return widths.filter((width) => width <= imageObject["width"]).map((width) => {
+function generateSrcset(imageObjectOrString, widths = []) {
+  let imageUrl, maxWidth;
+  if (typeof imageObjectOrString === "string") {
+    imageUrl = new URL(imageObjectOrString.startsWith("//") ? `https:${imageObjectOrString}` : imageObjectOrString);
+    maxWidth = parseInt(imageUrl.searchParams.get("width"));
+  } else {
+    imageUrl = new URL(imageObjectOrString["src"].startsWith("//") ? `https:${imageObjectOrString["src"]}` : imageObjectOrString["src"]);
+    maxWidth = imageObjectOrString["width"];
+  }
+  return widths.filter((width) => width <= maxWidth).map((width) => {
     imageUrl.searchParams.set("width", width.toString());
     return `${imageUrl.href} ${width}w`;
   }).join(", ");
 }
 function createMediaImg(media, widths = [], properties = {}) {
-  const image = new Image(media["preview_image"]["width"], media["preview_image"]["height"]), featuredMediaUrl = new URL(media["preview_image"]["src"]);
+  const image = new Image(media["preview_image"]["width"], media["preview_image"]["height"]), src = media["preview_image"]["src"], featuredMediaUrl = new URL(src.startsWith("//") ? `https:${src}` : src);
   for (const propertyKey in properties) {
     image.setAttribute(propertyKey, properties[propertyKey]);
   }
@@ -2621,17 +2548,16 @@ function createMediaImg(media, widths = [], properties = {}) {
 }
 
 // js/common/product/gift-card-recipient.js
-var _recipientCheckbox, _recipientOtherProperties, _recipientSendOnProperty, _offsetProperty, _recipientFieldsContainer, _synchronizeProperties, synchronizeProperties_fn, _formatDate, formatDate_fn;
+var _recipientCheckbox, _recipientOtherProperties, _recipientSendOnProperty, _offsetProperty, _recipientFieldsContainer, _GiftCardRecipient_instances, synchronizeProperties_fn, formatDate_fn;
 var GiftCardRecipient = class extends HTMLElement {
   constructor() {
     super(...arguments);
-    __privateAdd(this, _synchronizeProperties);
-    __privateAdd(this, _formatDate);
-    __privateAdd(this, _recipientCheckbox, void 0);
+    __privateAdd(this, _GiftCardRecipient_instances);
+    __privateAdd(this, _recipientCheckbox);
     __privateAdd(this, _recipientOtherProperties, []);
-    __privateAdd(this, _recipientSendOnProperty, void 0);
-    __privateAdd(this, _offsetProperty, void 0);
-    __privateAdd(this, _recipientFieldsContainer, void 0);
+    __privateAdd(this, _recipientSendOnProperty);
+    __privateAdd(this, _offsetProperty);
+    __privateAdd(this, _recipientFieldsContainer);
   }
   connectedCallback() {
     const properties = Array.from(this.querySelectorAll('[name*="properties"]')), checkboxPropertyName = "properties[__shopify_send_gift_card_to_recipient]";
@@ -2646,10 +2572,10 @@ var GiftCardRecipient = class extends HTMLElement {
     const minDate = /* @__PURE__ */ new Date();
     const maxDate = /* @__PURE__ */ new Date();
     maxDate.setDate(minDate.getDate() + 90);
-    __privateGet(this, _recipientSendOnProperty)?.setAttribute("min", __privateMethod(this, _formatDate, formatDate_fn).call(this, minDate));
-    __privateGet(this, _recipientSendOnProperty)?.setAttribute("max", __privateMethod(this, _formatDate, formatDate_fn).call(this, maxDate));
-    __privateGet(this, _recipientCheckbox)?.addEventListener("change", __privateMethod(this, _synchronizeProperties, synchronizeProperties_fn).bind(this));
-    __privateMethod(this, _synchronizeProperties, synchronizeProperties_fn).call(this);
+    __privateGet(this, _recipientSendOnProperty)?.setAttribute("min", __privateMethod(this, _GiftCardRecipient_instances, formatDate_fn).call(this, minDate));
+    __privateGet(this, _recipientSendOnProperty)?.setAttribute("max", __privateMethod(this, _GiftCardRecipient_instances, formatDate_fn).call(this, maxDate));
+    __privateGet(this, _recipientCheckbox)?.addEventListener("change", __privateMethod(this, _GiftCardRecipient_instances, synchronizeProperties_fn).bind(this));
+    __privateMethod(this, _GiftCardRecipient_instances, synchronizeProperties_fn).call(this);
   }
 };
 _recipientCheckbox = new WeakMap();
@@ -2657,12 +2583,11 @@ _recipientOtherProperties = new WeakMap();
 _recipientSendOnProperty = new WeakMap();
 _offsetProperty = new WeakMap();
 _recipientFieldsContainer = new WeakMap();
-_synchronizeProperties = new WeakSet();
+_GiftCardRecipient_instances = new WeakSet();
 synchronizeProperties_fn = function() {
   __privateGet(this, _recipientOtherProperties).forEach((property) => property.disabled = !__privateGet(this, _recipientCheckbox).checked);
   __privateGet(this, _recipientFieldsContainer).classList.toggle("js:hidden", !__privateGet(this, _recipientCheckbox).checked);
 };
-_formatDate = new WeakSet();
 formatDate_fn = function(date) {
   const offset = date.getTimezoneOffset();
   const offsetDate = new Date(date.getTime() - offset * 60 * 1e3);
@@ -2672,86 +2597,48 @@ if (!window.customElements.get("gift-card-recipient")) {
   window.customElements.define("gift-card-recipient", GiftCardRecipient);
 }
 
-// js/common/product/product-loader.js
-var ProductLoader = class {
-  static loadedProducts = {};
-  static load(productHandle) {
-    if (!productHandle) {
-      return;
-    }
-    if (this.loadedProducts[productHandle]) {
-      return this.loadedProducts[productHandle];
-    }
-    this.loadedProducts[productHandle] = new Promise(async (resolve, reject) => {
-      const response = await fetch(`${Shopify.routes.root}products/${productHandle}.js`);
-      if (response.ok) {
-        const responseAsJson = await response.json();
-        resolve(responseAsJson);
-      } else {
-        reject(`
-          Attempted to load information for product with handle ${productHandle}, but this product is in "draft" mode. You won't be able to
-          switch between variants or access to per-variant information. To fully preview this product, change temporarily its status
-          to "active".
-        `);
-      }
-    });
-    return this.loadedProducts[productHandle];
-  }
-};
-
 // js/common/product/product-card.js
-import { Delegate as Delegate3 } from "{{ 'vendor.min.js' | asset_url }}";
+import { Delegate as Delegate3 } from "vendor";
 var ProductCard = class extends HTMLElement {
   constructor() {
     super();
     this._delegate = new Delegate3(this);
-    this.addEventListener("pointerover", () => ProductLoader.load(this.getAttribute("handle")), { once: true });
   }
   connectedCallback() {
-    this._delegate.on("change", '[type="radio"]', this._onSwatchChanged.bind(this));
-    this._delegate.on("pointerover", '[type="radio"] + label', this._onSwatchHovered.bind(this), true);
+    this._delegate.on("change", '.product-card__swatch-list [type="radio"]', this._onSwatchChanged.bind(this));
+    this._delegate.on("pointerover", '.product-card__swatch-list [type="radio"] + label', this._onSwatchHovered.bind(this), true);
   }
   disconnectedCallback() {
     this._delegate.off();
   }
   async _onSwatchHovered(event, target) {
-    const firstMatchingVariant = await this._getMatchingVariant(target.control), primaryMediaElement = this.querySelector(".product-card__image--primary");
-    if (firstMatchingVariant.hasOwnProperty("featured_media")) {
-      this._createImageElement(firstMatchingVariant["featured_media"], primaryMediaElement.className, primaryMediaElement.sizes);
+    const control = target.control;
+    const primaryMediaElement = this.querySelector(".product-card__image--primary");
+    if (control.hasAttribute("data-variant-media")) {
+      this._createImageElement(JSON.parse(control.getAttribute("data-variant-media")), primaryMediaElement.className, primaryMediaElement.sizes);
     }
   }
   async _onSwatchChanged(event, target) {
-    const firstMatchingVariant = await this._getMatchingVariant(target);
-    this.querySelectorAll(`a[href^="${this.product["url"]}"`).forEach((link) => {
-      const url = new URL(link.href);
-      url.searchParams.set("variant", firstMatchingVariant["id"]);
-      link.href = `${url.pathname}${url.search}${url.hash}`;
-    });
-    if (!firstMatchingVariant.hasOwnProperty("featured_media")) {
+    if (target.hasAttribute("data-variant-id")) {
+      this.querySelectorAll(`a[href^="${Shopify.routes.root}products/${this.getAttribute("handle")}"`).forEach((link) => {
+        const url = new URL(link.href);
+        url.searchParams.set("variant", target.getAttribute("data-variant-id"));
+        link.href = `${url.pathname}${url.search}${url.hash}`;
+      });
+    }
+    if (!target.hasAttribute("data-variant-media")) {
       return;
     }
-    const primaryMediaElement = this.querySelector(".product-card__image--primary"), secondaryMediaElement = this.querySelector(".product-card__image--secondary");
-    const newPrimaryMediaElement = this._createImageElement(firstMatchingVariant["featured_media"], primaryMediaElement.className, primaryMediaElement.sizes);
+    const newMedia = JSON.parse(target.getAttribute("data-variant-media")), primaryMediaElement = this.querySelector(".product-card__image--primary"), newPrimaryMediaElement = this._createImageElement(newMedia, primaryMediaElement.className, primaryMediaElement.sizes);
     if (primaryMediaElement.src !== newPrimaryMediaElement.src) {
-      secondaryMediaElement ? secondaryMediaElement.replaceWith(this._createImageElement(this.product["media"][firstMatchingVariant["featured_media"]["position"]] || this.product["media"][1], secondaryMediaElement.className, secondaryMediaElement.sizes)) : null;
-      await primaryMediaElement.animate({ opacity: [1, 0] }, { duration: 250, easing: "ease-in", fill: "forwards" }).finished;
+      await primaryMediaElement.animate({ opacity: [1, 0] }, { duration: 150, easing: "ease-in", fill: "forwards" }).finished;
       await new Promise((resolve) => newPrimaryMediaElement.complete ? resolve() : newPrimaryMediaElement.onload = () => resolve());
       primaryMediaElement.replaceWith(newPrimaryMediaElement);
-      newPrimaryMediaElement.animate({ opacity: [0, 1] }, { duration: 250, easing: "ease-in" });
+      newPrimaryMediaElement.animate({ opacity: [0, 1] }, { duration: 150, easing: "ease-in" });
     }
   }
   _createImageElement(media, classes, sizes) {
-    const previewImage = media["preview_image"], image = new Image(previewImage["width"], previewImage["height"]);
-    image.className = classes;
-    image.alt = media["alt"];
-    image.sizes = sizes;
-    image.src = previewImage["src"];
-    image.srcset = generateSrcset(previewImage, [200, 300, 400, 500, 600, 700, 800, 1e3, 1200, 1400, 1600, 1800]);
-    return image;
-  }
-  async _getMatchingVariant(target) {
-    this.product = await ProductLoader.load(this.getAttribute("handle"));
-    return this.product["variants"].find((variant) => variant[`option${target.closest("[data-option-position]").getAttribute("data-option-position")}`] === target.value);
+    return createMediaImg(media, [200, 300, 400, 500, 600, 700, 800, 1e3, 1200, 1400, 1600, 1800], { class: classes, sizes });
   }
 };
 if (!window.customElements.get("product-card")) {
@@ -2835,36 +2722,14 @@ if (!window.customElements.get("product-form")) {
 var BuyButtons = class extends HTMLElement {
   constructor() {
     super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
     this._onCartErrorListener = this._onCartError.bind(this);
   }
   connectedCallback() {
     this._productForm = document.forms[this.getAttribute("form")];
-    this._productForm?.addEventListener("variant:change", this._onVariantChangedListener);
     this._productForm?.addEventListener("cart:error", this._onCartErrorListener);
   }
   disconnectedCallback() {
-    this._productForm?.removeEventListener("variant:change", this._onVariantChangedListener);
     this._productForm?.removeEventListener("cart:error", this._onCartErrorListener);
-  }
-  _onVariantChanged(event) {
-    const addToCartButton = this.querySelector('button[type="submit"]'), paymentButton = this.querySelector(".shopify-payment-button");
-    addToCartButton.classList.remove("button--secondary", "button--subdued");
-    addToCartButton.disabled = !event.detail.variant || !event.detail.variant["available"];
-    const addToCartButtonText = addToCartButton.getAttribute("is") === "custom-button" ? addToCartButton.firstElementChild : addToCartButton;
-    if (!event.detail.variant) {
-      addToCartButtonText.innerHTML = window.themeVariables.strings.unavailableButton;
-      addToCartButton.classList.add("button--subdued");
-      if (paymentButton) {
-        paymentButton.style.display = "none";
-      }
-    } else {
-      addToCartButton.classList.add(event.detail.variant["available"] ? paymentButton || this.hasAttribute("force-secondary-button") ? "button--secondary" : "button" : "button--subdued");
-      addToCartButtonText.innerHTML = event.detail.variant["available"] ? this.getAttribute("template").includes("pre-order") ? window.themeVariables.strings.preOrderButton : window.themeVariables.strings.addToCartButton : window.themeVariables.strings.soldOutButton;
-      if (paymentButton) {
-        paymentButton.style.display = event.detail.variant["available"] ? "block" : "none";
-      }
-    }
   }
   _onCartError(event) {
     const errorBanner = document.createElement("div");
@@ -2890,249 +2755,15 @@ var BuyButtons = class extends HTMLElement {
 if (!window.customElements.get("buy-buttons")) {
   window.customElements.define("buy-buttons", BuyButtons);
 }
-var PaymentTerms = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
-  }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-  _onVariantChanged(event) {
-    if (event.detail.variant) {
-      const element = this.querySelector('[name="id"]');
-      element.value = event.detail.variant["id"];
-      element.dispatchEvent(new Event("change", { bubbles: true }));
-    }
-  }
-};
-if (!window.customElements.get("payment-terms")) {
-  window.customElements.define("payment-terms", PaymentTerms);
-}
-var PickupAvailability = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
-  }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-  async _onVariantChanged(event) {
-    if (!event.detail.variant) {
-      this.innerHTML = "";
-    } else {
-      const element = document.createElement("div");
-      element.innerHTML = await (await fetch(`${Shopify.routes.root}variants/${event.detail.variant["id"]}?section_id=pickup-availability`)).text();
-      this.replaceChildren(...element.querySelector("pickup-availability").childNodes);
-    }
-  }
-};
-if (!window.customElements.get("pickup-availability")) {
-  window.customElements.define("pickup-availability", PickupAvailability);
-}
-var currencyFormat = window.themeVariables.settings.currencyCodeEnabled ? window.themeVariables.settings.moneyWithCurrencyFormat : window.themeVariables.settings.moneyFormat;
-var SalePrice = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
-  }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-  _onVariantChanged(event) {
-    const variant = event.detail.variant;
-    this.lastChild.replaceWith(document.createRange().createContextualFragment(formatMoney(variant["price"], currencyFormat)));
-    this.classList.toggle("text-on-sale", variant["compare_at_price"] > variant["price"]);
-  }
-};
-var CompareAtPrice = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
-  }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-  _onVariantChanged(event) {
-    const variant = event.detail.variant;
-    this.lastChild.replaceWith(document.createRange().createContextualFragment(formatMoney(variant["compare_at_price"], currencyFormat)));
-    this.hidden = !(variant["compare_at_price"] > variant["price"]);
-  }
-};
-var UnitPrice = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
-  }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-  _onVariantChanged(event) {
-    const variant = event.detail.variant;
-    if (!variant["unit_price"]) {
-      return this.hidden = true;
-    }
-    const referenceValue = variant["unit_price_measurement"]["reference_value"] !== 1 ? variant["unit_price_measurement"]["reference_value"] : "";
-    const node = document.createRange().createContextualFragment(
-      `${formatMoney(variant["unit_price"])}/${referenceValue}${variant["unit_price_measurement"]["reference_unit"]}`
-    );
-    this.lastChild.replaceWith(node);
-    this.hidden = false;
-  }
-};
-if (!window.customElements.get("sale-price")) {
-  window.customElements.define("sale-price", SalePrice);
-}
-if (!window.customElements.get("compare-at-price")) {
-  window.customElements.define("compare-at-price", CompareAtPrice);
-}
-if (!window.customElements.get("unit-price")) {
-  window.customElements.define("unit-price", UnitPrice);
-}
-var _onVariantChanged, onVariantChanged_fn;
-var SoldOutBadge = class extends HTMLElement {
-  constructor() {
-    super(...arguments);
-    __privateAdd(this, _onVariantChanged);
-    __publicField(this, "_onVariantChangedListener", __privateMethod(this, _onVariantChanged, onVariantChanged_fn).bind(this));
-  }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-};
-_onVariantChanged = new WeakSet();
-onVariantChanged_fn = function(event) {
-  this.hidden = event.detail.variant["available"];
-};
-var _onVariantChanged2, onVariantChanged_fn2;
-var OnSaleBadge = class extends HTMLElement {
-  constructor() {
-    super(...arguments);
-    __privateAdd(this, _onVariantChanged2);
-    __publicField(this, "_onVariantChangedListener", __privateMethod(this, _onVariantChanged2, onVariantChanged_fn2).bind(this));
-  }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-};
-_onVariantChanged2 = new WeakSet();
-onVariantChanged_fn2 = function(event) {
-  const variant = event.detail.variant;
-  if (variant["compare_at_price"] > variant["price"]) {
-    this.hidden = false;
-    if (this.hasAttribute("discount-mode")) {
-      const savings = this.getAttribute("discount-mode") === "percentage" ? `${Math.round((variant["compare_at_price"] - variant["price"]) * 100 / variant["compare_at_price"])}%` : formatMoney(variant["compare_at_price"] - variant["price"]);
-      this.innerHTML = `${window.themeVariables.strings.discountBadge.replace("@@", savings)}`;
-    }
-  } else {
-    this.hidden = true;
-  }
-};
-if (!window.customElements.get("sold-out-badge")) {
-  window.customElements.define("sold-out-badge", SoldOutBadge);
-}
-if (!window.customElements.get("on-sale-badge")) {
-  window.customElements.define("on-sale-badge", OnSaleBadge);
-}
-var VariantInventory = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
-  }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-  _onVariantChanged(event) {
-    const variantId = event.detail.variant ? event.detail.variant["id"] : null;
-    Array.from(this.children).forEach((item) => item.toggleAttribute("hidden", variantId !== parseInt(item.getAttribute("data-variant-id"))));
-  }
-};
-if (!window.customElements.get("variant-inventory")) {
-  window.customElements.define("variant-inventory", VariantInventory);
-}
-var VariantMedia = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
-  }
-  connectedCallback() {
-    this.sizesAttribute = this.querySelector("img").sizes;
-    this.classAttribute = this.querySelector("img").className;
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-  get widths() {
-    return this.getAttribute("widths").split(",").map((width) => parseInt(width));
-  }
-  _onVariantChanged(event) {
-    if (!event.detail.variant || !event.detail.variant["featured_media"]) {
-      return;
-    }
-    this.replaceChildren(createMediaImg(event.detail.variant["featured_media"], this.widths, { "class": this.classAttribute, "sizes": this.sizesAttribute }));
-  }
-};
-if (!window.customElements.get("variant-media")) {
-  window.customElements.define("variant-media", VariantMedia);
-}
-var VariantSku = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
-  }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
-  }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-  _onVariantChanged(event) {
-    if (!event.detail.variant) {
-      this.hidden = true;
-    } else {
-      this.innerText = `${window.themeVariables.strings.sku} ${event.detail.variant["sku"]}`;
-      this.hidden = !event.detail.variant["sku"];
-    }
-  }
-};
-if (!window.customElements.get("variant-sku")) {
-  window.customElements.define("variant-sku", VariantSku);
-}
 
 // js/common/product/product-gallery.js
-import { PhotoSwipeLightbox } from "{{ 'vendor.min.js' | asset_url }}";
+import { PhotoSwipeLightbox } from "vendor";
 var ProductGallery = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
-  }
   connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
+    this._abortController = new AbortController();
+    const form = document.forms[this.getAttribute("form")];
+    form?.addEventListener("product:rerender", this._onSectionRerender.bind(this), { signal: this._abortController.signal });
+    form?.addEventListener("variant:change", this._onVariantChanged.bind(this), { signal: this._abortController.signal });
     this._carousels = Array.from(this.querySelectorAll("media-carousel"));
     this._pageDots = Array.from(this.querySelectorAll("page-dots"));
     this._viewInSpaceButton = this.querySelector("[data-shopify-xr]");
@@ -3146,14 +2777,17 @@ var ProductGallery = class extends HTMLElement {
     }
   }
   disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
+    this._abortController.abort();
+  }
+  get filteredIndexes() {
+    return JSON.parse(this.getAttribute("filtered-indexes")).map((index) => parseInt(index) - 1);
   }
   get photoswipe() {
     if (this._photoswipe) {
       return this._photoswipe;
     }
     const photoswipe = new PhotoSwipeLightbox({
-      pswpModule: () => import("{{ 'photoswipe.min.js' | asset_url }}"),
+      pswpModule: () => import("photoswipe"),
       bgOpacity: 1,
       maxZoomLevel: parseInt(this.getAttribute("allow-zoom")) || 3,
       closeTitle: window.themeVariables.strings.closeGallery,
@@ -3235,31 +2869,28 @@ var ProductGallery = class extends HTMLElement {
     }
   }
   _onVariantChanged(event) {
-    const filteredIndexes = this._getFilteredMediaIndexes(event.detail.product, event.detail.variant);
-    this._carousels.forEach((carousel) => carousel.dispatchEvent(new CustomEvent("carousel:filter", { detail: { filteredIndexes } })));
-    this._pageDots.forEach((pageDots) => pageDots.dispatchEvent(new CustomEvent("control:filter", { detail: { filteredIndexes } })));
+    if (!event.detail.variant) {
+      return;
+    }
     if (event.detail.variant["featured_media"] && event.detail.previousVariant["featured_media"] && event.detail.previousVariant["featured_media"]["id"] !== event.detail.variant["featured_media"]["id"] || !event.detail.previousVariant["featured_media"] && event.detail.variant["featured_media"]) {
-      this._carousels.forEach((carousel) => carousel.select(event.detail.variant["featured_media"]["position"] - 1, { animate: false }));
+      this._mediaPositionAfterRerender = event.detail.variant["featured_media"]["position"] - 1;
     }
   }
-  _getFilteredMediaIndexes(product, variant) {
-    const filteredMediaIds = [];
-    product["media"].forEach((media) => {
-      let matchMedia = variant["featured_media"] && media["position"] === variant["featured_media"]["position"];
-      if (media["alt"]?.includes("#") && media["alt"] !== product["title"]) {
-        if (!matchMedia) {
-          const altParts = media["alt"].split("#"), mediaGroupParts = altParts.pop().split("_");
-          product["options"].forEach((option) => {
-            if (option["name"].toLowerCase() === mediaGroupParts[0].toLowerCase()) {
-              if (variant["options"][option["position"] - 1].toLowerCase() !== mediaGroupParts[1].trim().toLowerCase()) {
-                filteredMediaIds.push(media["position"] - 1);
-              }
-            }
-          });
-        }
-      }
-    });
-    return filteredMediaIds;
+  _onSectionRerender(event) {
+    const galleryMarkup = deepQuerySelector(event.detail.htmlFragment, `${this.tagName}[form="${this.getAttribute("form")}"]`);
+    if (!galleryMarkup) {
+      return;
+    }
+    if (galleryMarkup.filteredIndex !== this.filteredIndexes) {
+      this.setAttribute("filtered-indexes", galleryMarkup.getAttribute("filtered-indexes"));
+      const filteredIndexes = this.filteredIndexes;
+      this._carousels.forEach((carousel) => carousel.dispatchEvent(new CustomEvent("carousel:filter", { detail: { filteredIndexes } })));
+      this._pageDots.forEach((pageDots) => pageDots.dispatchEvent(new CustomEvent("control:filter", { detail: { filteredIndexes } })));
+    }
+    if (this._mediaPositionAfterRerender !== null) {
+      this._carousels.forEach((carousel) => carousel.select(this._mediaPositionAfterRerender, { animate: false }));
+      this._mediaPositionAfterRerender = null;
+    }
   }
 };
 var MediaCarousel = class extends ScrollCarousel {
@@ -3342,6 +2973,33 @@ if (!window.customElements.get("media-carousel")) {
   window.customElements.define("media-carousel", MediaCarousel);
 }
 
+// js/common/product/product-loader.js
+var ProductLoader = class {
+  static loadedProducts = {};
+  static load(productHandle) {
+    if (!productHandle) {
+      return;
+    }
+    if (this.loadedProducts[productHandle]) {
+      return this.loadedProducts[productHandle];
+    }
+    this.loadedProducts[productHandle] = new Promise(async (resolve, reject) => {
+      const response = await fetch(`${Shopify.routes.root}products/${productHandle}.js`);
+      if (response.ok) {
+        const responseAsJson = await response.json();
+        resolve(responseAsJson);
+      } else {
+        reject(`
+          Attempted to load information for product with handle ${productHandle}, but this product is in "draft" mode. You won't be able to
+          switch between variants or access to per-variant information. To fully preview this product, change temporarily its status
+          to "active".
+        `);
+      }
+    });
+    return this.loadedProducts[productHandle];
+  }
+};
+
 // js/common/product/quick-add.js
 var ProductQuickAdd = class extends HTMLElement {
   #scopeFromPassed = false;
@@ -3375,8 +3033,66 @@ if (!window.customElements.get("product-quick-add")) {
   window.customElements.define("product-quick-add", ProductQuickAdd);
 }
 
+// js/common/product/product-rerender.js
+var _abortController2, _ProductRerender_instances, onRerender_fn;
+var ProductRerender = class extends HTMLElement {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _ProductRerender_instances);
+    __privateAdd(this, _abortController2);
+  }
+  connectedCallback() {
+    __privateSet(this, _abortController2, new AbortController());
+    if (!this.id || !this.hasAttribute("observe-form")) {
+      console.warn('The <product-rerender> requires an ID to identify the element to re-render, and an "observe-form" attribute referencing to the form to monitor.');
+    }
+    document.forms[this.getAttribute("observe-form")].addEventListener("product:rerender", __privateMethod(this, _ProductRerender_instances, onRerender_fn).bind(this), { signal: __privateGet(this, _abortController2).signal });
+  }
+  disconnectedCallback() {
+    __privateGet(this, _abortController2).abort();
+  }
+};
+_abortController2 = new WeakMap();
+_ProductRerender_instances = new WeakSet();
+onRerender_fn = function(event) {
+  const matchingElement = deepQuerySelector(event.detail.htmlFragment, `#${this.id}`);
+  if (!matchingElement) {
+    return;
+  }
+  const focusedElement = document.activeElement;
+  if (!this.hasAttribute("allow-partial-rerender") || event.detail.productChange) {
+    this.replaceWith(matchingElement);
+  } else {
+    const blockTypes = ["sku", "badges", "price", "payment-terms", "variant-picker", "inventory", "buy-buttons", "pickup-availability", "liquid"];
+    blockTypes.forEach((blockType) => {
+      this.querySelectorAll(`[data-block-type="${blockType}"]`).forEach((element) => {
+        const matchingBlock = matchingElement.querySelector(`[data-block-type="${blockType}"][data-block-id="${element.getAttribute("data-block-id")}"]`);
+        if (matchingBlock) {
+          matchingBlock.querySelectorAll("noscript").forEach((noscript) => {
+            noscript.remove();
+          });
+          if (blockType === "buy-buttons") {
+            element.querySelector("buy-buttons").replaceWith(matchingBlock.querySelector("buy-buttons"));
+          } else {
+            element.replaceWith(matchingBlock);
+          }
+        }
+      });
+    });
+  }
+  if (focusedElement.id) {
+    const element = document.getElementById(focusedElement.id);
+    if (this.contains(element)) {
+      element.focus();
+    }
+  }
+};
+if (!window.customElements.get("product-rerender")) {
+  window.customElements.define("product-rerender", ProductRerender);
+}
+
 // js/common/product/quick-buy-drawer.js
-import { animate as animate7, timeline as timeline5 } from "{{ 'vendor.min.js' | asset_url }}";
+import { animate as animate7, timeline as timeline5 } from "vendor";
 var QuickBuyDrawer = class extends Drawer {
   constructor() {
     super();
@@ -3422,217 +3138,161 @@ if (!window.customElements.get("quick-buy-drawer")) {
 }
 
 // js/common/product/variant-picker.js
-var VariantPicker = class extends HTMLElement {
+import { Delegate as Delegate4 } from "vendor";
+var CACHE_EVICTION_TIME = 1e3 * 60 * 5;
+var _preloadedHtml, _delegate, _intersectionObserver, _form, _selectedVariant, _VariantPicker_instances, getActiveOptionValues_fn, getOptionValuesFromOption_fn, onOptionChanged_fn, onOptionPreload_fn, onIntersection_fn, renderForCombination_fn, createHashKeyForHtml_fn;
+var _VariantPicker = class _VariantPicker extends HTMLElement {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _VariantPicker_instances);
+    __privateAdd(this, _delegate, new Delegate4(document.body));
+    __privateAdd(this, _intersectionObserver, new IntersectionObserver(__privateMethod(this, _VariantPicker_instances, onIntersection_fn).bind(this)));
+    __privateAdd(this, _form);
+    __privateAdd(this, _selectedVariant);
+  }
   async connectedCallback() {
-    this._abortController = new AbortController();
-    this.masterSelector = document.forms[this.getAttribute("form")].id;
-    this.optionSelectors = Array.from(this.querySelectorAll("[data-option-selector]"));
-    if (!this.masterSelector) {
-      console.warn(`The variant selector for product with handle ${this.productHandle} is not linked to any product form.`);
-      return;
-    }
-    this.product = await ProductLoader.load(this.productHandle);
-    this.optionSelectors.forEach((optionSelector) => {
-      optionSelector.addEventListener("change", this._onOptionChanged.bind(this), { signal: this._abortController.signal });
-    });
-    this.masterSelector.addEventListener("change", this._onMasterSelectorChanged.bind(this), { signal: this._abortController.signal });
-    this._updateDisableSelectors();
-    this.selectVariant(this.selectedVariant["id"]);
+    __privateSet(this, _selectedVariant, JSON.parse(this.querySelector("script[data-variant]")?.textContent || "{}"));
+    __privateSet(this, _form, document.forms[this.getAttribute("form-id")]);
+    __privateGet(this, _delegate).on("change", `input[data-option-position][form="${this.getAttribute("form-id")}"]`, __privateMethod(this, _VariantPicker_instances, onOptionChanged_fn).bind(this));
+    __privateGet(this, _delegate).on("pointerenter", `input[data-option-position][form="${this.getAttribute("form-id")}"]:not(:checked) + label`, __privateMethod(this, _VariantPicker_instances, onOptionPreload_fn).bind(this), true);
+    __privateGet(this, _delegate).on("touchstart", `input[data-option-position][form="${this.getAttribute("form-id")}"]:not(:checked) + label`, __privateMethod(this, _VariantPicker_instances, onOptionPreload_fn).bind(this), true);
+    __privateGet(this, _intersectionObserver).observe(this);
   }
   disconnectedCallback() {
-    this._abortController.abort();
+    __privateGet(this, _delegate).off();
+    __privateGet(this, _intersectionObserver).unobserve(this);
   }
   get selectedVariant() {
-    return this._getVariantById(parseInt(this.masterSelector.value));
+    return __privateGet(this, _selectedVariant);
   }
   get productHandle() {
     return this.getAttribute("handle");
-  }
-  get hideSoldOutVariants() {
-    return this.hasAttribute("hide-sold-out-variants");
   }
   get updateUrl() {
     return this.hasAttribute("update-url");
   }
   /**
-   * Select a new variant by its ID
+   * Select a variant using a list of option values. The list of option values might lead to no variant (for instance)
+   * in the case of a combination that does not exist
    */
-  selectVariant(id) {
-    if (!this._isVariantSelectable(this._getVariantById(id))) {
-      id = this._getFirstMatchingAvailableOrSelectableVariant()["id"];
-    }
+  async selectCombination({ optionValues, productChange }) {
     const previousVariant = this.selectedVariant;
-    if (previousVariant && previousVariant.id === id) {
-      return;
-    }
-    this.masterSelector.value = id;
-    this.masterSelector.dispatchEvent(new Event("change", { bubbles: true }));
-    if (this.updateUrl && history.replaceState) {
-      const newUrl = new URL(window.location.href);
-      if (id) {
-        newUrl.searchParams.set("variant", id);
-      } else {
-        newUrl.searchParams.delete("variant");
+    const newContent = document.createRange().createContextualFragment(await __privateMethod(this, _VariantPicker_instances, renderForCombination_fn).call(this, optionValues));
+    if (!productChange) {
+      const newVariantPicker = deepQuerySelector(newContent, `${this.tagName}[form-id="${this.getAttribute("form-id")}"]`);
+      const newVariant = JSON.parse(newVariantPicker.querySelector("script[data-variant]")?.textContent || "{}");
+      __privateSet(this, _selectedVariant, newVariant);
+      __privateGet(this, _form).id.value = __privateGet(this, _selectedVariant)?.id;
+      __privateGet(this, _form).id.dispatchEvent(new Event("change", { bubbles: true }));
+      if (this.updateUrl && __privateGet(this, _selectedVariant)?.id) {
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set("variant", __privateGet(this, _selectedVariant).id);
+        window.history.replaceState({ path: newUrl.toString() }, "", newUrl.toString());
       }
-      window.history.replaceState({ path: newUrl.toString() }, "", newUrl.toString());
+      __privateGet(this, _form).dispatchEvent(new CustomEvent("variant:change", {
+        bubbles: true,
+        detail: {
+          formId: __privateGet(this, _form).id,
+          variant: __privateGet(this, _selectedVariant),
+          previousVariant
+        }
+      }));
     }
-    this._updateDisableSelectors();
-    this.masterSelector.form.dispatchEvent(new CustomEvent("variant:change", {
-      bubbles: true,
+    __privateGet(this, _form).dispatchEvent(new CustomEvent("product:rerender", {
       detail: {
-        product: this.product,
-        variant: this.selectedVariant,
-        previousVariant
+        htmlFragment: newContent,
+        productChange
       }
     }));
+    Shopify?.PaymentButton?.init();
   }
-  _onOptionChanged(event) {
-    if (!event.target.name.startsWith("option")) {
-      return;
-    }
-    this.selectVariant(this._getVariantFromOptions()?.id);
+};
+_preloadedHtml = new WeakMap();
+_delegate = new WeakMap();
+_intersectionObserver = new WeakMap();
+_form = new WeakMap();
+_selectedVariant = new WeakMap();
+_VariantPicker_instances = new WeakSet();
+/**
+ * Get the option values for the active combination
+ */
+getActiveOptionValues_fn = function() {
+  return Array.from(__privateGet(this, _form).elements).filter((item) => item.matches("input[data-option-position]:checked")).sort((a, b) => parseInt(a.getAttribute("data-option-position")) - parseInt(b.getAttribute("data-option-position"))).map((input) => input.value);
+};
+/**
+ * Get the option values for a given input
+ */
+getOptionValuesFromOption_fn = function(input) {
+  const optionValues = [input, ...Array.from(__privateGet(this, _form).elements).filter((item) => item.matches(`input[data-option-position]:not([name="${input.name}"]):checked`))].sort((a, b) => parseInt(a.getAttribute("data-option-position")) - parseInt(b.getAttribute("data-option-position"))).map((input2) => input2.value);
+  return optionValues;
+};
+onOptionChanged_fn = async function(event) {
+  if (!event.target.name.includes("option")) {
+    return;
   }
-  _onMasterSelectorChanged() {
-    const options = this.selectedVariant?.options || [];
-    options.forEach((value, index) => {
-      let input = this.optionSelectors[index].querySelector(`input[type="radio"][name="option${index + 1}"][value="${CSS.escape(value)}"], input[type="hidden"][name="option${index + 1}"], select[name="option${index + 1}"]`), triggerChangeEvent = false;
-      if (input.tagName === "SELECT" || input.tagName === "INPUT" && input.type === "hidden") {
-        triggerChangeEvent = input.value !== value;
-        input.value = value;
-      } else if (input.tagName === "INPUT" && input.type === "radio") {
-        triggerChangeEvent = !input.checked && input.value === value;
-        input.checked = input.value === value;
-      }
-      if (triggerChangeEvent) {
-        input.dispatchEvent(new Event("change", { bubbles: true }));
-      }
+  this.selectCombination({
+    optionValues: __privateMethod(this, _VariantPicker_instances, getActiveOptionValues_fn).call(this),
+    productChange: event.target.hasAttribute("data-product-url")
+  });
+};
+/**
+ * To improve the user experience, we preload a variant whenever the user hovers over a specific option
+ */
+onOptionPreload_fn = function(event, target) {
+  __privateMethod(this, _VariantPicker_instances, renderForCombination_fn).call(this, __privateMethod(this, _VariantPicker_instances, getOptionValuesFromOption_fn).call(this, target.control));
+};
+/**
+ * When the variant picker is intersecting the viewport, we preload the options to improve the user experience
+ * so that switching variants is nearly instant
+ */
+onIntersection_fn = function(entries) {
+  const prerenderOptions = () => {
+    Array.from(__privateGet(this, _form).elements).filter((item) => item.matches("input[data-option-position]:not(:checked)")).forEach((input) => {
+      __privateMethod(this, _VariantPicker_instances, renderForCombination_fn).call(this, __privateMethod(this, _VariantPicker_instances, getOptionValuesFromOption_fn).call(this, input));
     });
-  }
-  /**
-   * Get the product variant by its ID
-   */
-  _getVariantById(id) {
-    return this.product["variants"].find((variant) => variant["id"] === id);
-  }
-  /**
-   * Get the variant based on the options
-   */
-  _getVariantFromOptions() {
-    const options = this._getSelectedOptionValues();
-    return this.product["variants"].find((variant) => {
-      return variant["options"].every((value, index) => value === options[index]);
-    });
-  }
-  /**
-   * Detect if a specific variant is selectable. This is used when the "hide sold out variant" option is enabled, to allow
-   * returning true only if the variant is actually available
-   */
-  _isVariantSelectable(variant) {
-    if (!variant) {
-      return false;
+  };
+  if (entries[0].isIntersecting) {
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(prerenderOptions, { timeout: 2e3 });
     } else {
-      return variant["available"] || !this.hideSoldOutVariants && !variant["available"];
+      prerenderOptions();
     }
-  }
-  /**
-   * This method is used internally to select an available or selectable variant, when the current choice does not
-   * match the requirements. For instance, if sold out variants are configured to be hidden, but that the choices end
-   * up being a non-valid variant, the theme automatically changes the variant to match the requirements. In the case
-   * the customer end up on variant combinations that do not exist, it also switches to a valid combination.
-   *
-   * The algorithm is as follows: if we have for instance three options "Color", "Size" and "Material", we pop the last
-   * option (Material) and try to find the first available variant for the given Color and Size. If none is found we
-   * remove the second option (Size) and try to find the first available variant for the selected color. Finally, if none
-   * is found we return the first available variant independently of any choice.
-   */
-  _getFirstMatchingAvailableOrSelectableVariant() {
-    let options = this._getSelectedOptionValues(), matchedVariant = null, slicedCount = 0;
-    do {
-      options.pop();
-      slicedCount += 1;
-      matchedVariant = this.product["variants"].find((variant) => {
-        if (this.hideSoldOutVariants) {
-          return variant["available"] && variant["options"].slice(0, variant["options"].length - slicedCount).every((value, index) => value === options[index]);
-        } else {
-          return variant["options"].slice(0, variant["options"].length - slicedCount).every((value, index) => value === options[index]);
-        }
-      });
-    } while (!matchedVariant && options.length > 0);
-    return matchedVariant;
-  }
-  _getSelectedOptionValues() {
-    return this.optionSelectors.map((optionSelector) => {
-      return optionSelector.querySelector('input[name^="option"][type="hidden"], input[name^="option"]:checked, select[name^="option"]').value;
-    });
-  }
-  /**
-   * We add specific class to sold out variants based on the selectors
-   */
-  _updateDisableSelectors() {
-    const selectedVariant = this.selectedVariant;
-    if (!selectedVariant) {
-      return;
-    }
-    this._updateDisableSelectorsForOptionLevel(0, selectedVariant);
-  }
-  _updateDisableSelectorsForOptionLevel(level, selectedVariant) {
-    if (!this.optionSelectors[level]) {
-      return;
-    }
-    const applyClassToSelector = (selector, valueIndex, available, hasAtLeastOneCombination) => {
-      const optionValue = Array.from(selector.querySelectorAll("[data-option-value]"))[valueIndex];
-      optionValue.toggleAttribute("hidden", !hasAtLeastOneCombination);
-      if (this.hideSoldOutVariants) {
-        optionValue.toggleAttribute("hidden", !available);
-      } else {
-        optionValue.classList.toggle("is-disabled", !available);
-      }
-    };
-    const hasCombination = (variant, level2, value, selectedVariant2) => {
-      return Array.from({ length: level2 + 1 }, (_, i) => {
-        if (i === level2) {
-          return variant[`option${level2 + 1}`] === value;
-        } else {
-          return variant[`option${i + 1}`] === selectedVariant2[`option${i + 1}`];
-        }
-      }).every((condition) => condition);
-    };
-    this.product["options"][level]["values"].forEach((value, valueIndex) => {
-      const hasAtLeastOneCombination = this.product["variants"].some(
-        (variant) => hasCombination(variant, level, value, selectedVariant) && variant
-      );
-      const hasAvailableVariant = this.product["variants"].some(
-        (variant) => hasCombination(variant, level, value, selectedVariant) && variant["available"]
-      );
-      applyClassToSelector(this.optionSelectors[level], valueIndex, hasAvailableVariant, hasAtLeastOneCombination);
-      this._updateDisableSelectorsForOptionLevel(level + 1, selectedVariant);
-    });
   }
 };
-var VariantOptionValue = class extends HTMLElement {
-  constructor() {
-    super();
-    this._onVariantChangedListener = this._onVariantChanged.bind(this);
+renderForCombination_fn = async function(optionValues) {
+  const optionValuesAsString = optionValues.join(",");
+  const hashKey = __privateMethod(this, _VariantPicker_instances, createHashKeyForHtml_fn).call(this, optionValuesAsString);
+  let productUrl = `${Shopify.routes.root}products/${this.productHandle}`;
+  for (const optionValue of optionValues) {
+    const inputForOptionValue = Array.from(__privateGet(this, _form).elements).find((item) => item.matches(`input[value="${optionValue}"]`));
+    if (inputForOptionValue?.dataset.productUrl) {
+      productUrl = inputForOptionValue.dataset.productUrl;
+      break;
+    }
   }
-  connectedCallback() {
-    document.forms[this.getAttribute("form")]?.addEventListener("variant:change", this._onVariantChangedListener);
+  if (!__privateGet(_VariantPicker, _preloadedHtml).has(hashKey)) {
+    const sectionQueryParam = this.getAttribute("context") === "quick_buy" ? "" : `&section_id=${this.getAttribute("section-id")}`;
+    const promise = new Promise(async (resolve) => {
+      resolve(await (await fetch(`${productUrl}?option_values=${optionValuesAsString}${sectionQueryParam}`)).text());
+    });
+    __privateGet(_VariantPicker, _preloadedHtml).set(hashKey, { htmlPromise: promise, timestamp: Date.now() });
+    if (__privateGet(_VariantPicker, _preloadedHtml).size > 100) {
+      __privateGet(_VariantPicker, _preloadedHtml).delete(Array.from(__privateGet(_VariantPicker, _preloadedHtml).keys())[0]);
+    }
   }
-  disconnectedCallback() {
-    document.forms[this.getAttribute("form")]?.removeEventListener("variant:change", this._onVariantChangedListener);
-  }
-  _onVariantChanged(event) {
-    this.innerHTML = event.detail.variant[this.getAttribute("for")];
-  }
+  return __privateGet(_VariantPicker, _preloadedHtml).get(hashKey).htmlPromise;
 };
+createHashKeyForHtml_fn = function(optionValuesAsString) {
+  return `${optionValuesAsString}-${this.getAttribute("section-id")}`;
+};
+__privateAdd(_VariantPicker, _preloadedHtml, /* @__PURE__ */ new Map());
+var VariantPicker = _VariantPicker;
 if (!window.customElements.get("variant-picker")) {
   window.customElements.define("variant-picker", VariantPicker);
 }
-if (!window.customElements.get("variant-option-value")) {
-  window.customElements.define("variant-option-value", VariantOptionValue);
-}
 
 // js/common/media/base-media.js
-import { inView as inView4 } from "{{ 'vendor.min.js' | asset_url }}";
+import { inView as inView4 } from "vendor";
 var BaseMedia = class extends HTMLElement {
   static get observedAttributes() {
     return ["playing"];
@@ -3746,9 +3406,9 @@ var VideoMedia = class extends BaseMedia {
         <slot></slot>
         
         <svg part="play-button" fill="none" width="48" height="48" viewBox="0 0 48 48">
-          <path d="M48 24C48 10.745 37.255 0 24 0S0 10.745 0 24s10.745 24 24 24 24-10.745 24-24Z" fill="{{ settings.background }}"/>
-          <path d="M18.578 32.629a.375.375 0 0 1-.578-.316V15.687c0-.297.328-.476.578-.316l12.931 8.314c.23.147.23.483 0 .63L18.578 32.63Z" fill="{{ settings.text_color }}"/>
-          <path d="M24 .5C36.979.5 47.5 11.021 47.5 24S36.979 47.5 24 47.5.5 36.979.5 24 11.021.5 24 .5Z" stroke="{{ settings.text_color }}" stroke-opacity=".12"/>
+          <path d="M48 24C48 10.745 37.255 0 24 0S0 10.745 0 24s10.745 24 24 24 24-10.745 24-24Z" fill="${window.themeVariables.settings.pageBackground}"/>
+          <path d="M18.578 32.629a.375.375 0 0 1-.578-.316V15.687c0-.297.328-.476.578-.316l12.931 8.314c.23.147.23.483 0 .63L18.578 32.63Z" fill="${window.themeVariables.settings.textColor}"/>
+          <path d="M24 .5C36.979.5 47.5 11.021 47.5 24S36.979 47.5 24 47.5.5 36.979.5 24 11.021.5 24 .5Z" stroke="${window.themeVariables.settings.textColor}" stroke-opacity=".12"/>
         </svg>
       `));
     }
@@ -3861,7 +3521,7 @@ if (!window.customElements.get("video-media")) {
 }
 
 // js/common/navigation/accordion-disclosure.js
-import { timeline as timeline6 } from "{{ 'vendor.min.js' | asset_url }}";
+import { timeline as timeline6 } from "vendor";
 
 // js/common/navigation/animated-details.js
 var AnimatedDetails = class extends HTMLDetailsElement {
@@ -3942,7 +3602,7 @@ if (!window.customElements.get("accordion-disclosure")) {
 }
 
 // js/common/navigation/tabs.js
-import { animate as animate8 } from "{{ 'vendor.min.js' | asset_url }}";
+import { animate as animate8 } from "vendor";
 var Tabs = class extends HTMLElement {
   static get observedAttributes() {
     return ["selected-index"];
@@ -4030,7 +3690,7 @@ if (!window.customElements.get("x-tabs")) {
 }
 
 // js/common/search/predictive-search.js
-import { animate as animate9 } from "{{ 'vendor.min.js' | asset_url }}";
+import { animate as animate9 } from "vendor";
 var PredictiveSearch = class extends HTMLElement {
   constructor() {
     super();
@@ -4142,20 +3802,20 @@ if (!window.customElements.get("search-drawer")) {
 }
 
 // js/common/text/section-header.js
-import { animate as animate10, inView as inView5 } from "{{ 'vendor.min.js' | asset_url }}";
-var _reveal2, reveal_fn2;
+import { animate as animate10, inView as inView5 } from "vendor";
+var _SectionHeader_instances, reveal_fn2;
 var SectionHeader = class extends HTMLElement {
   constructor() {
     super(...arguments);
-    __privateAdd(this, _reveal2);
+    __privateAdd(this, _SectionHeader_instances);
   }
   connectedCallback() {
     if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-      inView5(this, __privateMethod(this, _reveal2, reveal_fn2).bind(this), { margin: "0px 0px -100px 0px" });
+      inView5(this, __privateMethod(this, _SectionHeader_instances, reveal_fn2).bind(this), { margin: "0px 0px -100px 0px" });
     }
   }
 };
-_reveal2 = new WeakSet();
+_SectionHeader_instances = new WeakSet();
 reveal_fn2 = function() {
   const heading = this.querySelector('h2[reveal-on-scroll="true"]'), headingKeyframe = getHeadingKeyframe(heading);
   animate10(...headingKeyframe);
@@ -4181,10 +3841,1240 @@ if (!window.customElements.get("marquee-text")) {
   window.customElements.define("marquee-text", MarqueeText);
 }
 
+// js/sections/announcement-bar.js
+import { timeline as timeline7 } from "vendor";
+var AnnouncementBar = class extends EffectCarousel {
+  _transitionTo(fromSlide, toSlide) {
+    timeline7([
+      [fromSlide, { transform: ["translateY(0)", "translateY(-5px)"], opacity: [1, 0], visibility: ["visible", "hidden"] }, { duration: 0.2 }],
+      [toSlide, { transform: ["translateY(5px)", "translateY(0)"], opacity: [0, 1], visibility: ["hidden", "visible"] }, { duration: 0.2 }]
+    ]);
+  }
+};
+if (!window.customElements.get("announcement-bar")) {
+  window.customElements.define("announcement-bar", AnnouncementBar);
+}
+
+// js/sections/before-after-image.js
+var SplitCursor = class extends HTMLElement {
+  connectedCallback() {
+    this._parentSection = this.closest(".shopify-section");
+    this._dragging = false;
+    this._offsetX = this._currentX = 0;
+    this._parentSection.addEventListener("pointerdown", this._onPointerDown.bind(this));
+    this._parentSection.addEventListener("pointermove", this._onPointerMove.bind(this));
+    this._parentSection.addEventListener("pointerup", this._onPointerUp.bind(this));
+    this._recalculateOffset();
+    window.addEventListener("resize", this._recalculateOffset.bind(this));
+  }
+  get minOffset() {
+    return -this.offsetLeft - (document.dir === "rtl" ? this.clientWidth : 0);
+  }
+  get maxOffset() {
+    return this.offsetParent.clientWidth + this.minOffset;
+  }
+  _onPointerDown(event) {
+    if (event.target === this || this.contains(event.target)) {
+      this._initialX = event.clientX - this._offsetX;
+      this._dragging = true;
+    }
+  }
+  _onPointerMove(event) {
+    if (!this._dragging) {
+      return;
+    }
+    this._currentX = Math.min(Math.max(event.clientX - this._initialX, this.minOffset), this.maxOffset);
+    this._offsetX = this._currentX;
+    this._parentSection.style.setProperty("--clip-path-offset", `${this._currentX.toFixed(1)}px`);
+  }
+  _onPointerUp() {
+    this._dragging = false;
+  }
+  _recalculateOffset() {
+    this._parentSection.style.setProperty("--clip-path-offset", `${Math.min(Math.max(this.minOffset, this._currentX.toFixed(1)), this.maxOffset)}px`);
+  }
+};
+if (!window.customElements.get("split-cursor")) {
+  window.customElements.define("split-cursor", SplitCursor);
+}
+
+// js/sections/collection-list.js
+import { timeline as timeline8, inView as inView6 } from "vendor";
+var CollectionList = class extends HTMLElement {
+  connectedCallback() {
+    if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      inView6(this, this._reveal.bind(this), { margin: "-100px" });
+    }
+  }
+  _reveal() {
+    const toReveal = Array.from(this.querySelectorAll("[reveal-js]"));
+    timeline8([
+      [toReveal, { opacity: 1 }, { duration: 0 }],
+      [toReveal.map((item) => item.querySelector("img, svg")), { opacity: [0, 1], transform: ["scale(1.03)", "auto"] }, { duration: 0.2 }],
+      [toReveal.map((item) => item.querySelector(".collection-card__content-wrapper")), { opacity: [0, 1] }, { duration: 0.2 }]
+    ]);
+  }
+};
+if (!window.customElements.get("collection-list")) {
+  window.customElements.define("collection-list", CollectionList);
+}
+
+// js/sections/customer-login.js
+import { Delegate as Delegate5 } from "vendor";
+var AccountLogin = class extends HTMLElement {
+  connectedCallback() {
+    this.recoverForm = this.querySelector("#recover");
+    this.loginForm = this.querySelector("#login");
+    if (window.location.hash === "#recover") {
+      this._switchForms();
+    }
+    new Delegate5(this).on("click", '[href="#recover"], [href="#login"]', this._switchForms.bind(this));
+  }
+  _switchForms(event) {
+    if (event) {
+      event.preventDefault();
+    }
+    this.recoverForm.hidden = !this.recoverForm.hidden;
+    this.loginForm.hidden = !this.loginForm.hidden;
+  }
+};
+if (!window.customElements.get("account-login")) {
+  window.customElements.define("account-login", AccountLogin);
+}
+
+// js/sections/header.js
+import { animate as animate11, timeline as timeline9, stagger as stagger5, Delegate as Delegate6 } from "vendor";
+var reduceMenuAnimation = window.themeVariables.settings.reduceMenuAnimation;
+var StoreHeader = class extends HTMLElement {
+  connectedCallback() {
+    if (this.hasAttribute("hide-on-scroll") && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      this._lastScrollTop = 0;
+      this._accumulatedScroll = 0;
+      this._isVisible = true;
+      this._hasSwitchedToSticky = false;
+      window.addEventListener("scroll", throttle(this._onScroll.bind(this)));
+    }
+    this.addEventListener("toggle", this._checkTransparency.bind(this), { capture: true });
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        this.classList.remove("is-filled");
+        this._setupTransparentHeader();
+      }
+    });
+    this._setupTransparentHeader();
+    if (this.hasAttribute("sticky")) {
+      if (Shopify.designMode) {
+        document.addEventListener("shopify:section:load", this._setupTransparentHeader.bind(this));
+        document.addEventListener("shopify:section:unload", this._setupTransparentHeader.bind(this));
+        document.addEventListener("shopify:section:reorder", this._setupTransparentHeader.bind(this));
+      }
+    }
+  }
+  async hide() {
+    if (this._isVisible) {
+      this._isVisible = false;
+      document.documentElement.style.setProperty("--header-is-visible", "0");
+      await animate11(this, { transform: ["translateY(0)", "translateY(-100%)"] }, { duration: 0.2, easing: "ease" }).finished;
+      this.closest(".shopify-section").style.visibility = "hidden";
+    }
+  }
+  show() {
+    if (!this._isVisible) {
+      this.closest(".shopify-section").style.visibility = "visible";
+      document.documentElement.style.setProperty("--header-is-visible", "1");
+      animate11(this, { transform: ["translateY(-100%)", "translateY(0)"] }, { duration: 0.2, easing: "ease" });
+      this._accumulatedScroll = 0;
+      this._isVisible = true;
+    }
+  }
+  _onScroll() {
+    if (window.scrollY < 0) {
+      return;
+    }
+    this._accumulatedScroll = Math.max(0, this._accumulatedScroll + (window.scrollY - this._lastScrollTop));
+    if (window.scrollY < this._lastScrollTop) {
+      this.show();
+    } else if (this._accumulatedScroll > parseInt(this.getAttribute("hide-on-scroll")) && this.querySelectorAll("[open]").length === 0) {
+      this.hide();
+    }
+    this._lastScrollTop = window.scrollY;
+  }
+  _checkTransparency() {
+    let hasFallbackScrollDetection = false;
+    if (CSS.supports("selector(:has(> *))") && this.hasAttribute("sticky") && !this.hasAttribute("hide-on-scroll") && this.hasAttribute("allow-transparency")) {
+      const offsetBeforeChanging = 500;
+      if (this.querySelectorAll("[open]").length > 0) {
+        this.classList.add("is-filled");
+      } else if (window.scrollY >= offsetBeforeChanging && !this._hasSwitchedToSticky) {
+        this._hasSwitchedToSticky = true;
+        this.classList.add("is-filled");
+        animate11(this, { transform: ["translateY(-100%)", "translateY(0)"] }, { duration: 0.15, easing: "ease" });
+      } else if (window.scrollY < offsetBeforeChanging) {
+        if (this._hasSwitchedToSticky) {
+          this._hasSwitchedToSticky = false;
+          animate11(this, { transform: ["translateY(0)", "translateY(-100%)"] }, { duration: 0.15, easing: "ease" }).finished.then(() => {
+            this.style.transform = null;
+            this.classList.remove("is-filled");
+          });
+        } else if (this.getAnimations().length === 0) {
+          this.classList.remove("is-filled");
+        }
+      }
+    } else {
+      hasFallbackScrollDetection = window.scrollY > 20;
+      this.classList.toggle("is-filled", !this.hasAttribute("allow-transparency") || this.querySelectorAll("[open]").length > 0 || hasFallbackScrollDetection);
+    }
+  }
+  _setupTransparentHeader() {
+    if (document.querySelector(".shopify-section:first-child [allow-transparent-header]")) {
+      this.setAttribute("allow-transparency", "");
+      this.addEventListener("mouseenter", this._checkTransparency.bind(this));
+      this.addEventListener("mouseleave", this._checkTransparency.bind(this));
+      if (this.hasAttribute("sticky")) {
+        window.addEventListener("scroll", throttle(this._checkTransparency.bind(this)));
+      }
+      this._checkTransparency();
+    } else {
+      this.removeAttribute("allow-transparency");
+    }
+  }
+};
+var DropdownDisclosure = class _DropdownDisclosure extends AnimatedDetails {
+  constructor() {
+    super();
+    this._detectClickOutsideListener = this._detectClickOutside.bind(this);
+    this._detectEscKeyboardListener = this._detectEscKeyboard.bind(this);
+    this._detectFocusOutListener = this._detectFocusOut.bind(this);
+    this._detectHoverListener = this._detectHover.bind(this);
+    this._hoverTimer = null;
+    this.addEventListener("mouseover", this._detectHoverListener.bind(this));
+    this.addEventListener("mouseout", this._detectHoverListener.bind(this));
+  }
+  get trigger() {
+    return !window.matchMedia("screen and (pointer: fine)").matches ? "click" : this.getAttribute("trigger");
+  }
+  get mouseOverDelayTolerance() {
+    return 250;
+  }
+  /**
+   * When the summary is clicked and that the mode is hover, we follow the link (if set) that may have been specified
+   * on the parent. If the mode is click, then we deferred to the default behavior of the "AnimatedDetails" parent
+   */
+  _onSummaryClicked(event) {
+    if (this.trigger === "hover") {
+      event.preventDefault();
+      if (event.currentTarget.hasAttribute("data-url")) {
+        window.location.href = event.currentTarget.getAttribute("data-url");
+      }
+    } else {
+      super._onSummaryClicked(event);
+    }
+  }
+  async _transition(value) {
+    if (value) {
+      this.setAttribute("open", "");
+      document.addEventListener("click", this._detectClickOutsideListener);
+      document.addEventListener("keydown", this._detectEscKeyboardListener);
+      document.addEventListener("focusout", this._detectFocusOutListener);
+      const openSiblings = Array.from(this.closest("ul").querySelectorAll("[open]")).filter((item) => item !== this);
+      openSiblings.forEach((sibling) => sibling.open = false);
+      await this._transitionIn(openSiblings.length > 0);
+    } else {
+      document.removeEventListener("click", this._detectClickOutsideListener);
+      document.removeEventListener("keydown", this._detectEscKeyboardListener);
+      document.removeEventListener("focusout", this._detectFocusOutListener);
+      await this._transitionOut();
+      this.removeAttribute("open");
+    }
+  }
+  _transitionIn(hasOpenSiblings = false) {
+    const timelineSequence = [[this.contentElement, { opacity: 1 }, { duration: 0.2 }]];
+    if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches && !reduceMenuAnimation) {
+      timelineSequence.push([this.contentElement.querySelectorAll(":scope > ul > li"), { opacity: [0, 1], transform: ["translateY(-10px)", "translateY(0)"] }, { delay: stagger5(0.025), at: "-0.1", duration: 0.2 }]);
+    }
+    return timeline9(timelineSequence, { delay: hasOpenSiblings > 0 ? 0.1 : 0 }).finished;
+  }
+  _transitionOut() {
+    return timeline9([[this.contentElement, { opacity: 0 }, { duration: 0.2 }]]).finished;
+  }
+  /**
+   * When dropdown menu is configured to open on click, we add a listener to detect click outside and automatically
+   * close the navigation.
+   */
+  _detectClickOutside(event) {
+    if (this.trigger !== "click") {
+      return;
+    }
+    if (!this.contains(event.target) && !(event.target.closest("details") instanceof _DropdownDisclosure)) {
+      this.open = false;
+    }
+  }
+  /**
+   * On desktop device, if the mode is set to hover, we open/close the dropdown on hover
+   */
+  _detectHover(event) {
+    if (this.trigger !== "hover") {
+      return;
+    }
+    if (event.type === "mouseover") {
+      this.open = true;
+      clearTimeout(this._hoverTimer);
+    } else {
+      this._hoverTimer = setTimeout(() => this.open = false, this.mouseOverDelayTolerance);
+    }
+  }
+  /**
+   * Detect if we hit the "Escape" key to automatically close the dropdown
+   */
+  _detectEscKeyboard(event) {
+    if (event.code === "Escape") {
+      const targetMenu = event.target.closest("details[open]");
+      if (targetMenu) {
+        targetMenu.open = false;
+      }
+    }
+  }
+  /**
+   * Close the dropdown automatically when the dropdown is focused out
+   */
+  _detectFocusOut(event) {
+    if (event.relatedTarget && !this.contains(event.relatedTarget)) {
+      this.open = false;
+    }
+  }
+};
+var MegaMenuDisclosure = class extends DropdownDisclosure {
+  constructor() {
+    super();
+    this.addEventListener("pointerover", this._preloadImages.bind(this));
+  }
+  get mouseOverDelayTolerance() {
+    return 500;
+  }
+  _transitionIn(hasOpenSiblings) {
+    const timelineSequence = [[this.contentElement, { opacity: 1 }, { duration: 0.2 }], "mega-menu"], contentDelay = hasOpenSiblings ? 0.1 : 0;
+    if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches && !reduceMenuAnimation) {
+      this.contentElement.querySelectorAll(".mega-menu__promo").forEach((promo) => {
+        timelineSequence.push([promo, { opacity: [0, 1] }, { duration: 0.25, delay: contentDelay, at: "mega-menu" }], "mega-menu-promo");
+      });
+      this.contentElement.querySelectorAll(".mega-menu__nav > li").forEach((column) => {
+        timelineSequence.push([column.querySelectorAll(":scope > :first-child, :scope li"), { opacity: [0, 1], transform: ["translateY(-10px)", "translateY(0)"] }, { easing: "ease", delay: stagger5(0.025, { start: contentDelay }), at: "mega-menu", duration: 0.2 }]);
+      });
+    }
+    return timeline9(timelineSequence).finished;
+  }
+  /**
+   * When the toggle is hovered we preload the mega-menu images to improve perceived performance
+   */
+  _preloadImages() {
+    Array.from(this.querySelectorAll('img[loading="lazy"]')).forEach((image) => image.setAttribute("loading", "eager"));
+  }
+};
+var MegaMenuPromoCarousel = class extends EffectCarousel {
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.nextElementSibling) {
+      this.addEventListener("carousel:select", (event) => this._updateControlsColor(event.detail.slide));
+    }
+    this._updateControlsColor(this.items[this.selectedIndex]);
+  }
+  _updateControlsColor(slide) {
+    const extractFrom = slide.classList.contains("content-over-media") ? slide : slide.firstElementChild;
+    this.nextElementSibling.style.setProperty("--text-color", extractFrom.style.getPropertyValue("--text-color"));
+  }
+};
+var NavigationDrawer = class extends Drawer {
+  constructor() {
+    super();
+    const delegate = new Delegate6(this);
+    delegate.on("click", "button[data-panel]", this._onPanelButtonClick.bind(this));
+    this._isTransitioning = false;
+    this.addEventListener("dialog:after-hide", () => {
+      this.reinitializeDrawer();
+    });
+  }
+  get openFrom() {
+    return window.matchMedia("(max-width: 699px)").matches ? this.getAttribute("mobile-opening") : super.openFrom;
+  }
+  // Used for navigation mobile and navigation desktop set to drawer
+  switchToPanel(panelIndex, linkListIndex = null) {
+    const panels = this.querySelectorAll(".panel");
+    let panelToHideTransform, panelToShowTransform, panelToHide = linkListIndex !== null ? panels[parseInt(panelIndex) - 1] : panels[parseInt(panelIndex) + 1], panelToShow = panels[panelIndex], linkLists = panelToShow.querySelectorAll(".panel__wrapper"), timelineSequence = [];
+    if (document.dir === "rtl") {
+      panelToHideTransform = linkListIndex !== null ? ["translateX(0%)", "translateX(100%)"] : ["translateX(0%)", "translateX(-100%)"];
+      panelToShowTransform = linkListIndex !== null ? ["translateX(-100%)", "translateX(0%)"] : ["translateX(100%)", "translateX(0%)"];
+    } else {
+      panelToHideTransform = linkListIndex !== null ? ["translateX(0%)", "translateX(-100%)"] : ["translateX(0%)", "translateX(100%)"];
+      panelToShowTransform = linkListIndex !== null ? ["translateX(100%)", "translateX(0%)"] : ["translateX(-100%)", "translateX(0%)"];
+    }
+    timelineSequence.push(
+      [panelToHide, { transform: panelToHideTransform, opacity: [1, 0], visibility: ["visible", "hidden"] }, { duration: 0.3, opacity: { at: "+0.3" }, transform: { at: "+0.3" } }],
+      "panelHidden",
+      [panelToShow, { opacity: [0, 1], visibility: ["hidden", "visible"], transform: panelToShowTransform }, { at: "<", transform: { duration: 0.3 } }]
+    );
+    if (linkListIndex !== null) {
+      timelineSequence.push(this.switchLinkList(linkLists, linkListIndex));
+    }
+    timeline9(timelineSequence);
+  }
+  // Used when mega menu is set to drawer
+  showPanel(panelIndex, linkListIndex = null) {
+    const panels = this.querySelectorAll(".panel");
+    let timelineSequence = [], panelToShow = panels[panelIndex], linkLists = panelToShow.querySelectorAll(".panel__wrapper");
+    if (!panelToShow.hasAttribute("open") && !this._isTransitioning) {
+      this._isTransitioning = true;
+      timelineSequence.push(
+        [this, { width: [this.offsetWidth + "px", (this.offsetWidth - parseInt(window.getComputedStyle(this).getPropertyValue("padding"))) * 2 + "px"] }, { duration: 0.2 }],
+        [panelToShow, { opacity: [0, 1], visibility: ["hidden", "visible"] }, { at: "<" }]
+      );
+      timelineSequence.push(this.switchLinkList(linkLists, linkListIndex));
+    }
+    if (this.previousLinkIndex && this.previousLinkIndex !== linkListIndex) {
+      timelineSequence.push([linkLists[this.previousLinkIndex], { opacity: [1, 0], visibility: ["visible", "hidden"] }, { duration: 0.2 }]);
+    }
+    timeline9(timelineSequence).finished.then(() => {
+      if (this.previousLinkIndex && this.previousLinkIndex !== linkListIndex) {
+        linkLists[this.previousLinkIndex].removeAttribute("style");
+      }
+      if (panelToShow.hasAttribute("open") && this.previousLinkIndex !== linkListIndex) {
+        timeline9([this.switchLinkList(linkLists, linkListIndex)]);
+      }
+      this.previousLinkIndex = linkListIndex;
+      panelToShow.setAttribute("open", "");
+      this._isTransitioning = false;
+    });
+  }
+  switchLinkList(linkLists, linkListIndex) {
+    Array.from(linkLists).forEach((item) => {
+      item.setAttribute("hidden", "");
+    });
+    linkLists[linkListIndex].removeAttribute("hidden");
+    return [linkLists[linkListIndex].querySelectorAll("li"), { opacity: [0, 1], visibility: ["hidden", "visible"], transform: ["translateY(-10px)", "translateY(0)"] }, { easing: "ease", duration: 0.2, at: "-0.15", delay: stagger5(0.025, { start: 0.1 }) }];
+  }
+  // Set navigation drawer to initial state when drawer closed
+  reinitializeDrawer() {
+    if (this.hasAttribute("mega-menu") && window.matchMedia("(min-width:1150px)").matches) {
+      this.style.removeProperty("width");
+      this.setExpanded();
+    } else {
+      const firstPanel = this.querySelector(".panel:first-child");
+      firstPanel.style.opacity = "1";
+      firstPanel.style.visibility = "visible";
+      firstPanel.style.transform = "translateX(0%)";
+    }
+    Array.from(this.querySelectorAll(".panel:not(:first-child)")).forEach((item) => {
+      if (this.hasAttribute("mega-menu")) {
+        item.removeAttribute("open");
+      }
+      item.style.opacity = "0";
+      item.style.visibility = "hidden";
+      Array.from(item.querySelectorAll(".panel__wrapper")).forEach((list) => list.setAttribute("hidden", ""));
+    });
+  }
+  setExpanded(target) {
+    Array.from(this.querySelectorAll("button[data-panel]")).forEach((item) => {
+      item.setAttribute("aria-expanded", "false");
+    });
+    if (target) {
+      target.setAttribute("aria-expanded", "true");
+    }
+  }
+  _onPanelButtonClick(event, target) {
+    if (this.hasAttribute("mega-menu") && window.matchMedia("(min-width:1150px)").matches) {
+      this.setExpanded(target);
+      this.showPanel(...target.getAttribute("data-panel").split("-"));
+    } else {
+      this.switchToPanel(...target.getAttribute("data-panel").split("-"));
+    }
+  }
+};
+if (!window.customElements.get("store-header")) {
+  window.customElements.define("store-header", StoreHeader);
+}
+if (!window.customElements.get("dropdown-disclosure")) {
+  window.customElements.define("dropdown-disclosure", DropdownDisclosure, { extends: "details" });
+}
+if (!window.customElements.get("mega-menu-disclosure")) {
+  window.customElements.define("mega-menu-disclosure", MegaMenuDisclosure, { extends: "details" });
+}
+if (!window.customElements.get("mega-menu-promo-carousel")) {
+  window.customElements.define("mega-menu-promo-carousel", MegaMenuPromoCarousel);
+}
+if (!window.customElements.get("navigation-drawer")) {
+  window.customElements.define("navigation-drawer", NavigationDrawer);
+}
+
+// js/sections/feature-chart.js
+import { animate as motionAnimate3, scroll } from "vendor";
+var FeatureChart = class extends HTMLElement {
+  connectedCallback() {
+    this.viewButtonElement = this.querySelector('[data-action="toggle-rows"]');
+    this.featureChartTable = this.querySelector(".feature-chart__table");
+    this.featureChartRows = Array.from(this.featureChartTable.childNodes);
+    this.featureProductRow = this.querySelector(".feature-chart__table-row--product");
+    this.featureChartSticky = this.querySelector(".feature-chart__table-row--sticky");
+    if (this.viewButtonElement) {
+      this.viewButtonElement.addEventListener("click", this._toggleRows.bind(this));
+    }
+    if (this.featureChartSticky) {
+      this.featureChartSticky.style.width = `${this.featureChartTable.scrollWidth}px`;
+      this.featureChartTable.addEventListener("scroll", (event) => {
+        this.featureChartSticky.style.marginLeft = -1 * event.target.scrollLeft + "px";
+      });
+      new ResizeObserver((entries) => {
+        this.featureChartSticky.style.width = `${entries[0].contentRect.width}px`;
+      }).observe(this.featureChartTable);
+      const offset = getComputedStyle(this).scrollPaddingTop;
+      scroll(({ y }) => {
+        if (y.current >= y.targetOffset + this.featureProductRow.clientHeight / 2 && y.progress < 0.85) {
+          this.featureChartSticky.classList.add("is-visible");
+        } else {
+          this.featureChartSticky.classList.remove("is-visible");
+        }
+      }, {
+        target: this.featureChartTable,
+        offset: [`${offset} start`, `end ${offset}`]
+      });
+    }
+  }
+  _toggleRows() {
+    if (this.classList.contains("is-expanded")) {
+      this._hideRows();
+    } else {
+      this._showRows();
+    }
+  }
+  async _showRows() {
+    const fromHeight = this.featureChartTable.clientHeight;
+    this.featureChartRows.forEach((row) => {
+      row.hidden = false;
+    });
+    this.viewButtonElement.querySelector(".feature-chart__toggle-text").innerText = this.viewButtonElement.getAttribute("data-view-less");
+    this.classList.add("is-expanded");
+    await motionAnimate3(this.featureChartTable, { height: [`${fromHeight}px`, `${this.featureChartTable.clientHeight}px`] }).finished;
+    this.featureChartTable.style.height = "auto";
+  }
+  async _hideRows() {
+    let fromHeight = this.featureChartTable.clientHeight, toHeight = 0;
+    this.featureChartRows.slice(0, parseInt(this.getAttribute("max-rows"))).forEach((row) => {
+      toHeight += row.clientHeight;
+    });
+    this.viewButtonElement.querySelector(".feature-chart__toggle-text").innerText = this.viewButtonElement.getAttribute("data-view-more");
+    this.classList.remove("is-expanded");
+    await motionAnimate3(this.featureChartTable, { height: [`${fromHeight}px`, `${toHeight}px`] }).finished;
+    this.featureChartRows.slice(parseInt(this.getAttribute("max-rows"))).forEach((row) => row.hidden = true);
+    this.featureChartTable.style.height = "auto";
+  }
+};
+if (!window.customElements.get("feature-chart")) {
+  window.customElements.define("feature-chart", FeatureChart);
+}
+
+// js/sections/image-banner.js
+import { scroll as scroll2, timeline as timeline10, animate as animate12, inView as inView7 } from "vendor";
+var ImageBanner = class extends HTMLElement {
+  connectedCallback() {
+    if (this.parallax && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      this._setupParallax();
+    }
+    inView7(this, async () => {
+      await imageLoaded(Array.from(this.querySelectorAll(":scope > :is(img, video, iframe, svg, video-media)")));
+      const headings = Array.from(this.querySelectorAll('[reveal-on-scroll="true"]'));
+      timeline10([
+        [this, { opacity: [0, 1] }, { duration: 0.25 }],
+        ...headings.map((heading) => [...getHeadingKeyframe(heading)])
+      ]);
+    });
+  }
+  get parallax() {
+    return this.hasAttribute("parallax") ? parseFloat(this.getAttribute("parallax")) : false;
+  }
+  _setupParallax() {
+    const media = Array.from(this.querySelectorAll(":scope > :is(img, video, iframe, svg, video-media, picture)")), [scale, translate] = [1 + this.parallax, this.parallax * 100 / (1 + this.parallax)];
+    scroll2(
+      animate12(media, { transform: [`scale(${scale}) translateY(-${translate}%)`, `scale(${scale}) translateY(0)`] }, { easing: "linear" }),
+      {
+        target: this,
+        offset: ["start end", "end start"]
+      }
+    );
+  }
+};
+if (!window.customElements.get("image-banner")) {
+  window.customElements.define("image-banner", ImageBanner);
+}
+
+// js/sections/image-link-blocks.js
+var ImageLinkBlocks = class extends HTMLElement {
+  connectedCallback() {
+    this.items = Array.from(this.children);
+    new ScrollArea(this);
+    this.addEventListener("control:prev", this._prev);
+    this.addEventListener("control:next", this._next);
+  }
+  _prev() {
+    this.scrollBy({ left: (document.dir === "rtl" ? 1 : -1) * this.items[0].clientWidth, behavior: "smooth" });
+  }
+  _next() {
+    this.scrollBy({ left: (document.dir === "rtl" ? -1 : 1) * this.items[0].clientWidth, behavior: "smooth" });
+  }
+};
+if (!window.customElements.get("image-link-blocks")) {
+  window.customElements.define("image-link-blocks", ImageLinkBlocks);
+}
+
+// js/sections/images-with-text-scrolling.js
+import { animate as animate13, timeline as timeline11, inView as inView8 } from "vendor";
+var ImagesWithTextScrolling = class extends HTMLElement {
+  connectedCallback() {
+    inView8(this, this._reveal.bind(this));
+    if (this.hasAttribute("scrolling-experience")) {
+      this._imageToTransitionItems = Array.from(this.querySelectorAll(".images-scrolling-desktop__media-wrapper > :not(:first-child)"));
+      this._mainImage = this.querySelector(".images-scrolling-desktop__media-wrapper > :first-child");
+      this._contentItems = Array.from(this.querySelectorAll(".images-scrolling__content"));
+      if (this._imageToTransitionItems.length > 0) {
+        window.addEventListener("scroll", throttle(this._onScroll.bind(this)));
+      }
+    }
+  }
+  _reveal() {
+    Array.from(this.querySelectorAll('[reveal-on-scroll="true"]')).forEach((heading) => {
+      animate13(...getHeadingKeyframe(heading));
+    });
+  }
+  _onScroll() {
+    const imageRect = this._mainImage.getBoundingClientRect(), imageBottom = imageRect.bottom, imageEffect = this.getAttribute("scrolling-experience");
+    for (const [index, contentItem] of this._contentItems.entries()) {
+      const contentItemRect = contentItem.getBoundingClientRect(), image = this._imageToTransitionItems[index - 1], content = this._contentItems[index];
+      if (contentItemRect.top < imageBottom - imageRect.height * 0.15 && contentItemRect.bottom > imageBottom) {
+        if (image && !image.classList.contains("is-visible")) {
+          image.classList.add("is-visible");
+          if (imageEffect === "fade") {
+            timeline11([
+              [image, { opacity: [null, 1] }, { duration: 0.2 }],
+              [content, { opacity: [null, 1] }, { duration: 0.45, at: "<" }]
+            ]);
+          } else {
+            timeline11([
+              [image, { opacity: [null, 1], clipPath: ["inset(100% 0 0 0)", "inset(0 0 0 0)"] }, { duration: 0.35, easing: [0.99, 0.01, 0.5, 0.94], opacity: { duration: 0 } }],
+              [content, { opacity: [null, 1] }, { duration: 0.45, at: "<" }]
+            ]);
+          }
+        }
+        break;
+      }
+      if (contentItemRect.top > imageBottom - imageRect.height * 0.15) {
+        if (image && image.classList.contains("is-visible")) {
+          image.classList.remove("is-visible");
+          if (imageEffect === "fade") {
+            timeline11([
+              [image, { opacity: [null, 0] }, { duration: 0.2 }],
+              [content, { opacity: [null, 0] }, { duration: 0.2, at: "<" }]
+            ]);
+          } else {
+            timeline11([
+              [image, { opacity: [null, 1], clipPath: ["inset(0 0 0 0)", "inset(100% 0 0 0)"] }, { duration: 0.35, easing: [0.99, 0.01, 0.5, 0.94], opacity: { duration: 0 } }],
+              [content, { opacity: [null, 0] }, { duration: 0.2, at: "<" }]
+            ]);
+          }
+        }
+        break;
+      }
+    }
+  }
+};
+if (!window.customElements.get("images-with-text-scrolling")) {
+  window.customElements.define("images-with-text-scrolling", ImagesWithTextScrolling);
+}
+
+// js/sections/impact-text.js
+import { animate as animate14, inView as inView9 } from "vendor";
+var ImpactText = class extends HTMLElement {
+  connectedCallback() {
+    if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      return;
+    }
+    inView9(this, ({ target }) => this._onBecameVisible(target), { margin: "-100px" });
+  }
+  async _onBecameVisible(target) {
+    animate14(target, { opacity: 1, transform: ["translateY(10px)", "translateY(0)"] }, { duration: 0.3 });
+    if (this.hasAttribute("count-up")) {
+      const itemToSearch = this.childElementCount === 0 ? this : this.firstElementChild, matches = itemToSearch.textContent.trim().match(/\d+(?:[,. ]\d+)*/);
+      if (!matches) {
+        return;
+      }
+      itemToSearch.innerHTML = itemToSearch.textContent.replace(/\d+(?:[,. ]\d+)*/, `<span>${matches[0]}</span>`);
+      const numberSpan = itemToSearch.querySelector("span");
+      numberSpan.style.textAlign = matches[0] === matches["input"] ? null : "end";
+      if (!itemToSearch.classList.contains("text-gradient")) {
+        numberSpan.style.display = "inline-block";
+        numberSpan.style.minWidth = `${numberSpan.clientWidth}px`;
+      }
+      const toReplace = matches[0].replace(/[,\. ]+/, ""), charactersMatches = [...matches[0].matchAll(/[,\. ]+/g)];
+      await animate14((progress) => {
+        let formattedString = Math.round(progress * parseInt(toReplace)).toString();
+        charactersMatches.forEach((character) => {
+          if (formattedString.length >= matches[0].length - character.index) {
+            formattedString = formattedString.slice(0, character.index) + character[0] + formattedString.slice(character.index);
+          }
+        });
+        numberSpan.textContent = progress === 1 ? matches[0] : formattedString;
+      }, { duration: parseFloat(this.getAttribute("count-up")), easing: [0.16, 1, 0.3, 1] }).finished;
+      numberSpan.style.minWidth = null;
+    }
+  }
+};
+if (!window.customElements.get("impact-text")) {
+  window.customElements.define("impact-text", ImpactText);
+}
+
+// js/sections/media-grid.js
+import { timeline as timeline12, inView as inView10 } from "vendor";
+var MediaGrid = class extends HTMLElement {
+  connectedCallback() {
+    this.items = Array.from(this.children);
+    if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      inView10(this, this._onBecameVisible.bind(this));
+    }
+  }
+  _onBecameVisible() {
+    const contentElements = this.querySelectorAll(".content-over-media > :not(img, video, iframe, svg, video-media, native-video, external-video)");
+    timeline12([
+      [this.items, { opacity: 1, transform: ["translateY(10px)", "translateY(0)"] }, { duration: 0.3 }],
+      [contentElements, { opacity: [0, 1] }, { duration: 0.2, at: "+0.1" }]
+    ]);
+  }
+};
+if (!window.customElements.get("media-grid")) {
+  window.customElements.define("media-grid", MediaGrid);
+}
+
+// js/sections/media-with-text.js
+import { animate as animate15, timeline as timeline13, inView as inView11 } from "vendor";
+var reduceMotion = window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+var MediaWithText = class extends HTMLElement {
+  connectedCallback() {
+    if (reduceMotion) {
+      Array.from(this.querySelectorAll(".media-with-text__item")).forEach((item) => {
+        inView11(item, (observer) => this.reveal(observer.target));
+      });
+    }
+  }
+  reveal(item) {
+    const media = item.querySelector(".media-with-text__media");
+    imageLoaded(media.querySelector("img")).then(() => {
+      timeline13([
+        [media, { opacity: [0, 1] }, { duration: 0.3 }],
+        [media.querySelector("img, video-media"), { transform: ["scale(1.05)", "scale(1)"] }, { duration: 0.3, at: "<" }]
+      ]);
+    });
+    animate15(item.querySelector(".media-with-text__content > .prose"), { opacity: [0, 1] }, { duration: 0.2, delay: 0.3 });
+  }
+};
+if (!window.customElements.get("media-with-text")) {
+  window.customElements.define("media-with-text", MediaWithText);
+}
+
+// js/sections/multiple-images-with-text.js
+import { timeline as timeline14, animate as animate16, stagger as stagger6, inView as inView12 } from "vendor";
+var MultipleImagesWithText = class extends HTMLElement {
+  constructor() {
+    super();
+    this._imageCarousel = this.querySelector("multiple-images-with-text-image-list");
+    this._contentCarousel = this.querySelector("multiple-images-with-text-content-list");
+    this.addEventListener("control:prev", () => {
+      this._imageCarousel.previous();
+      this._contentCarousel.previous();
+    });
+    this.addEventListener("control:next", () => {
+      this._imageCarousel.next();
+      this._contentCarousel.next();
+    });
+    if (Shopify.designMode) {
+      this.addEventListener("shopify:block:select", (event) => {
+        if (event.target.hasAttribute("image-id")) {
+          this._imageCarousel.select(this._imageCarousel.items.findIndex((item) => item.id === event.target.getAttribute("image-id")));
+        }
+      });
+    }
+  }
+};
+var MultipleImagesWithTextImageList = class extends EffectCarousel {
+  constructor() {
+    super();
+    inView12(this, this._reveal.bind(this));
+  }
+  async _reveal() {
+    await imageLoaded(this.querySelectorAll("img"));
+    if (this.getAttribute("layout") === "stacked") {
+      timeline14([
+        [this.lastElementChild, { transform: "rotate(0deg)" }],
+        [this.lastElementChild?.previousElementSibling, { transform: "rotate(2deg)" }, { at: "<" }],
+        [this.lastElementChild?.previousElementSibling?.previousElementSibling, { transform: "rotate(-2deg)" }, { at: "<" }]
+      ], {
+        defaultOptions: { duration: 0.15, easing: [0.26, 0.02, 0.27, 0.97] }
+      });
+    } else if (this.getAttribute("layout") === "collage") {
+      timeline14([
+        [this.children, { opacity: 1, transform: ["translateY(15px)", "translateY(0)"] }, { duration: 0.3, delay: stagger6(0.1) }]
+      ]);
+    } else {
+      timeline14([
+        [this.children, { opacity: 1, transform: "rotate(var(--image-rotation, 0deg))" }, { duration: 0.3, delay: stagger6(0.1) }]
+      ]);
+    }
+  }
+  _transitionTo(fromSlide, toSlide, { direction, animate: animate19 }) {
+    if (this.getAttribute("layout") !== "stacked") {
+      return;
+    }
+    const transitionSpeed = 0.2;
+    if (direction === "next") {
+      const fromSlideTransform = getComputedStyle(fromSlide).getPropertyValue("transform");
+      return timeline14([
+        [fromSlide, { opacity: 0, transform: "rotate(5deg) translate(40px, 10px)" }, { duration: transitionSpeed }],
+        [toSlide, { zIndex: 1 }, { duration: transitionSpeed, zIndex: { easing: "step-start" } }],
+        [fromSlide, { opacity: 1, transform: fromSlideTransform, zIndex: -1 }, { duration: transitionSpeed, at: "<", zIndex: { easing: "step-start" } }],
+        [toSlide.previousElementSibling, { zIndex: 0 }, { at: "<", easing: "step-start" }]
+      ], { defaultOptions: { easing: [0.26, 0.02, 0.27, 0.97] } }).finished;
+    } else {
+      const toSlideTransform = getComputedStyle(toSlide).getPropertyValue("transform");
+      return timeline14([
+        [toSlide, { opacity: 0, transform: "rotate(-5deg) translate(-40px, -10px)" }, { duration: transitionSpeed }],
+        this.items.length >= 3 && [fromSlide.previousElementSibling || this.lastElementChild, { zIndex: -1 }, { easing: "step-start" }],
+        [toSlide, { opacity: 1, transform: toSlideTransform, zIndex: 1 }, { duration: transitionSpeed, at: this.items.length >= 3 ? "<" : "+0", zIndex: { easing: "step-start" } }],
+        [fromSlide, { zIndex: 0 }, { duration: transitionSpeed, at: "<", zIndex: { easing: "step-start" } }]
+      ].filter(Boolean), { defaultOptions: { easing: [0.26, 0.02, 0.27, 0.97] } }).finished;
+    }
+  }
+};
+var MultipleImagesWithTextContentList = class extends EffectCarousel {
+  constructor() {
+    super();
+    inView12(this, this._reveal.bind(this));
+  }
+  _reveal() {
+    animate16(...getHeadingKeyframe(this.querySelector('[reveal-on-scroll="true"]')));
+  }
+  _transitionTo(fromSlide, toSlide, { direction = "next", animate: animate19 = true } = {}) {
+    fromSlide.classList.remove("is-selected");
+    toSlide.classList.add("is-selected");
+    return timeline14([
+      [fromSlide, { opacity: [1, 0], visibility: ["visible", "hidden"] }],
+      [toSlide, { opacity: [0, 1], visibility: ["hidden", "visible"] }],
+      [...getHeadingKeyframe(toSlide.querySelector('[reveal-on-scroll="true"]'), { at: "<" })]
+    ], { duration: animate19 ? parseFloat(this.getAttribute("fade-speed") || 0.5) : 0 }).finished;
+  }
+};
+if (!window.customElements.get("multiple-images-with-text")) {
+  window.customElements.define("multiple-images-with-text", MultipleImagesWithText);
+}
+if (!window.customElements.get("multiple-images-with-text-image-list")) {
+  window.customElements.define("multiple-images-with-text-image-list", MultipleImagesWithTextImageList);
+}
+if (!window.customElements.get("multiple-images-with-text-content-list")) {
+  window.customElements.define("multiple-images-with-text-content-list", MultipleImagesWithTextContentList);
+}
+
+// js/sections/newsletter-popup.js
+var NewsletterPopup = class extends Drawer {
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.shouldAppearAutomatically) {
+      setTimeout(() => this.show(), this.apparitionDelay);
+    }
+  }
+  get initialFocus() {
+    return false;
+  }
+  get shouldAppendToBody() {
+    return false;
+  }
+  get apparitionDelay() {
+    return parseInt(this.getAttribute("apparition-delay") || 0) * 1e3;
+  }
+  get shouldAppearAutomatically() {
+    return !(localStorage.getItem("theme:popup-filled") === "true" || this.hasAttribute("only-once") && localStorage.getItem("theme:popup-appeared") === "true");
+  }
+  _setInitialPosition() {
+    this.style.top = null;
+    this.style.bottom = "0px";
+    this.style.left = document.dir === "ltr" ? null : "0px";
+    this.style.right = document.dir === "rtl" ? "auto" : "0px";
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "open" && this.open) {
+      localStorage.setItem("theme:popup-appeared", "true");
+    }
+  }
+};
+if (!window.customElements.get("newsletter-popup")) {
+  window.customElements.define("newsletter-popup", NewsletterPopup);
+}
+
+// js/sections/press.js
+import { timeline as timeline15, animate as animate17, inView as inView13 } from "vendor";
+var reduceMotion2 = window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+var PressCarousel = class extends EffectCarousel {
+  constructor() {
+    super();
+    if (reduceMotion2) {
+      inView13(this, this._reveal.bind(this));
+    }
+  }
+  _reveal() {
+    animate17(this.selectedSlide.querySelector(".blockquote"), { opacity: 1, transform: ["translateY(15px)", "translateY(0)"] }, { duration: 0.2 });
+  }
+  async _transitionTo(fromSlide, toSlide, options = {}) {
+    await timeline15([
+      [fromSlide.querySelectorAll(".press__logo, .press__author"), { opacity: [null, 0] }, { duration: 0.2 }],
+      [fromSlide.querySelector(".blockquote"), { opacity: [null, 0], ...reduceMotion2 && { transform: [null, "translateY(-10px)"] } }, { duration: 0.2, at: "<" }]
+    ]).finished;
+    fromSlide.classList.remove("is-selected");
+    toSlide.classList.add("is-selected");
+    await timeline15([
+      [toSlide.querySelectorAll(".press__logo, .press__author"), { opacity: [0, 1] }, { duration: 0.2 }],
+      [toSlide.querySelector(".blockquote"), { opacity: [0, 1], ...reduceMotion2 && { transform: ["translateY(10px)", "translateY(0px)"] } }, { duration: 0.2, at: "<" }]
+    ]).finished;
+  }
+};
+if (!window.customElements.get("press-carousel")) {
+  window.customElements.define("press-carousel", PressCarousel);
+}
+
+// js/sections/product-recommendations.js
+var ProductRecommendations = class extends HTMLElement {
+  constructor() {
+    super();
+    this._isLoaded = false;
+  }
+  connectedCallback() {
+    this._loadRecommendations();
+  }
+  async _loadRecommendations() {
+    if (this._isLoaded) {
+      return;
+    }
+    this._isLoaded = true;
+    const section = this.closest(".shopify-section"), intent = this.getAttribute("intent") || "related", url = `${Shopify.routes.root}recommendations/products?product_id=${this.getAttribute("product")}&limit=${this.getAttribute("limit") || 4}&section_id=${section.id.replace("shopify-section-", "")}&intent=${intent}`, response = await fetch(url, { priority: "low" });
+    const tempDiv = new DOMParser().parseFromString(await response.text(), "text/html"), productRecommendationsElement = tempDiv.querySelector("product-recommendations");
+    if (productRecommendationsElement.childElementCount > 0) {
+      this.replaceChildren(...document.importNode(productRecommendationsElement, true).childNodes);
+    } else {
+      if (intent === "related") {
+        section.remove();
+      } else {
+        this.remove();
+      }
+    }
+  }
+};
+if (!window.customElements.get("product-recommendations")) {
+  window.customElements.define("product-recommendations", ProductRecommendations);
+}
+
+// js/sections/recently-viewed-products.js
+var _isLoaded, _RecentlyViewedProducts_instances, searchQueryString_get, loadProducts_fn;
+var RecentlyViewedProducts = class extends HTMLElement {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _RecentlyViewedProducts_instances);
+    __privateAdd(this, _isLoaded, false);
+  }
+  connectedCallback() {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(__privateMethod(this, _RecentlyViewedProducts_instances, loadProducts_fn).bind(this), { timeout: 1500 });
+    } else {
+      __privateMethod(this, _RecentlyViewedProducts_instances, loadProducts_fn).call(this);
+    }
+  }
+};
+_isLoaded = new WeakMap();
+_RecentlyViewedProducts_instances = new WeakSet();
+searchQueryString_get = function() {
+  const items = new Set(JSON.parse(localStorage.getItem("theme:recently-viewed-products") || "[]"));
+  if (this.hasAttribute("exclude-id")) {
+    items.delete(parseInt(this.getAttribute("exclude-id")));
+  }
+  return Array.from(items.values(), (item) => `id:${item}`).slice(0, parseInt(this.getAttribute("products-count"))).join(" OR ");
+};
+loadProducts_fn = async function() {
+  if (__privateGet(this, _isLoaded)) {
+    return;
+  }
+  __privateSet(this, _isLoaded, true);
+  const section = this.closest(".shopify-section"), url = `${Shopify.routes.root}search?type=product&q=${__privateGet(this, _RecentlyViewedProducts_instances, searchQueryString_get)}&section_id=${extractSectionId(section)}`, response = await fetch(url, { priority: "low" });
+  const tempDiv = new DOMParser().parseFromString(await response.text(), "text/html"), recentlyViewedProductsElement = tempDiv.querySelector("recently-viewed-products");
+  if (recentlyViewedProductsElement.childElementCount > 0) {
+    this.replaceChildren(...document.importNode(recentlyViewedProductsElement, true).childNodes);
+  } else {
+    section.remove();
+  }
+};
+if (!window.customElements.get("recently-viewed-products")) {
+  window.customElements.define("recently-viewed-products", RecentlyViewedProducts);
+}
+
+// js/sections/revealed-image-on-scroll.js
+import { scroll as scroll3, timeline as timeline16, ScrollOffset, inView as inView14 } from "vendor";
+var RevealedImage = class extends HTMLElement {
+  connectedCallback() {
+    const scrollTracker = this.querySelector(".revealed-image__scroll-tracker"), scroller = this.querySelector(".revealed-image__scroller");
+    scrollTracker.style.height = `${scroller.clientHeight}px`;
+    new ResizeObserver((entries) => scrollTracker.style.height = `${entries[0].contentRect.height}px`).observe(scroller);
+    scroll3(timeline16([
+      [this.querySelectorAll(".revealed-image__image-clipper, .revealed-image__content--inside"), { clipPath: ["inset(37% 37% 41% 37%)", "inset(calc(var(--sticky-area-height) / 2) 0)"] }, { easing: "ease-in" }],
+      [this.querySelectorAll("img, svg"), { transform: ["translate(-10%, -1.5%) scale(1.4)", "translate(0, 0) scale(1)"] }, { easing: "ease-in", at: "<" }],
+      [this.querySelectorAll(".revealed-image__content"), { opacity: [0, 1, 1] }, { offset: [0, 0.25, 1], at: "<" }]
+    ]), {
+      target: scrollTracker,
+      offset: ScrollOffset.All
+    });
+    inView14(this, () => {
+      this.style.visibility = "visible";
+      return () => {
+        this.style.visibility = "hidden";
+      };
+    }, { margin: "200px" });
+  }
+};
+if (!window.customElements.get("revealed-image")) {
+  window.customElements.define("revealed-image", RevealedImage);
+}
+
+// js/sections/scrolling-text.js
+import { animate as animate18, scroll as scroll4 } from "vendor";
+var ScrollingText = class extends HTMLElement {
+  connectedCallback() {
+    if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      if (window.ScrollTimeline) {
+        const timeline18 = new ViewTimeline({
+          subject: this,
+          axis: "block"
+        });
+        this.animate(
+          {
+            transform: ["translateX(calc(var(--transform-logical-flip) * 50vw))", "translateX(calc(var(--transform-logical-flip) * 50vw - 10%))"]
+          },
+          {
+            timeline: timeline18,
+            rangeStart: "cover 0%",
+            rangeEnd: "cover 100%"
+          }
+        );
+      } else {
+        scroll4(
+          animate18(
+            this,
+            {
+              transform: ["translateX(calc(var(--transform-logical-flip) * 50vw))", "translateX(calc(var(--transform-logical-flip) * 50vw - 10%))"]
+            }
+          ),
+          {
+            target: this,
+            offset: ["start end", "end start"]
+          }
+        );
+      }
+    }
+  }
+};
+if (!window.customElements.get("scrolling-text")) {
+  window.customElements.define("scrolling-text", ScrollingText);
+}
+
+// js/sections/shop-the-look.js
+var ShopTheLookDots = class extends HTMLElement {
+  connectedCallback() {
+    this._abortController = new AbortController();
+    Array.from(this.children).forEach((dots) => {
+      document.getElementById(dots.getAttribute("aria-controls")).addEventListener("carousel:change", (event) => this._onDotClicked(event), { signal: this._abortController.signal });
+    });
+  }
+  disconnectedCallback() {
+    this._abortController.abort();
+  }
+  _onDotClicked(event) {
+    Array.from(this.querySelectorAll(`button:nth-child(${event.detail.index + 1})`)).forEach((button) => button.click());
+  }
+};
+if (!window.customElements.get("shop-the-look-dots")) {
+  window.customElements.define("shop-the-look-dots", ShopTheLookDots);
+}
+
+// js/sections/slideshow.js
+import { animate as motionAnimate4, timeline as timeline17, inView as inView15 } from "vendor";
+var Slideshow = class extends HTMLElement {
+  constructor() {
+    super();
+    this.addEventListener("carousel:select", this._onSlideSelected);
+  }
+  async _onSlideSelected(event) {
+    const slideStyles = getComputedStyle(event.detail.slide);
+    this.style.setProperty("--slideshow-controls-background", slideStyles.getPropertyValue("--slideshow-slide-controls-background"));
+    this.style.setProperty("--slideshow-controls-color", slideStyles.getPropertyValue("--slideshow-slide-controls-color"));
+    if (!this.classList.contains("slideshow--boxed")) {
+      return;
+    }
+    const backgroundElement = this.querySelector(".slideshow__slide-background");
+    const background = slideStyles.getPropertyValue("--slideshow-slide-background");
+    backgroundElement.style.background = background;
+    await motionAnimate4(backgroundElement, { opacity: [0, 1] }, { duration: 0.2 }).finished;
+    this.style.setProperty("--slideshow-background", background);
+    motionAnimate4(backgroundElement, { opacity: 0 }, { duration: 0 });
+  }
+};
+var SlideshowCarousel = class extends EffectCarousel {
+  _pendingAnimationControls = [];
+  constructor() {
+    super();
+    this.addEventListener("carousel:select", this._onSlideSelected);
+    if (this.hasAttribute("reveal-on-scroll")) {
+      inView15(this, this._reveal.bind(this));
+    }
+    if (this.querySelector(".slideshow__cursor")) {
+      this.addEventListener("tap", this._onSlideshowTap);
+    }
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    if (this._player && this.hasAttribute("autoplay")) {
+      this._player.addEventListener("player:start", (event) => {
+        const cursorRing = this.querySelector(".slideshow__cursor-ring circle");
+        if (cursorRing) {
+          const cursorRingAnimationControl = motionAnimate4(cursorRing, { strokeDasharray: [`0px, ${cursorRing.getTotalLength()}px`, `${cursorRing.getTotalLength()}px, ${cursorRing.getTotalLength()}px`] }, {
+            duration: event.detail.duration,
+            easing: "linear"
+          });
+          this._pendingAnimationControls.push(cursorRingAnimationControl);
+        }
+        const circles = Array.from(this.querySelectorAll(".numbered-dots__item"));
+        circles.forEach((item) => {
+          const circle = item.querySelector("circle:last-child");
+          let circleAnimationControl = null;
+          if (item.getAttribute("aria-current") === "true") {
+            circleAnimationControl = motionAnimate4(circle, { strokeDasharray: [`0px, ${circle.getTotalLength()}px`, `${circle.getTotalLength()}px, ${circle.getTotalLength()}px`] }, { duration: event.detail.duration, easing: "linear" });
+          } else {
+            circleAnimationControl = motionAnimate4(circle, { strokeDasharray: `${circle.getTotalLength()}px, ${circle.getTotalLength()}px` }, { duration: 0, easing: "linear" });
+          }
+          this._pendingAnimationControls.push(circleAnimationControl);
+        });
+      });
+      this._player.addEventListener("player:pause", () => {
+        this._pendingAnimationControls.forEach((control) => control.pause());
+      });
+      this._player.addEventListener("player:resume", () => {
+        this._pendingAnimationControls.forEach((control) => control.play());
+      });
+    }
+  }
+  get transitionType() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "fade" : this.getAttribute("transition");
+  }
+  async _reveal() {
+    const selectedSlide = this.selectedSlide;
+    await imageLoaded(selectedSlide.querySelectorAll("img"));
+    this.style.opacity = "1";
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    if (!this._reloaded) {
+      timeline17([
+        [selectedSlide, { zIndex: 1 }, { duration: 0 }],
+        [selectedSlide.querySelectorAll("img, video-media"), { opacity: [0, 1], transform: ["scale(1.05)", "scale(1)"] }, { duration: 0.3 }],
+        "content",
+        [selectedSlide.querySelectorAll('[data-sequence="subheading"], .button'), { opacity: [0, 1] }, { duration: 0.3, at: "content" }],
+        [...getHeadingKeyframe(selectedSlide.querySelector('[data-sequence="heading"]'), { duration: 0.3, at: "content" })],
+        [selectedSlide.querySelector(".button"), { opacity: [0, 1] }, { duration: 0.3, at: "content" }],
+        [this.querySelector(".slideshow__controls"), { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0)"] }, { duration: 0.3 }]
+      ]);
+    }
+  }
+  _onSlideshowTap(event) {
+    if (event.target.matches("button, a[href], button :scope, a[href] :scope") || !window.matchMedia("screen and (pointer: fine)").matches) {
+      return;
+    }
+    event.detail.originalEvent.clientX > window.innerWidth / 2 ? this.next() : this.previous();
+  }
+  /**
+   * Perform a simple fade animation. For more complex animations, you should implement your own custom elements
+   * that extends the EffectCarousel, and implement your own transition. You should make sure to return a promise
+   * that resolves when the animation is finished
+   */
+  async _transitionTo(fromSlide, toSlide, { direction, animate: animate19 = true } = {}) {
+    fromSlide.classList.remove("is-selected");
+    toSlide.classList.add("is-selected");
+    let timelineControls = null;
+    switch (this.transitionType) {
+      case "fade":
+        timelineControls = this._fade(fromSlide, toSlide, { animate: animate19 });
+        break;
+      case "fade_with_text":
+        timelineControls = this._fadeWithText(fromSlide, toSlide, { animate: animate19 });
+        break;
+    }
+    if (!animate19) {
+      timelineControls.finish();
+    }
+    return timelineControls.finished;
+  }
+  /**
+   * Perform a simple fade transition
+   */
+  _fade(fromSlide, toSlide) {
+    return timeline17([
+      [fromSlide, { opacity: [1, 0], visibility: ["visible", "hidden"], zIndex: 0 }, { duration: 0.3, easing: "ease-in", zIndex: { easing: "step-end" } }],
+      [toSlide, { opacity: [0, 1], visibility: ["hidden", "visible"], zIndex: 1 }, { duration: 0.3, at: "<", easing: "ease-out", zIndex: { easing: "step-end" } }]
+    ]);
+  }
+  /**
+   * Perform a transition with fade images and image transition
+   */
+  async _fadeWithText(fromSlide, toSlide) {
+    motionAnimate4(fromSlide, { opacity: [1, 0], visibility: ["visible", "hidden"], zIndex: 0 }, { duration: 0.3, easing: "ease-in", zIndex: { easing: "step-end" } });
+    await imageLoaded(toSlide.querySelectorAll("img"));
+    motionAnimate4(toSlide, { opacity: [0, 1], visibility: ["hidden", "visible"], zIndex: 1 }, { duration: 0, zIndex: { easing: "step-end" } });
+    return timeline17([
+      [toSlide.querySelectorAll("img, video-media"), { opacity: [0, 1], transform: ["scale(1.05)", "scale(1)"] }, { duration: 0.3, easing: "ease-out" }],
+      "content",
+      [toSlide.querySelectorAll('[data-sequence="subheading"], .button'), { opacity: [0, 1] }, { duration: 0.3, at: "content" }],
+      [...getHeadingKeyframe(toSlide.querySelector('[data-sequence="heading"]'), { duration: 0.3, at: "content" })]
+    ]);
+  }
+  /**
+   * Perform the synchronization with video
+   */
+  async _onSlideSelected(event) {
+    Array.from(this.querySelectorAll("video-media")).forEach((video) => video.pause());
+    if (event.detail.slide.getAttribute("data-slide-type") === "video") {
+      const visibleVideo = Array.from(event.detail.slide.querySelectorAll("video-media")).filter((video) => video.offsetParent !== null).pop();
+      visibleVideo.play({ restart: true });
+      if (this.player) {
+        const video = visibleVideo.querySelector("video");
+        if (isNaN(video.duration)) {
+          await new Promise((resolve) => {
+            video.onloadedmetadata = () => resolve();
+          });
+        }
+        this._player.setDuration(video.duration);
+      }
+    } else {
+      this._player?.setDuration(parseInt(this.getAttribute("autoplay")));
+    }
+  }
+};
+if (!window.customElements.get("x-slideshow")) {
+  window.customElements.define("x-slideshow", Slideshow);
+}
+if (!window.customElements.get("slideshow-carousel")) {
+  window.customElements.define("slideshow-carousel", SlideshowCarousel);
+}
+
 // js/theme.js
-import { Delegate as Delegate4 } from "{{ 'vendor.min.js' | asset_url }}";
+import { Delegate as Delegate7 } from "vendor";
 (() => {
-  const delegateDocument = new Delegate4(document.documentElement);
+  const delegateDocument = new Delegate7(document.documentElement);
   if (window.themeVariables.settings.showPageTransition && "animate" in document.documentElement && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
     delegateDocument.on("click", 'a:not([target="_blank"])', async (event, target) => {
       if (event.defaultPrevented || event.ctrlKey || event.metaKey) {
@@ -4225,13 +5115,15 @@ import { Delegate as Delegate4 } from "{{ 'vendor.min.js' | asset_url }}";
 })();
 export {
   AccordionDisclosure,
+  AccountLogin,
   AnimatedDetails,
+  AnnouncementBar,
   BuyButtons,
   CartCount,
   CartDrawer,
   CartNote,
   CartNotificationDrawer,
-  CompareAtPrice,
+  CollectionList,
   ConfirmButton,
   CopyButton,
   CountrySelector,
@@ -4239,6 +5131,7 @@ export {
   CustomCursor,
   DialogElement,
   Drawer,
+  DropdownDisclosure,
   EffectCarousel,
   FacetApplyButton,
   FacetDialog,
@@ -4247,25 +5140,37 @@ export {
   FacetForm,
   FacetLink,
   FacetSortBy,
+  FeatureChart,
   FreeShippingBar,
   GestureArea,
   GiftCardRecipient,
   HeightObserver,
+  ImageBanner,
+  ImageLinkBlocks,
+  ImagesWithTextScrolling,
+  ImpactText,
   LineItem,
   LineItemQuantity,
   Listbox,
   MarqueeText,
   MediaCarousel,
+  MediaGrid,
+  MediaWithText,
+  MegaMenuDisclosure,
+  MegaMenuPromoCarousel,
   ModelMedia,
+  MultipleImagesWithText,
+  MultipleImagesWithTextContentList,
+  MultipleImagesWithTextImageList,
+  NavigationDrawer,
+  NewsletterPopup,
   NextButton,
-  OnSaleBadge,
   PageDots,
-  PaymentTerms,
-  PickupAvailability,
   PillLoader,
   Player,
   Popover,
   PredictiveSearch,
+  PressCarousel,
   PrevButton,
   PriceRange,
   PrivacyBar,
@@ -4274,37 +5179,41 @@ export {
   ProductGallery,
   ProductLoader,
   ProductQuickAdd,
+  ProductRecommendations,
+  ProductRerender,
   ProductZoomButton,
   ProgressBar,
   QuantitySelector,
   QuickBuyDrawer,
+  RecentlyViewedProducts,
   ResizableTextarea,
   RevealItems,
+  RevealedImage,
   SafeSticky,
-  SalePrice,
   ScrollArea,
   ScrollCarousel,
   ScrollProgress,
   ScrollShadow,
+  ScrollingText,
   SearchDrawer,
   SectionHeader,
   ShareButton,
   ShippingEstimator,
-  SoldOutBadge,
+  ShopTheLookDots,
+  Slideshow,
+  SlideshowCarousel,
+  SplitCursor,
   SplitLines,
+  StoreHeader,
   Tabs,
-  UnitPrice,
-  VariantInventory,
-  VariantMedia,
   VariantPicker,
-  VariantSku,
   VideoMedia,
   cachedFetch,
   createMediaImg,
   debounce,
+  deepQuerySelector,
   extractSectionId,
   fetchCart,
-  formatMoney,
   generateSrcset,
   getHeadingKeyframe,
   imageLoaded,
